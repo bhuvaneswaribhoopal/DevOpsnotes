@@ -1,0 +1,1799 @@
+
+Jenkins -1
+----------
+Jenkins is an opensource java based continos integration tool.
+
+History of Jenkins:
+-------------------
+Jenkins before name is HUdson --> 2004
+they have some issue with Oracle comapny, so they come ot and renamed as Jenkins , in 2011
+
+"Jenkins has jenkins community, we can enhance our featres if we want with jenkins community."
+
+CI tool:
+---------
+continuos integration tool.
+it is a process of automate the build and running the unit test cases , when developer push the code to an SCM.
+
+for .NET projects maven build tool won't support.
+For .NET we use MS build tool 
+
+continuous delivery:
+--------------------
+we are going to trigger the build manually
+
+continuos deployment:
+--------------------
+everything we are going to deploy automate mode
+
+CDelivery --> External projects, which ae going to use by end users, with client approvement from the clients give the approval.
+C Deployment--ployment--> Internal projects, the app which are going to use by our employees
+
+jacoco plugin:
+-------------
+By installing the jacoco plugin--> java code coverage 
+
+clodbees Jenlkins, clous bees is a company name
+
+
+Jeknis Installtion
+-------------------
+java 11
+1 GB
+t2.medium
+
+
+JENKINS-2
+--------------
+
+"service jenkins status"- TO KNOW JENKINS RUNNING OR NOT 
+"systemctl enable jenkins"- it helps to run the jenkins
+"systemctl jenkins status"
+
+crate project name in new item under jenkins
+
+select git
+give the URL :
+
+create a project example 'walmart-dev'
+under build steps 'maven 3.8.6'
+initially if it shows error when enter git  means there is no git install in jenkins 
+
+connect jenkins with mobaxterm, check jenkinsrunning with command
+check'git --version'
+
+'yum install git -y'
+
+select "invoke toplvele maven target" under buildsteps
+
+/var/lib/jenkins
+/workspace
+/walmart-dev
+/target
+/maven-web-applicaiton.war
+
+go to jenkins dashboard
+
+
+goto managejenkings
+click on global tool configuration
+
+maven installation, add maven, give maven3.8.6
+
+don't do any changes in pom.xml github , do it stpe by step, use fork repository
+
+to build sonar qube report, change pom.xml, with correct sonar ip adress and <sonar.login>token</sonar.login>[no password tag or user tag here , if we are suing token]
+
+if sonar qube is not running, checkin tem directory ownership, it has to be run in sonar:sonar
+'sudo chown -R sonar:sonar temp', use this command
+check two temps with suod , root
+
+each time change the sonarqube server url everytime if we r using PUBILC IPadress
+
+we change git hub urls with private ip even change it will run 
+
+if we change PRIVATE IP ADREES, in pom.xml, sonarqube, nexus, and private ip adress of Tomcat in walmart-dev project and run the build
+
+
+
+
+*******
+go to jenkins is intsalled , go to jenkins, go to settings.xml in jenkins
+
+change nexus credentials here
+
+'use 'find / -name settings.xml', to find file, there we can see conf directory inside the conf/ setting.xml
+/var/lib/jenkins/tools/hudson.tasks.Maven_MavenInstallation/maven3.8.6/conf
+***************
+update this in jenkins, settings.xml 
+---------------------------------------
+<server>
+      <id>nexus</id>
+      <username>admin</username>
+      <password>passw0rd</password>
+    </server>    if u update this only jenkins will build in nexus
+	
+Deploy the applciaiton into tomcat server:
+------------------------------------------
+start tomcat server in linux server
+
+delete old deploy web-applicaiton
+
+username:Bhuvana
+password:passw0rd
+
+to deploy the tomcat applicaiton, have to install plugin in Jnekins
+
+'Deploytoconatiner'
+
+go to manage plugins in Jenkins, serach available 'Deploytoconatiner'
+
+'go to post buils action '
+'Deploy war/ear to container', after install the plugin only we can see this option
+
+the two starts represents that workspace/walmart/target
+**/maven-web-applicaiton.war under WAR/EAR file
+
+contaxt path '/mithuntechnology' for example
+
+Add container, select Tomcat9.%remote
+
+credentials, have to create one
+
+add jenkins, username:mithunITcourses
+password: passw0rd
+
+description : TOMcat credentials
+
+give Tomcat url
+
+we can create and delete the credentials by using jenkins, manage credentials
+
+DEPLOYING THE TOMCAT APPLICAITON THROUGH JENKINS, WE HAVE TO GIVE
+'manager-script'
+
+/opt/apache-tomcat-9.0.68/conf
+[root@ip-172-31-25-205 conf]# vi tomcat-users.x
+
+set the password for root user
+'passwd root' yse this conmmand in Tomcat server
+
+connect with maven, set root password by using 'passwd root' in mavenn server
+
+
+http:// ip adress:7784/Landmark.war
+
+give the correct credentials which your using for tomcat the same credentials have to use under post build steps
+
+in tomcat-users, add, manager-script in the line of manger-gui
+
+"if we enable poll scm, whenever we update the code in github, build is going to trigger"
+
+
+change the all ip adress and update and run the build,
+
+build periodically, helps to started by timer,
+
+pollscm run when we do changes in github.
+
+2build periodically, the build trigger, at schedule time"
+
+"dev, qa environment we are going to use poll scm"
+
+
+github webhook--> if we create github webhook by saving the jenkins url inside the gihub webhook, it is going to trigger the job with user name , everytime when change make in github
+
+automation trigger is going to apply for dev, devlopment jobs only
+
+other wise we are going to buil jobs by manually
+
+
+delete work space:
+-------------------
+"delete work space before start"---> it builds everytime form the start to end , deleting all jobs before 
+
+
+Jaccoplugin: Genearate the jnuint report also stopr the deployment by giving code coverage 
+------------  if the code coverage not the threshold(means minimum criteria) value, if not meet the requirement
+
+'instlling plugin only onetime, eneable it based on the project requirement'
+
+change all private ips in 'pom.xml' and in jenkins tomcat url as private ip then build will run no need to change everytime whenstart the server
+
+slacknotification:
+-----------------
+
+to integrate ith slack notification plugin, 'slacknotifications' in jenkins
+
+click on 'configurationsystem', in the end slack option there, to get credentials
+
+at slack left top corner, click on the name, go to setting, manage jobs, serach jenkinsCI, 'ADD TO SLACK', CHOOSE THE CHANNEL, AT STEP 3 , THERE IS SUBDOMAIN, AT WORKPACE AREA, PASSWORD AT ADD JENKINS, SECRET TEXT PASTE IT AND ADD
+
+SPECIFY THE CHANNEL NAME "#jenkins-notification"
+
+it is only one time activity, eneable this feature with any of the job
+
+add at 'post build actions'
+
+click on 'advance' there will see channel or memeber id , we can give any particular channel
+
+
+jekins-4
+---------
+
+By creating new job we can copy the old project by using an option choose project, and we can edit the services based on the project
+rfOR EXAMPLE: CREATE 'walmart-qa'(if i want report till sonarqube, not to deplo the app in tomcat , i can edit that particular option'
+
+check mithun videos, forgot password for jenkins
+
+Jnekins home directory path: /var/lib/jenkins
+
+jobs:
+----
+whaterver the jobs we created all information conatins here. 
+
+each job it is going to create one @temp directory
+
+insde the walmart-dev----> we will see 'config.xml'
+
+
+jenkins'config.xml conatins, jenkisn configuration details
+'less config.xml', change at password place 'true' to 'false'
+
+maven-project :
+---------------
+create new job 'maven-project'--> this works only as maven as build tool
+
+install 'maven-integration plugin'
+source code mnagement select 'git'
+give the cutom name 'pom.xml'
+goals:' clean package'
+
+How we are going to restart the jenkins?
+Ans) http://13.42.39.216:8080/restart(IT IS KIND OF FORCE RESTART)
+http://13.42.39.216:8080/safeRestart(it will wait untill jobs are going to complete and then it will restart)
+
+manage jenkins, manage plugins, available tab, serach 'safe restart' install,
+
+Next build number:
+------------------
+install 'Next Build Number ' , GO TO JOB LEVEL, WHATERVER THE BUILD NUMBER WE ARE GIVING IT IS GOING TO START FROM THERE
+
+"ONCE DELETE THE PROJECT, WE CANNOT RESTORE THE OLD BUILDS"
+
+Audit Trail plugin, can give information the user , b creating, installing, deleting, triggering jobs
+
+managejenkins, configure jenkins, go to Audit_trails.log, file size 10 MB, log file count, (after 5 count finished the first file will going delete automatically)
+
+"tail -f audit_trails.log", use this command, when we create a job in jenkins, it is going to update in jenkins linux server
+
+jobconfigHistory:
+----------.------
+it shos all configuration of jobs like delete, create which user
+
+pollscm, buil periodicall are like a crontab
+
+"schedule build is onl one time"
+
+Blueocean:
+------------
+it makes the job to run automatically , we can give all details at one place
+
+Buil_number: INSTALL THE PLUGIN
+-------------
+
+fOR example: QA - #$(BUILD_NUMBER)
+
+QA-1
+QA-2
+
+SOME OF THE PLUGINS WE ARE GOING TO INSTALL BY USING INSTALL OPTION IN MANAGEJENKINS, 
+
+'urban code deploy' to deplo the apllicaiton into war server
+
+views---> create a project name, keep the jobs under that jobs
+
+user-kenkins, security:
+
+manage jenkins, manage users, create user, user anme, password, 
+----------------------
+B using 'configure global security', 
+
+LDAP: Light weight directory access protocol
+
+it contains, emil id, password, all the details
+Configure LDAP with , jenkins, nexus, sonarqube, when connect with this servers, no need to configure the username passwords,  credentials provide by LDAP, BY ADMIN
+
+ROLE-BASE AUHARISATION :
+------------------------
+Install this plugin, so that we can get an option project rolebased autharisation startegy access
+so that we can give access to the users
+
+Jenkins-6
+----------
+pipeline:
+===========
+1)scripted way
+def is a key work create a variable or function in the groovy script
+master node (built in node)
+node is a server, for example, in jenkins , dashboard is a node, 
+Groovey script: mvn command available in bin directory
+-----------------
+node{
+echo "Build number: ${env.BUILD_NUMBER}"
+echo "Job name is : ${env.JOB_NAME}"
+echo "Node name is : ${env.NODE_NAME}"
+def mavenHome = tool name:"maven3.8.6"
+stage('CheckoutCode'){
+git credentialsId: '3ea332bc-18e0-48a4-a580-fe3bf8f97850', url: 'https://github.com/bhuvaneswaribhoopal/Web-application-by-Bhuvi.git'
+}
+stage ('Build'){
+sh "${mavenHome}/bin/mvn clean package"
+}
+stage ('ExecuteSonarQubeReport'){
+sh "${mavenHome}/bin/mvn sonar:sonar"
+}
+stage ('DeployArtifactIntoNexus'){
+sh "${mavenHome}/bin/mvn deploy"
+}
+stage ('DeployAppIntoTomcatserver'){
+sshagent(['97f3f499-4239-4dc3-83c4-44ed74518a67']) {
+sh "scp -o StrictHostKeyChecking=no target/Landmark.war ec2-user@172.31.25.205:/opt/apache-tomcat-9.0.68/webapps/"
+}
+}
+
+}//node closing
+
+
+change webapps directory ownership 
+we are using ec2-user, change permisiion, to ece2-user as ec2-user, not in root user
+'sudo chmod 777 -R webapps/'
+
+if it not build please give the above sudo command for webapps as ec2-user
+
+"Jenkins file is the default file name for groovy script"
+
+//-->single line comments
+/*
+multi line comments
+*/
+
+pipelinescriptscm: ****
+-----------------
+if we create new file or cutom name  in github underbranch for ex: "jenkinsfilenew", keep the groovy script inside with multi commments, it is going to build that particular, file till the script not commented
+
+pipeline default file name is jenkins, if we are want any other file to create pipeline job have to specify the file name
+
+
+The stages we are going to keep in the try block 
+
+
+
+echo "Build number: ${env.BUILD_NUMBER}"
+echo "Job name is : ${env.JOB_NAME}"
+echo "Node name is : ${env.NODE_NAME}"
+def mavenHome = tool name:"maven3.8.6"
+node{
+try{
+stage('CheckoutCode'){
+git credentialsId: '3ea332bc-18e0-48a4-a580-fe3bf8f97850', url: 'https://github.com/bhuvaneswaribhoopal/Web-application-by-Bhuvi.git'
+}
+stage ('Build'){
+sh "${mavenHome}/bin/mvn clean package"
+}
+
+}//try closing
+catch(e){
+currentBuild.result = "FAILURE"
+} //catch closing
+finally {
+sendslacknotifications(currentBuild.result)
+} //finally closing
+}//node closing
+
+def sendslacknotifications(String buildStatus = 'STARTED') {
+  // build status of null means successful
+  buildStatus =  buildStatus ?: 'SUCCESS'
+
+  // Default values
+  def colorName = 'RED'
+  def colorCode = '#FF0000'
+  def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
+  def summary = "${subject} (${env.BUILD_URL})"
+
+  // Override default values based on build status
+  if (buildStatus == 'STARTED') {
+    colorName = 'YELLOW'
+    colorCode = '#FFFF00'
+  } else if (buildStatus == 'SUCCESS') {
+    colorName = 'GREEN'
+    colorCode = '#00FF00'
+  } else {
+    colorName = 'RED'
+    colorCode = '#FF0000'
+  }
+
+  // Send notifications
+  slackSend (color: colorCode, message: summary, channel: "#jenkinsbuild-notifications")
+}
+
+
+*/
+stage ('ExecuteSonarQubeReport'){
+sh "${mavenHome}/bin/mvn sonar:sonar"
+}
+stage ('DeployArtifactIntoNexus'){
+sh "${mavenHome}/bin/mvn deploy"
+}
+stage ('DeployAppIntoTomcatserver'){
+sshagent(['97f3f499-4239-4dc3-83c4-44ed74518a67']) {
+sh "scp -o StrictHostKeyChecking=no target/Landmark.war ec2-user@172.31.25.205:/opt/apache-tomcat-9.0.68/webapps/"
+}
+}
+/*
+
+if the job want to run in specific node specify the node name 
+default if didn't specify any name if going to tun in 'master instance or buil in'
+
+Declarativeway:
+----------------
+pipeline{
+agent any
+tools{
+maven "maven3.8.6"
+}
+options {
+  buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '2', numToKeepStr: '5')
+}
+
+stages{
+stage('CheckoutCode'){
+steps{
+sendslacknotifications("STARTED")
+git credentialsId: '3ea332bc-18e0-48a4-a580-fe3bf8f97850', url: 'https://github.com/bhuvaneswaribhoopal/Web-application-by-Bhuvi.git'
+}
+} 
+stage('Build') {
+steps {
+sh "mvn clean package"
+}
+}
+
+stage('ExecuteSonarQubeReport') {
+steps {
+sh "mvn clean sonar:sonar"
+}
+}
+stage('UploadArtfactintoNexus') {
+steps {
+sh "mvn clean deploy"
+}
+}
+stage('DeployAppIntoTomcatserver') {
+steps {
+sshagent(['97f3f499-4239-4dc3-83c4-44ed74518a67']) {
+sh "scp -o StrictHostKeyChecking=no target/Landmark.war ec2-user@172.31.25.205:/opt/apache-tomcat-9.0.68/webapps/"
+}
+}
+}
+}// stages closing 
+post {
+  abort {
+    sendslacknotifications(currentBuild.result)
+  }
+  success {
+    sendslacknotifications(currentBuild.result)
+  }
+  failure {
+    sendslacknotifications(currentBuild.result)
+  }
+}
+}// pipeline closing
+
+
+def sendslacknotifications(String buildStatus = 'STARTED') {
+  // build status of null means successful
+  buildStatus =  buildStatus ?: 'SUCCESSFUL'
+
+  // Default values
+  def colorName = 'RED'
+  def colorCode = '#FF0000'
+  def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
+  def summary = "${subject} (${env.BUILD_URL})"
+
+  // Override default values based on build status
+  if (buildStatus == 'STARTED') {
+    colorName = 'YELLOW'
+    colorCode = '#FFFF00'
+  } else if (buildStatus == 'SUCCESSFUL') {
+    colorName = 'GREEN'
+    colorCode = '#00FF00'
+  } else {
+    colorName = 'RED'
+    colorCode = '#FF0000'
+  }
+
+  // Send notifications
+  slackSend (color: colorCode, message: summary, channel: "#jenkinsbuild-notifications")
+}
+
+
+
+
+
+
+"in delarative way , if we go pipeline syntax declarative section, thre we can see the option like build success, failure, started, selelct and generate the syntax
+do discard old build crete a pipeline syntax and add it before stages, by using 'pipeline syntax', we are goijg to generate all options like pollscm and corn tab ..."
+
+Jenkins-8:
+---------
+multibranch pipeline script
+under one branch we can create no. of branches and run the jobs by using multi branch pipeline
+****
+sharedlibraries:
+---------------
+we can configure no. of libraries, with different name by using jenkins
+
+click on manage jenkins, configure system, 'Global pipeline, sharelibs name, git url, credentials, save
+
+create a new project name ex:'Jenkins shareslibs'
+
+Groovy csript for shared libs:
+=============================
+
+@Library('sharedlibs') _
+pipeline{
+agent any
+
+tools{
+maven'maven3.8.6'
+}
+stages{
+stage ('CheckoutCode'){
+steps{
+git credentialsId: '3ea332bc-18e0-48a4-a580-fe3bf8f97850', url: 'https://github.com/bhuvaneswaribhoopal/Web-application-by-Bhuvi.git'
+}
+}
+stage ('Build'){
+steps{
+sh "mvn clean package"
+}
+}
+}//stage closing
+post {
+  aborted {
+    sendSlackNotifications(currentBuild.result)
+  }
+  success {
+    sendSlackNotifications(currentBuild.result)
+  }
+  failure {
+    sendSlackNotifications(currentBuild.result)
+  }
+}
+}//pipeline clocisng
+
+"becareful with the name case sensitive and spellings"
+
+we calling the function with name even we are not suing the whole script, inside the project
+
+"in freestyle porject we caanot re suse the code"
+But, in "pipeline we can re suwe the code"
+
+
+Jenkins-9
+----------
+Build with parameters:
+------------------------
+create a job walmart, freestyle
+SELECT This porject is parameter, add para, choice parameter
+
+to get the right parameter value use "*/${BranchName}"
+
+STRING PARAMETER:
+----------------
+by using this we can write shell script and prduce with project name
+
+pipline parameter:
+-------------------
+pipeline{
+agent any
+tools{
+maven 'maven3.8.6'
+}
+parameters {
+  choice choices: ['master', 'developement', 'Stage'], name: 'Branch Name'
+  string defaultValue: 'Harsha', name: 'PersonaName'
+}
+stages{
+stage('CheckoutCode') {
+steps{
+git credentialsId: '3ea332bc-18e0-48a4-a580-fe3bf8f97850', url: 'https://github.com/bhuvaneswaribhoopal/Web-application-by-Bhuvi.git'
+}
+}
+stage('RunTests and Build'){
+steps{
+parallel(
+Run Tests: {
+sh "mvn clean test"
+},
+Build: {
+sh "mvn clean package"
+}
+)
+}//steps closing
+}//runtest closing
+
+}//stages closing
+}//pipeline closing
+
+
+
+branch: "{params.Branch Name}", this option will display in syntax when you select the particular branch name in syntax
+
+ERROR: Couldn't find any revision to build. Verify the repository and branch configuration for this job.
+Finished: FAILURE
+
+parallel
+
+//Run unit Test cases
+stage ('Run Test cases'){
+steps{
+sh "mvn test"
+}
+}
+
+stage ('Build'){
+steps{
+sh "mvn clean package"
+sh "$(PersonaName}"
+}
+
+
+
+Jenkins Backup:
+---------------
+if we take backup we have to install some plugins
+
+manage plugins, available, 'Thin Backup' install this one
+
+tostore backup in cloud server install cloud google backup
+
+go to the jenkins home directory
+/var/lib/jenkins--> 'mkdir jenkinsbackup
+
+change the owner ship to jenkins
+'chown -R jenkins:jenkins jenkinsbackup'
+do 'pwd', take the path keep inside of Thinbackup settings
+
+/var/lib/jenkins/jenkinsbackup/ --> store this path in thinback up settings
+
+everytime click on backup tab, as we are given only store 5 backups, after 5 backups, previousones delete automatically
+
+full back take everyminute back up * * * * *
+
+schdeule for differential backups  --> last back up to so far how we are going to update it is going to take
+
+after more back ups . jenkins backup file, will create one zip file
+
+by using retore button at 'thinbackup', to restore
+
+JenkinsMigration:
+------------------
+create two jenkin servers in AWS console
+
+jenkins serverA
+Jenkinsserver B---> here plugin, job import plugin by using manage plugin option
+
+after installation, go to jenkins dashboard we can see job importplugin now in Jenkinsserver B---
+
+JnekinsserverB-> go to inside of jobimport plugin,add renmote jenkins, give the url of jenkinsA, nAME AS :jNEKINSSERVERa
+
+give jenkins serverA admin credentilas, add, give password, username, save it
+ 
+
+go to Job import plugin
+
+select JnekinsA, click on query
+
+JENKINS-10
+===========
+Inthe slave machine do we need to install jenkins:
+No need, only install Java
+
+DOWNLOAD Built-in node, by using managejenkins
+
+create one jenkinsslave file
+connect with linux server, install Java first
+
+install git new jenkins slave
+
+Jenkins slave path
+/home/ec2-user/walmartnode/tools/hudson.tasks.Maven_MavenInstallation/maven3.8.6/conf
+
+create one pipe line job, by using jenkins slave server, 
+
+use the script of declarative
+
+
+added a line {
+label 'slaves'
+} removde the any
+
+script:
+---------
+pipeline{
+agent 
+{
+label 'slaves'
+}
+tools{
+maven 'maven3.8.6'
+}
+parameters {
+  choice choices: ['master', 'developement', 'Stage'], name: 'Branch Name'
+  string defaultValue: 'Harsha', name: 'PersonaName'
+}
+stages{
+stage('CheckoutCode') {
+steps{
+git credentialsId: '3ea332bc-18e0-48a4-a580-fe3bf8f97850', url: 'https://github.com/bhuvaneswaribhoopal/Web-application-by-Bhuvi.git'
+}
+}
+stage('RunTests and Build'){
+steps{
+parallel(
+Run Tests: {
+sh "mvn clean test"
+},
+Build: {
+sh "mvn clean package"
+}
+)
+}//steps closing
+}//runtest closing
+
+}//stages closing
+}//pipeline closing
+
+But, in pipeline job , run restrict job option is no, we have to use the script and mention the option where the job to run
+
+
+Build with parameter :
+-----------------------
+
+pipeline{
+agent {
+    label 'slaves'
+    }
+tools{
+maven 'maven3.8.6'
+}
+parameters {
+  choice choices: ['master', 'developement', 'Stage'], name: 'Branch Name'
+  string defaultValue: 'Harsha', name: 'PersonaName'
+}
+stages{
+stage('CheckoutCode') {
+steps{
+git credentialsId: '3ea332bc-18e0-48a4-a580-fe3bf8f97850', url: 'https://github.com/bhuvaneswaribhoopal/Web-application-by-Bhuvi.git'
+}
+}
+stage('RunTests and Build'){
+steps{
+parallel(
+RunTests: {
+sh "mvn clean test"
+},
+Build: {
+sh "mvn clean package"
+}
+)
+}//steps closing
+}//runtest closing
+stage('ExecuteSonarQubeReport') {
+steps {
+sh "mvn clean sonar:sonar"
+}
+}
+stage('UploadArtfactintoNexus') {
+steps {
+sh "mvn clean deploy"
+}
+}
+stage('DeployAppIntoTomcatserver') {
+steps {
+sshagent(['97f3f499-4239-4dc3-83c4-44ed74518a67']) {
+sh "scp -o StrictHostKeyChecking=no target/Landmark.war ec2-user@172.31.25.205:/opt/apache-tomcat-9.0.68/webapps/"
+}
+}
+}
+
+} //stages closing
+}//pipeline closing
+
+
+"if we give numbe rof executers 2 or 3, the 2 or 3 jobs will run ata time"
+
+
+JENKINS--11  14/11/22
+----------------
+CLI---> command line interface
+jenkins-cli.jar
+
+http://3.10.53.50:8080/cli
+
+java -jar jenkins-cli.jar -auth mithunITcourses:111c2370adc037bc667981b003e598a131 -s http://3.10.53.50:8080/ -webSocket list-jobs
+
+
+use 'wget http://3.10.53.50:8080/jnlpJars/jenkins-cli.jar', to connect jsr file directly to jenkins server
+
+
+How to generate the token:
+managejenkins, manage users, API token,  give the name'jenkins token'
+
+111c2370adc037bc667981b003e598a131---Jenkins token
+
+chmod 400 display.sh---> if we take out the write option execute option from others they can only read the text by this command
+
+"grep JENKINS_USERNAME jenkinsdetails.txt  | cut -d ":" -f2
+mithunITcourses"
+
+
+"grep JENKINS_TOKEN jenkinsdetails.txt  | cut -d "=" -f2
+mithunITcourses
+
+grep JENKINS_TOKEN jenkinsdetails.txt  | cut -d "=" -f2
+
+grep JENKINS_URL jenkinsdetails.txt  | cut -d "=" -f2
+
+
+Menu Deriven Program:
+---------------------
+
+  
+
+
+
+
+
+***************************************
+
+Jenkins -1
+----------
+Jenkins is an opensource java based continos integration tool.
+
+History of Jenkins:
+-------------------
+Jenkins before name is HUdson --> 2004
+they have some issue with Oracle comapny, so they come ot and renamed as Jenkins , in 2011
+
+"Jenkins has jenkins community, we can enhance our featres if we want with jenkins community."
+
+CI tool:
+---------
+continuos integration tool.
+it is a process of automate the build and running the unit test cases , when developer push the code to an SCM.
+
+for .NET projects maven build tool won't support.
+For .NET we use MS build tool 
+
+continuous delivery:
+--------------------
+we are going to trigger the build manually
+
+continuos deployment:
+--------------------
+everything we are going to deploy automate mode
+
+CDelivery --> External projects, which ae going to use by end users, with client approvement from the clients give the approval.
+C Deployment--ployment--> Internal projects, the app which are going to use by our employees
+
+jacoco plugin:
+-------------
+By installing the jacoco plugin--> java code coverage 
+
+clodbees Jenlkins, clous bees is a company name
+
+
+Jeknis Installtion
+-------------------
+java 11
+1 GB
+t2.medium
+
+
+
+Jenkins :2
+-----------
+install git to avoid the error, for git credentials use "git token"
+
+if we get" mvn clean package error", install the maven software
+
+in manage jenkins
+
+jenkins default home directory
+
+/var/lib/jenkins
+/workspace/walmart-dev/target/maven-web-application.war
+
+By using the "free style projects", in Jenkins we can create jar file nay of the programming Language
+
+if i want to select the code form SVN ,, install the plugin , if we want to select the code form github, select GIT,
+
+
+freestyle project: we are not going to write any script, 
+------------------
+install git in jenkins server
+give the git url
+credentials: git token
+for dev environment give the development Branch
+
+under Build steps:
+----------------
+Execute shell , to execute shell script
+
+"select invoke top level mavenm target, to execte maven command"
+
+global tool configuration:
+-------------------------
+install Maven, by add maven
+
+
+configure SonarQube server:
+--------------------------
+configure sonarqube server details in the pom.xml
+go to git hub, select pom.xml, there we will see property TAG
+there sonar.host details, remove old one, give new sonar details, and sonar Token
+
+click on my account, security, enter token, Generate token
+
+in goal place "clean package sonar:sonar"
+
+Configure nexus credentials: in jenkins where maven installed
+----------------------------
+nexus credentials are going to store in settings.xml
+
+git pom.xml
+scroll down, 
+
+copy, walmart-release url
+and walmart-snapshort url , update in pom.xml, git
+
+
+go to maven server,
+
+we already install in maven software in Jenkins, 
+
+there i can go to settings.xml, there i have to update the nexus credentials,
+
+go to /var/lib/jenkins/tools/hudson.tasks.Maven_MavenInstallation/maven3.8.6/conf/settings.xml
+till the end we will call Maven home directory.
+
+
+find / -name settings.xml
+
+configure the nexus credentials, we use server TAG
+
+BEFORE SERVER CLOSING tag
+<server>
+<id>nexus</id>
+<username>admin</username>
+<password>passw0rd<password>
+</server>
+
+before server closing tag updae this tag and save
+
+jenkins in goal name "clean package soanr:soanr deploy"
+
+
+Tomcat server deploy the applcaiton:
+-----------------------------------
+to deploy the applcation we need to install plugin,
+"deploy to container"install this plugin, 
+go to manage jenkins, manage plugins, click on available tab, serach "Deploy to Container"
+
+
+"go to post build action inside the job, select deploy/war/ear to container, we can see this after install the plugin only "
+
+specify the war file name 
+**/maven-web-applcation.war ,file name
+context path,  /mithuntechnologies, even if we won't give also it wil work.
+
+
+click on Add container
+
+select "tomcat9.x remote"
+
+tomcaturl/
+click on add, create tomcat credentials,
+save it.
+
+403 is forbidden, u don't have enough access.
+
+we have to give "manager-script" in tomcat server, 
+
+go to tomcat server
+cd /opt/apachetomcat-9.0.68/conf/
+vi tomcat-users.xml
+
+< user username ="Bhuvana" password="passw0rd" roles="admin-gui, manager-gui, manager-script" />
+
+How to automate build trigger process:
+--------------------------------------
+poll scm
+Build Periodically
+Github Webhook, by enable any one of this ervice we are gling to automate out build trigger process.
+
+under poll scm 
+* * * * *    , last start don't give any space.
+
+once we do any changes in git hub code, jenkins will trigger by the pollscm automatically, jekins will trigger the build
+
+
+Jeknins-3:
+----------
+Automate Build Trigger
+-------------
+
+Poll scm ,  starts separated by space, whenever we do changes in scm or git , it is going to trigger the build, if there is a updated code jenkins will trigger the build, continuos developemt, on going development process, in dev and QA env we will use the POLL SCM not in production env
+* * * * *
+
+Build periodically, separated by stars with space, every minute, it is going to trigger the build automatically, here the updated code is or not , it trigger automatically
+* * * * *
+
+Github webhook: IN Jenkins , inside the job, in General, select the gitwebhood option
+--------------
+when developer push the code, git will inform to jenkins, then jenkins build the code
+
+take the jenkins url
+http://ip adress of jenkins:8080/github-webhook
+
+go to THE respective repository in github where our applcaiton is there or code updates, for example , maven-web -applcaiton,
+click on settings tab, click on add webhooks
+
+under payload URL
+PASTE THE ABOVE URL
+
+context path
+application/json
+
+based on requirement select the choices
+
+just the push events, select
+
+""instaed of using pollSCM , we can direct use this webhook option to trigger the build in jenkins
+
+these above three are we can implemet to any jobs,DEV, QA OR PORDUCTION
+
+"but mainly we use this automate triggers in development branch only"
+
+FOR "QA, PROD" manully we trigger the job
+
+
+
+DISCARD OLD BUILD:
+------------------
+
+under General, we can have this option, we can select the days and build to keep
+
+click on Advanced, maximum no.of artifacts to keep, we can select the days
+
+Build Environments:
+----------------------
+we select, delete work space before build, it will delete all the code before build start
+
+Timestamp:
+----------
+select the time stamp, to update the time along with build.
+
+
+Jacoco plugin:
+------------
+
+By using Jacoco PLUGIN WE CAN GENERATE THE JUNIT REPORT
+
+IT GENEARTE THE REPORT AND STOP THE DEPLOYMENT the code coverage is not upto threshold value.
+For example in code need to coverge 80%, if it is not met the critiria jekins will stop the deployment
+
+
+install jacoco plugin by using Mangejekins
+
+at the end of job, add post -build action, clikc on that, after install the jacoco plugin we can see this option.
+
+and also we can see the coverage report if we click the build
+
+
+Disable project:
+---------------
+if the servers are in down perion or time, we habe to disable the project 
+and again we can enable the project
+it is called server are in schedule maintainance, will get notofication before the down time.
+
+
+"Free style projects are not in use most of the projects"
+
+slcak:
+-------
+BY using slack we can communicate each other in office projects.
+
+https://slack.com , create an account
+
+check mithuntech videos for slack installation to connect jenkins
+
+click on channels to create or integate with any one particular project
+
+for ex:
+------
+jenkinsbuildnotifications
+build, success, failure, abort it will send notifications
+
+
+Integrate slack with jenkins:
+------------------------
+install plugin,slack notifications
+
+go to the sclak, 
+left corner in the name, click on manage jobs
+Manage
+install apps,
+search, jenkinsCI
+cLICK ON add to slack
+click on choose the channel, "jenkinsbuildnotifications", which we already created
+
+Add jenkins CI integration
+
+take "team-sub-domain name", copy it, go to jenkins, paste uner slack "workspace place"
+copy the integration token credentials ID ,  GO TO JENKINS, click on add, select secret text, paste the token, discipr, sclaktoken
+
+channel name, as same as slack what we given,
+
+#jenkinsbuildnotifications
+before save click on test connection, and save
+
+
+It is only one time activity, we can enable this feature to any of the job
+
+
+IN JOB, END, UNDER Post build actions, select the slcka notofication.
+
+based on the requirments, select the option.
+
+
+
+click on add adavced in job, there we can see chanel or member ID, create a project name channel in slack and paste that name in jenkins.
+
+for ex: #walmart-release
+
+
+Jenkins -4 : 
+------------
+
+Wallmart-QA , for example if we want to use existing job configuration to new job, we can slect option, while cretaing the job in Jenkins
+
+By using "Mangae credential ", we can create and delete the credentials
+
+"How to recover credentials of jenkins, folllow the Mithun tech videos, youtube."
+
+Jenkins directory structure:
+----------------------------
+Jenkins home directory path
+/var/lib/jenkins
+Jobs:
+----
+
+Job directory conatins all the job information, whaterver the jobs we created in Jenkins, available in job directory.
+
+inside the jobs directory,
+config.xml
+builds
+20
+inside the build, log
+21
+log, it contains console out put details, and also, it contains one file called "next build number"
+
+22
+23
+
+go to jobs, 
+go to walmart-dev , go to config.xml
+less config.xml
+
+cd builds
+cd 22
+ls
+
+the all job detauls dependencies available in config.xml, in the  jobs--> projectnamedirectory..> config.xml
+
+IN the same way,/var/lib/jenkins --> config.xml--> it contains jenkins configuration details.
+*********
+"if we forget the jenkins login details and password, in <use security>true to false</use security>"
+**********
+
+
+workspace:
+----------
+After get the code into github repo, it will save in workspace directory
+
+in each , jenkins going to create two directories,
+ex: walmart-dev
+walmart-dev@tem
+
+plugins:
+----------
+The all plugins, whwaterver we install  all information conatin in pluin directory
+
+Updates:
+--------
+It contains all updates of jenkins 
+
+Users:
+------
+This directory contains users information
+
+users.xml
+
+tools:
+--------
+it contains all global tool configuration softwares contains in tools directory
+
+Maven integration plugin, Manage jenkins, manage plugins, 
+------------------------
+
+Then we can see Maven prokject when create Maven related projects
+
+"we can create Java projects, only for Maven as build tool"
+
+and also we can get some extra option related to run the jobs in mavaen project plugin
+
+underbuild tool
+--------------
+maven3.8.6 . select name 
+root POM? --> pom.xml
+Goals--> clean package
+
+Multibranch pipeline:
+---------------------
+INstead of cfeating a job for each barnach separately in free style project or mavane project
+i can create " multi branch project "
+for QA- STAGE branch
+development --> development branch
+Production --> Master branch
+
+
+
+
+Plugin Management:
+------------------
+How to restart the Jnekins?
+Ans) install the restart plugin,
+just add the context path 
+http://jenkins ip adress/restart, it is going to restart the jenmins
+
+http://jenkins ip adress/safeRestart, IT IS GOING TO STOP AFTER ALL THE JOBS COMPLETED.
+
+ONLY if we have admin access we can restart the jenkins otherwise no.
+
+install the plugin "saferestart"
+
+next build number plugin:
+-------------------------
+next build plugin, 
+
+for deploying thr applcaiotn into WAS we use "urbancode deploy" or UCD
+
+ucd save all the build numbers,
+
+"for sonaqube jenkins plugin check mithun tech videos"
+
+Audit trail Plugin:
+-------------------
+For auding which user login, what task he ius erfomeing all the things..
+
+it helps who created the job, trigger the job, deleted the job all details, " Audittrail plugin"
+
+Jenkins-5
+---------
+login into jenkins, use " tail -f audit_trails.log.0"
+
+install the audit trail plugin first
+the below job i sgoing to save in 
+
+/var/lib/jenkins/audit.trails.log.0
+
+This audit plugin, whenever we trigger the job, the all details and changes happened in jenkins, it is going to save in this particular audit trail log place in jenkins server.
+
+
+shellscript job
+---------------
+
+create job "runshellscript"
+
+
+
+select free style
+under build steps, execute shell
+give some commands, like 
+
+ex: echo "Hello everyone"
+echo "Toda date is : "
+date
+
+
+Job config history plugin:
+=========================
+By using this plugin, we can see which user generated the jobs and all history we can see
+we can restore the job , supose if it is deleted also
+
+The restore job, will start the build number from 1
+
+"build periodically, poll scm, is like crontab"
+
+schedule build
+
+BlueOcean:
+-----------
+
+Blueocean can helps to create the pipeline quick and easy to run the jobs.
+
+Buil number plugin:
+---------------------
+undern build environment we can see that , set build name?
+QA- #${BUILD/-NUMBER}
+
+convert to pipeline:
+---------------------
+This plugin helps to convert the old jobs onto pipeline
+
+
+Mithuntech videos, jenkins management plugin, urbancode deploy, was (web server applcaiotn server)
+
+UCD urban plugin not availabl ein th ejenkins we have to download form out side of the url
+
+
+jenkins GUI
+-----------
+we can create separate group for each project,
+
+wecan filter the jobs by project.
+
+Jenkins security:
+-----------------
+go to manage jenkins
+-->manage users 
+--> create users, username and password
+we can create n.no.of users
+
+Manage jenkins-->
+go to configure global security
+under authentication,
+select, jenkins pwn user dtabase
+
+users.xml file all the users is going to save
+
+LDAP: Light weight Directory Access Protocol
+----  it contains all employyess information, like emial id, password and all other configure details,
+we configure, 
+LDAP with --> jenkins, sonaqube,nexus
+by using LDAP server facility everyone can able to access.
+
+BUt we want give access to only specific users
+
+select, jenkins own user database
+
+
+install , "ROLE BASEDAutherisation strategy plugin"
+-------------------------------------------------------
+now, under autherisation startegy we can see role based startegy
+
+There we can choose, read, write, 
+we can say this RBAC
+
+under General
+---------------
+select a job, Enable project-based security, and add the user, to give full access to that particualer job.
+
+
+Jenkins -6, CI/CD
+-----------------
+
+pipeline-scriptedwayscript
+-------------------------
+
+there are two way to create jobs, 
+1) scriptedwayscript
+2)Declarative way
+
+
+scriptedwayscript
+-----------------
+node{
+def (is a key word to create the variable or function in the groovy script)
+(tool is a key word, name is a key word)
+
+def mavenHome = tool name: "maven3.8.6"
+(here add the set job properties pipeline sysntax, pollscm, build number, webhook)
+echo "Build number: ${env.BUILD_NUMBER}"
+echo "JOb name is: ${env.JOB_NAME}"
+echo "Node name is: ${env. NODE_NAME}"
+
+
+mavenHome=(var/lib/jenkins/tools/hudson.tasks.Maven_MavenInstallation --> maven3.8.6)
+the variable contain up to the end
+but  "mvn" available in the bin directory for that we use the variablke inside the sh
+
+
+stage('git clone'){
+
+(click on pipeline syntax , it take to other window
+click on snippet generator, under steps, git:git select
+genearte pipeline script)
+
+git url:  , branch: master
+}
+stage('Build'){ (global tool configuration click on maven install and select the version)
+sh "${mavenHome}/bin/mvn clean package"
+}
+
+stage('ExecutesonaQubereport'){(configure the sonar server details in pom.xml, sonar url, token, )
+sh "${mavenHome}/bin/mvn sonar:sonar" 
+}
+stage('upload artifactintoNexus'){ (update nexus url details in pom.xml)
+sh"${mavenHome}/bin/mvn deploy"
+}
+stage('DeployappinTomcatserver'){ (install sshagentplugin), (ssh private key, copy paste the private key content or pem file content and crete pipeline syntax)
+sshagent ([pipeline generator token]){
+sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@ipadress:/opt/apache-tomcat-9/webapps/ (we are copying file form one server to another server we have mention the correct pathway) "
+
+(execute man scp , -o or ssh option, there we can see )
+}
+}
+ERROR: IF WE GET PERMISSION DENIED, check the tomcat webapps directory, but we are copying into root user, so we have to change the permission for webapps directory
+"sudo chmod -R 777 webapps" (we create one dedicate user, for that user we going to give permission and copy that file )
+}//nodeclosing
+
+
+(snipper generator --> set job properties, select the discard old build, POLL SCM, gitHUBWEBhooks, whaterver the option we want we can select and create pipeline generate and aaddinto the pipeline)
+
+Global variable reference:
+--------------------------
+click on pipeline syntax, there we can see this under snipper generator, Glocab variables Reference
+
+we can use this ${env.BUILD_NUMBER}
+
+echo "Build number: ${env.BUILD_NUMBER}"
+echo "JOb name is: ${env.JOB_NAME}"
+echo "Node name is: ${env. NODE_NAME}"
+
+
+Notes for pipeline:
+--------------------
+1)copy the file from one server to another server use "scp" command
+(here it will ask the crednetials use ssh agent plugin)
+2)Even we can reuse the script
+3)jenkins running in linux we will give "sh", running in windows give "bat" (batchfiles)
+
+4)127: is the command not found standard error code
+
+Notes:
+------
+we are going to keep the scripts in GIT REPO SCM
+IN THE grrovey script, we can use comments
+// --> single line commmnets
+/*
+multi line comments
+*/
+
+very important note:
+--------------------
+save the script in SCM git repository, if i want to run the script form scm,
+
+under pipeline, i have an option pipeline script form SCM select that option
+
+give the git
+git url
+default filename, jenkins file, whaterver the name we mention in the git repo
+
+if want  we can give custom name also, we can change the file name as developementjenkins file or jenkinsdevopsfile
+
+and change the file name in under script path
+
+
+Jenkins -7, slack notification
+-------------------------------
+
+send slack notifications
+
+try
+catch
+finally , blocks key words we are going to use in our slcak notification
+
+"first install the slcak notification plugin in jnekins."
+
+
+node{
+def mavenHome = tool name = "maven3.8.6"
+try{
+currentBuild.result = "STARTED"
+stage('git clone'){
+git url:  , branch: master
+}
+stage('Build'){ (global tool configuration click on maven install and select the version)
+sh "${mavenHome}/bin/mvn clean package"
+}
+}
+catch (e){
+currentBuild.result = "FAILURE"
+} catch closing
+finally{
+sendslacknotifications(currentBuild.result)
+} //finally clsoing
+
+}//node closing (after node closing add the slack notifications script under)
+
+(After install the slacknotificationplugin , if we write the groovy script in try, catch, finnally , blocks ,
+after the build completion it will send the slack notification to slack)
+
+
+def sendslacknotifications(String buildStatus = 'STARTED') {
+  // build status of null means successful
+  buildStatus =  buildStatus ?: 'SUCCESS'
+
+  // Default values
+  def colorName = 'RED'
+  def colorCode = '#FF0000'
+  def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
+  def summary = "${subject} (${env.BUILD_URL})"
+
+  // Override default values based on build status
+  if (buildStatus == 'STARTED') {
+    colorName = 'YELLOW'
+    colorCode = '#FFFF00'
+  } else if (buildStatus == 'SUCCESS') {
+    colorName = 'GREEN'
+    colorCode = '#00FF00'
+  } else {
+    colorName = 'RED'
+    colorCode = '#FF0000'
+  }
+
+  // Send notifications
+  slackSend (color: colorCode, message: summary, channel: "#walmart")
+}
+
+"note: By using the username variable in the script, we can able to see which user send the notification."
+
+
+Declarativeway:  it is very important this is the way we use in companies
+----------------
+pipeline{
+agent{
+label: 'nodename'  
+
+}
+}
+----------------------
+
+pipeline{
+agent any (default name is master or build -it)
+tools {
+maven "maven3.8.5"
+}
+stages{
+stage('checkoutcode'){
+steps{
+"send slack notifications (currentBuild.result)"
+git credentialsId: '3ea332bc-18e0-48a4-a580-fe3bf8f97850', url: 'https://github.com/bhuvaneswaribhoopal/Web-application-by-Bhuvi.git'
+
+}
+}
+stage('Build'){
+steps{
+sh "mvn clean package"
+}
+}
+stage ('Executesonaqubereport'){
+steps{
+sh "mvn sonar:sonar" (note: update the sonar server details in pom.xml, maven server)
+}
+}
+stage ('uploadartifactintonexus') {
+steps{
+sh "mvn clean deploy"
+}
+}
+stage('DeployAppintotomcat'){
+steps{
+sshagent([]){
+sh "scp -o StrictHostKeyChecking=no /target/maven-web-application.war ec2-user@ipadress:/opt/apache-tomcat-9.0.68/webapps/"
+}
+}
+}
+}//stages closing
+post{
+aborted{
+sendslacknotifications(currentBuild.result)
+}
+success{
+sendslacknotifications(currentBuild.result)
+
+}
+failure{
+sendslacknotifications(currentBuild.result)
+//(CHEKC IN GLOBAL VARIABLES)
+}
+}
+}//pipeline closing
+
+
+note: select poststage, build condition
+
+slect pipeline generator
+keep in between //stageclose, //pipeline close
+
+
+Jenkins -8 , Declarativeway some more scripts
+--------------
+
+click on the job , go to sippet Generator, 
+click on Declarative directive generator,
+there we can see option under  "Directives"
+
+sample Directives
+
+selecte option, discard old builds,
+click on generate
+
+add this one before stages , inside the options oly psate the timestamp also
+
+
+select triggeres, based on the requirement we can select any option.
+
+Build periodically,once we enable the Build periodically every minute it is ging to trigger
+Poll SCM
+githubwebhook
+
+under options
+triggeres{
+pollscm
+crontab , 
+}
+
+
+Multibranch pipeline Project:
+----------------------------
+In a project there are 50 developers and each developer have their ow branch, LMOST 50 BRANCHES IS THERE.
+to implement continuous integration to all the jobs, by using multi branch pipeline we can achieve this.
+
+
+create job, select multi branch pipeline
+
+under branch sources, select git
+
+under Build configurationsystem
+script path, specify the pipeline script name whihc is already available in git
+
+click on save
+
+whatever the jekis anme file we given , it will serach in all branches theat file.
+
+
+"scan multi branch pipeline"
+
+
+configure
+build cofigurations
+
+scan multi branch pipeline
+there we have standard value time, like poll scm, githubwebhook, build periodically,
+the job is gking to trigger for every minute or hour as per we choose
+
+
+suppose if we delete any branch in git and create new branchse, as per the scan multi branch pipeline time we choose,
+
+it will delete the deleted branches and create new branches which will we create in git.
+
+
+
+Jenkins Backup:
+--------------
+
+monolethic, all the modules create as one package
+Microsoft, each module create one package
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*********************************************
+jENKIN-Docker CI/CD:
+====================
+#UPDATE PACKAGE MANAGER
+sudo apt update
+#installjava
+sudo apt install openjdk-11-jre
+#install jenkins
+curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo tee \
+  /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+  
+ ehco deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+  
+sudo apt-get update
+sudo apt-get install jenkins
+
+sudo systemctl enable jenkins
+
+sudo systemctl start jenkins
+
+sudo systemctl status jenkins
+
+
+#install docker
+
+sudo apt install docker.io -y
+
+#add jenkins user to docker
+
+sudo usermod -aG docker jenkins
+
+#Restart jenkins
+
+sudo systemctl restart jenkins
+
+**********************
+INstall Docker in deployment server
+***************************
+
+#update package manager
+sudo apt update
+
+#install docker
+sudo apt install docker.io -y
+
+#add ubuntu user to docker
+
+sudo usermod -aG docker ubuntu
+
+
+pipeline scriptedwayscript:
+---------------------------
+node{
+def buildNumber = BUILD_NUMBER
+stage("Git clone"){
+git url:'https://github.com/bhuvaneswaribhoopal/java-web-app-docker.git', branch: 'master'
+}
+stage('maven clean package'){
+def mavenHome= tool name: "maven3.8.6", type : "maven"
+sh "${mavenHome}/bin/mvn clean package"
+}
+stage("Build Docker Image"){
+sh "docker build -t bhuvaneswaribhoopal/java-web-app-docker:${buildNumber} ."
+}
+stage("Docker login and push")
+withCredentials([string(credentialsId: 'DOCKERPWD', variable: 'DOCKERPWD')]) {
+sh "docker login -u bhuvaneswaribhoopal -p ${DOCKERPWD}"
+}
+sh "docker build -t bhuvaneswaribhoopal/java-web-app-docker:${buildNumber} "
+}
+
+
+
+
+create a password secret by using syntax, type the dockerhub password
+Harshada2806, dockerhub repository password
+
+
