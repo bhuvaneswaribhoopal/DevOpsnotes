@@ -1,0 +1,724 @@
+Kubernetes:
+-------------
+It is an popular conatiner orchestration software, and it an open source.
+
+k8s is replacement of Dcoker swarm.
+
+it is significantly complex than swarm, it required more work to deploy the applciotn, but it is very strong.
+
+k8s developed in go langugae,
+Donated to CNCF
+BEFORE 2015, k8s used internally by Google.
+k8s features:
+---------------
+1)it is a cluster based architecure
+2)self healing capabilitiy
+3)Automated scheduling 
+4)Automated rollout & rollback , if anything wrong witj applcation, if want we can roll back to the previous applcaiotn verison
+5)Horizontal scaling &Load Balancing, and also can do scale in scaleout the pods, based on the CPU memeory utilisation.
+
+6) service discovery amd Load Balancing
+
+Conatiner orchestration tools: Docker, K8s, Redhat openshift
+-------------------------------
+
+k8s cluster: cluseter is a group of nodes
+-------------
+one node act as Master
+other nodes act as workers.
+
+"in one cluster there are minium 3 masters , for highavailablity, fault tolerence purpose."
+
+Master nodes: --> reponsible to management of k8s cluster
+-------------
+for deploying, devlopemental tasks, add to some notes to clsuter, all admin tasks, we have to contact Master node.
+it is an entrypoint of k8s or control center of k8s
+
+k8s, Docker relation:
+---------------------
+k8s depricated docker almost 2 yrs back. Docker is still powerfull while building, running the images. and containers.
+
+Docker --> 20 March 2013
+Docker swarm --> Oct, 16 , 2014
+
+internally Dcoker using containerD, it is a wrapper of APIS, cli's
+
+
+
+k8s --> 2015
+
+CRI--> Container Runtime INterface
+k8s internally talking to --> Docker shim--> docker--> containerD
+
+CONATINER RUN TIME:
+-------------------
+core -os
+conatiner-D
+CRI-o
+
+k8s directly used containerD directly as a runtime
+
+Docker Resources/objects
+--------------------------
+Docker Images
+Docker Conatiners
+Docker volumes
+Docker Networks
+Docker Services
+Docker Stacks
+
+K8s Resources/objects
+---------------------------
+Pod
+Replication Controller
+Replicaset
+Daemonset
+Deployment
+Statefulset
+
+service
+Networkpolicies
+Ingress
+
+configMAP
+secret
+
+persistent volumes
+persistent volume claim
+
+Role
+role binding
+
+there are so many resource and objects in k8s
+
+
+in docker we use DOCKERcli
+in k8s we use "kubectl"
+
+kubernetes Master
+------------------
+API SERVER --> it will do Authentication and Athurisation.like token, certification type
+SCHEDULER --> It will decide to where to pod schedule in which pod, it will assign the pods to the nodes
+CONTROLL-MANAGER --> we have multiple types of controll managers, if something wrong with pod, node, it will recreate and redploy the applcaiton.
+ETCD  --> Distributed Key Value data store for k8s --> it contains, k8s cluseter information.
+         Nodes, Deployment, services details, Pods etc..
+		 
+		 if i run multiple ETCD, if one go dwon, other available
+		 
+		 we might need to take back up some times of ETCD to save the data
+		 
+
+"MULTI MASTER WILL HELP, IF ANY ONE OF THE MASTER DOWN, LB can able to conatct API, through reverse proxy, still can able to deploy, do admin activities."
+
+
+kubelet: it is primary node agent, to pull the create the pod.
+----------
+master mission , contact the worker nodes by kublet , it is an agent, internally kubelet containerD run time.
+
+Kube proxy: it will do the connection forwarding.
+
+
+
+Kubernetes -2:
+--------------
+there are 3 types of k8s installation
+
+Local k8s Cluster(single node cluster)  --> For any local developmental and deployment and poc's , install locally
+------------------- By using "minicube"
+          kind --> These are softwares
+		  
+
+
+Self Managed/Bear Metal k8s cluster
+if we have own onpremiese , we can run the k8s by our self.
+
+kubeadm --> it is a software, by using kubeadm we can setup k8s cluster. we can initialize the master and join the worker nodes 
+kubespray --> it is  a Ansible way of configuration the cluster. if we down load and update the inventory, it will set up the Ansible way.
+
+
+
+Managed k8s clusters --> This k8s managed by third party  like cloud providers,
+---------------------
+EX: AKS --> Azure k8s service(Azure cloud )
+GKE --> Google k8s Engine (google cloud platform)
+EKS --> Elastic k8s service (AWS)
+OKE --> Oracle K8s Engine(Oracle cloud)
+IKE --> IBM k8s Engine(IBM cloud)
+
+
+Rancher --> by using Rancher, we can create k8s cluster in any environment, like on premiem environment and cloud environment.
+--------
+
+KOPS: KOPS can be used to setup production ready highly available k8s cluster in AWSAS OF NOW. iT IS SUPPORTING aZURE CLOUD USING BETA VERISON
+------
+kOPS internally create Autosacaling gp and its launch congigurations
+
+1) One ASG & its L.C for Masters
+2) one ASG  L.C LARGE CONFIGURATION for workers
+
+if i go with managed serive, csp (cloud serive provider)
+
+"if we take any k8s cluster there are always odd number of masters."
+
+1)multiple masters recommended all the time.
+2)woker nodes depend on resources, how many conatiners we need, storage and requirement.
+
+
+Docker with Docker SWARM
+ 10 Nodes
+ 600+containers
+EKS--> 10 Nodes each node capacity 64 CPU 128 GB RAM
+
+In each Avalablity zone MULTI MASTER cluster will create and maintain BY THE CSP, supose if one Availability zoNE other one will available .
+The master create an dmainatain by the CSP
+
+GKE--> 450 + nodes, again scale in scale out
+
+
+FOR LARGE K8S CLUSTER:
+-----------------------
+Max 5000 nodes
+Max 100 pods for node
+Max 150000 totall pods
+Max 300000 conatiners
+
+Master nodes
+1- Master t2.medium 2CPU 4GB RAM
+10-Worker Nodes t2.micro 1CPU 1 GB RAM
+
+SWAP MEMORY: When RAM is full kernel will use swap space.
+
+we can use any compatable O.S which is compatable with k8s
+
+Most of them use free O.S.
+
+
+"kubectl : we can install in separate system and talk to k8s cluster in other machines."
+--------
+need to configure the kubectl 
+
+kubectl contains kubeconfig file, we need to execute the command like below
+
+first check the folder availbale or not
+"ls -lar ~/"
+mkdir .kub
+
+cat ~/.kube/config , this file availbale in master node after execute the installation command porperly we can able to see it
+
+copy the file properly and create new folder. kube in new machine where we can install kubectl, and create a path ~/.kube/config, paste it there properly
+
+or else instaed of this,
+i can use proper documentation, to install kubectl
+
+"kubectl get nodes"
+
+APIS Are expose in private IP, if my system is have different IP and not having private connection where my k8s cluster in running, so it is not connet with my laptop locally 
+
+"if the servers are in same vpc's and running on same IP range , even if we install kubectl in separate server also it will connect with master and talk to cluster nodes."
+
+kUBERNETES -4 , namespace
+----------------
+Docker Resources/objects
+-------------------------
+Docker Images
+Docker Volumes
+Docker Network
+Docker Container
+
+Docker SErvice
+Docker Stack
+
+we have to create these all above if we run container in Docker
+
+K8s Resources/objects
+----------------------
+k8s we won't create or run containers directly, we use pod to create containers and managed by pod
+
+Pod
+Replicaset
+Replicacontroller
+Daemonset
+Deployment
+Stateful set, use this k8s resources, we can deploy some work load, our containers and applcation can managed by these resources
+
+Networking Related
+
+service types like
+ClusterIp
+NodeIP
+Headless
+Load Balcer, these are network relating k8s resources
+INgress
+Networkpolicies
+
+
+Configmaps
+secrets
+
+storages types like
+--------------
+persisitence volume
+persistencevolumeclaim
+storageclass
+
+RBAC 
+------, WHO CAN DO WHAT CAN GIVE TH EPERMISSIONS TO THE RESOUCES
+Role , permission related resources
+Rolerolebinding
+cluster role
+clusterRolebinding
+
+"EVERY K8S OBJECT OR RESOURCE THERE IS API'S IN BACKGROUND"
+bY Using the "kubectl" we can execute the commands and interact  with API'S or call the API's to delete , modify, update the kubernetes resources.
+
+start the server where u have installed kubectl
+
+"kubectl get resources"
+
+"kubectl get nodes"
+
+"we can execute the commands in imperative way or in declarative through yaml files"
+
+kubectl get nodes
+kubectl get namespace
+kubestl get all
+
+There are 4 types of namespaces
+default  --> a deafualt for objects that do not have a specific namespace
+kube-system --> such as kube dns, kube-proxy, and add ons providing cluster -level features.we can leave this alone, because system related files 
+kube-public --> available to all users without authentication
+kube-node-lease --> a default space for objects related to cluster scaling.
+
+
+in the short form it is "ns", each name sapce logically isolated from each other.
+
+multiple projects are working in same k8s cluster, for isolation purpose to manage the k8s aplcaiton efficiently name space helps to identifies teams.
+
+"kubectl get all -n kube-system -o wide"
+
+
+
+namespace features:
+----------------------
+By using namespce we can sepeartion between projects and microservices.
+permission, WE can define seperate RBAC rules for each name space
+Reaosurce control, we can define resource limit at name space level, certail CPU, Memory control.
+performance, we can do better performanc ein the cluster.
+
+"kubectl create ns test-ns or test --label-add name=testns --label-add name=Manager", this is imperative way
+
+apiversion: v1
+kind: Namespace
+metadata:
+ name: test-ns or test
+ labels:
+  name: testns
+  teamName: testing or devor production
+  manager: Bhuvana
+  This is declarative way to create Namesapce
+we use declarative way in prodcution, because it is reusable
+
+"kubectl apply -f test-ns.yaml"  
+
+  
+
+Kubernetes -5  pod,
+---------------
+pod is a group of one or more containers. Pod will be running on some node.
+each pod will have unique IP adress WItin  in the cluster.
+the common  for all the containers whihc is running on smae pod is networking, volume.
+
+
+check kubernetes .io for more info about kubernetes
+
+kubectl run nginxpod--image=nginx -n test-ns
+
+manifest files, i can use this manifest files for my CI/CD AND i can reuse this pods.
+
+apiversion: v1
+kind: pod
+metadata:
+ name: nginx
+spec:
+ containers:
+ - name: nginx
+   image: nginx:1.14.2
+   ports:
+   - conatinerPort: 80
+   - name: nodeapp
+    image: dockerhandson/node-app-mss:1
+    ports:
+    - containerPort: 9981
+
+ ----------------------------------
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  namespace:
+  labels:
+    app: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginxsvc
+  namespace:
+spec:
+  type: NodePort
+  selector:
+   app: nginx
+  ports:
+  - port: 80
+    targetPort: 80
+--------------------------------
+two containers YAML
+===================
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  namespace:
+  labels:
+    app: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80
+  - name: nodeapp
+    image: dockerhandson/node-app-mss:1
+    ports:
+    - containerPort: 9981
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginxsvc
+  namespace:
+spec:
+  type: NodePort
+  selector:
+   app: nginx
+  ports:
+  - port: 80
+    targetPort: 80
+    name: nginx
+  - port: 9981
+    targetPort: 9981
+    name: nodeapp
+
+
+
+   
+ commands:
+ ==========
+  kubectl apply -n nginx.yaml
+  kubectl delete pod nginx
+  kubectl get ep
+kubectl get all --show-labels -o wide
+kubectl exec nginx  -- ls
+
+kubectl logs nginx -c nodeapp , when we will get default node , when execute this command , nodeapp will come first
+kubectl exec nginx -c nodeapp -- ls
+kubectl exec -it  nginx -c nodeapp -- bash
+
+
+pod can be created in master and worker both
+
+very large clusters
+5000 nodes
+150000 pods
+300000 conatainers maximum
+
+depends on the resources, CPU memory , how many applcaiotns we are deploying
+
+
+"all the containers running th epod will shared network space, comminucate each other with localhost"
+
+1)two containers in the same cannot be run with same ports
+2)two conatiners wiht different ports
+
+
+pods a re two types:
+
+1) One-conatiner or single container pod
+2) multi or sidecar conatainer pod
+
+"how containers in smae pod communicate each other by using local host"
+
+
+
+kubectl api-resources 
+
+apiversion: v1
+kind: Pod
+metadata:
+ name: <podName>
+ labels:
+ <key>: <value>
+ namespace: <nsName>
+ spec:
+  containers:
+  - name: <nameofconatiner>
+    image: <image>
+	ports:
+	- containerPort: <containerport>
+	volumeMounts:
+	- name: <volume>
+	 mountPath: <ContainerFirpath>
+	- name: <nameof conatiner>
+	  image: <image>
+	  ports:
+	  - containePort: <conatinerport>
+	volumes:
+	- name: <volname>
+	  hostpath:
+	    path: <hostFolder>
+
+"kubectl describe pod nginx"
+
+"curl -v podip:80"
+
+
+we can able to conatct the pod ip and access the conatiner with in the cluster by ther nodes, using pod ip:container port
+
+but other node, which is not part of the cluster, even though if we accee the kubectl in that node, it can get pod details and node details through k8s.
+we cannot reach th each pod ip from the node which is not part of the cluster.
+
+
+Note:
+----
+pod IP is reachable and routable within the cluster
+
+
+even though two different applcaiotn run in the sam ecluster, two different pods, that too cannot communicate each other.
+
+because pod IPs are fragile, we caanot use pod ips to communicate with in the cluster to communicate, app are outburst
+
+
+"Through service can reach two pods in same cluster"
+
+service :
+-----------
+there are 3 types of services
+cluster IP
+headless IP
+
+
+when we mentioning service name in the manifst file. with that service name new cluster IP will create,
+That cluster IP mapped with k8s DNS with that service name,
+when we  are mentioning that service name in all pods, other pods in the cluster contact the pods through the service name.
+
+servic ename has endpoint , multiple enpoints(with smae labales we deploy multiple replicas), it can do the LB also through service name
+
+"other pods find talk each other by using th eservice name"
+
+kube-proxy:
+-----------
+If any request come to the service IP , it is redirect that request from "cluster IPS" to the "pod ips"
+
+Create service:
+---------------
+kubectl run nginx --image=nginx:1.14.2 --labels="app=nginx" --port=80
+
+kubectl expose pod tomcat --port=8080 --target-port=8080 --type=ClusterIP --name=tomcatsvc
+
+kubectl delete pod pod-name
+ 
+kubectl api-resources
+
+---
+apiverison: v1
+kind: Services
+metadata:
+ name: <svcName>
+ namespace: <nsName>
+ labels:
+ <key>: <value>
+ spec:
+  type: <ClusterIP/Nodeport/LoadBalncer>
+  selector:  #Pod labels will used as selectors
+    <key>: <value>
+  ports: <servicePort>
+  targetPort: <Conatiner Port>
+---
+
+	kubectl delete service tomcatsvc
+kubectl describe svc servicename
+
+kubectl get ep (endpoint)
+
+
+
+
+apiverison: v1
+kind: Pod
+metadata:
+ name: javawebapp
+ labels:
+  app: javawebapp
+ spec:
+  containers:
+  - name: javawebappcontainer
+    image: dockerhandson/javawebapp
+	ports:
+	- containerPort: 8080
+---
+apiversion: v1
+kind: Service
+metadata:
+ name: javawebappsvc
+spec:
+ type: ClusterIP
+ selector:
+  app: javawebapp
+ ports:
+ - port: 80
+   targetport: 8080
+
+kubectl get all -o wide --show-labels
+kubectl get service nginxsvc -n test
+
+kubectl apply -f javawebapp.yaml
+kubectl get all -o wide --show-labels
+kubectl exec -it javewebapp --bash
+
+from outside, to access service inside the cluster
+
+we have to give type at selector is "nodeport" service have to mention
+
+
+SERVICE Connect or communicate with pod based on the labels and selectors name
+
+"kubectl get all -o wide --show-labels"
+
+
+Kubernetes- 6:
+---------------
+Pod: Using Pod we can deploy (create) containers in k8s. k8s will not directly manage containers,
+---- k8s will managecontainers using PODS.
+
+In order to Deploy any container we need to create "pod", each pod has unique IP address in the cluster.
+pod can have one or more containers, pod will be created in nodes.
+
+network, volume or storage is same for all conatiners which are running in same pod.
+
+kubectl get all -o wide --show-labels
+
+apiVersion: v1
+kind: Pod
+metadata:
+ name: nginx
+ labels:
+   app: nginx
+spec:
+ containers:
+ - name: nginx
+   image: nginx:1.14.2
+   ports:
+   - containerPort:80
+  - name: javawebapp
+    image: dockerhandson/java-web-app:1
+	ports:
+	- containerPort: 9981
+---
+apiVersion: v1
+kind: Service
+metadata:
+ name: nginxsvc
+spec:
+ type: ClusterIP
+selector:
+ app: nginxapp
+ ports:
+ - port: 80
+   targetPort: 80
+  app: javawebapp
+ ports:
+ - port: 9981
+   targetPort: 9981
+ ---------------------------
+ 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mavenwebapp
+  namespace: test
+  labels:
+    app: mavenwebapp
+spec:
+  containers:
+  - name: mavenwebapp
+    image: dockerhandson/maven-web-application:1
+    ports:
+    - containerPort: 8080
+      name: appport
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mavenwebappsvc
+  namespace: test
+spec:
+  type: NodePort
+  selector:
+   app: mavenwebapp
+  ports:
+  - port: 80
+    targetPort: appport
+
+   http://13.42.47.129:30178/maven-web-application/
+
+kubectl exec -it  mavenwebapp -n test -- bash or -- sh
+
+if above is not working we have to use 
+
+<servicename>.<namespce>.svc.cluster.local
+FQDN : Fully qualified domain name
+
+curl -v mavenwebappsvc.test.cluster.local/maven-web-application/
+
+
+static pod  is very very important for interview purpose
+---------
+apiVersion: v1
+kind: Pod
+metadata:
+ name: httpd
+spec:
+ containers: 
+  - name: httpd
+    image: httpd
+	port:
+	- containerPort: 80
+	sudo cp teststaticpod.yaml /etc/kubernetes/manifests/teststaticpod.yaml
+this static pod will up and run once we copy the file into manifest directory
+"kubectl get all "
+"kubectl delete pod httpd-ip-172-31-9-172"
+
+again it will get created by k8s
+
+note: while deleting the manifest file , very care fully
+
+"sudo rm /etc/kubernetes/manifests/teststaticpod"
+
+what is static POD?
+static pods are directly managed by k8s
+
+
+container Network interface --> CNI
+
+WEAVEN, CALICO
+
+ONE k8s find another k8s by using labales.
+it is like TAGS.
+
+"replication controller responsible for manage the pod cycling."

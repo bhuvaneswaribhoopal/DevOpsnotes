@@ -1,0 +1,1254 @@
+what is Docker?
+
+Docker is acontanerization platform , using Dcoker we can build, ship and run applcaiotns
+as a container.
+
+what is container?
+container is a package which contains, applcaiotns , files (code)
+required dependecies and librraies and environment configuration to run a piece of softwareor applciation.
+
+
+Type1: will run only Hypervisor, no need OS, BEAR METAL SERVER, PHYSICAL SERVERS, CITRIX ZEN SERVER, NITRO, DEL SERVERS ARE,  
+Type2: Hypervisorrun on top of Hos,  ORACLE VIRTUAL BOX, VM WEAR FUSION, VM WORKSTATION
+
+WE ARE DOING VIRTUALISED DEPLOYMENT.
+WE CAN ABLE TO USE HARDWARE RESOURCES MORE EFFICIENTLY.
+
+THERE IS CONTAINERIZATION DEPLOYMENT. 
+
+VIRTUALDEPLOYMENT:
+-----------------------
+Heavy weight,it ustilise more CPU, EACH VM has its own OS, USUALYY WHILE BOOTING OS IT SELF OCCUPY SOME SPACE, THATS WHY IT BECOME HEAVY WEIGHT
+IT IS SLOW, WHEN TRY START SERVER, IT HAS TO BOOT SERVER,
+
+
+containerization deployment:
+----------------------------
+containers are light weight, it will shate OS , it contains all prerequisites softwares.
+
+containers doesn't have own OS, logically islolated from OS, THE COmmon one is HOS, HOST OPERATING SYSTEM.
+CONTAINERS doen't have full blown OS, it contains OS libraries to interact with kernal. 
+container are portable, i can create a package with reuired software, code, port numbers.
+
+Q)Difference bewteen virtual machine and containers?
+
+Docker2:
+-------
+1)Docker CE --> community Edition(free to use)
+2)Docker EE ---> Enterprise Edition (commercial,Licensed)
+
+Docker is developed in GO language, it is Google language.
+we have vendor spport for Docker AND Additional Features like DTR
+
+It is GUI
+
+CONTAINER oRCHATRISATION SOFTWARES:
+----------------------------------
+Kubernaties and Docker swam
+Kubernaties:shcedule and manage the conatiners with help of Docker
+Docker: It is create the conatiners
+
+Docker.com is the official website for Docker
+
+Containarization softwares: Docker, Rocker, Podman is alos like docker run by Redhat, CRI-O, Core-os, Container-D.
+----------------------------
+************************
+Q)How many containers can run in Docker Host/server/Machine/Daemon?
+one Docker server, we can run n.no of containers
+Docker has common HOS, System resources like CPU, MEMORY, DEPEDENCE ON SYSTEM resources , memeory and stotrage or capacity.
+Based on system capacity.
+*************************
+Docker commands:
+---------------
+ps -ef | grep "docker"
+
+docker ps 
+sudo usermod -aG docker ubuntu, exit and login again
+
+sudo service docker restart
+
+
+Docker-3
+-------
+Docker cli internally uses API'S, IT send request to dcoker daemon, 
+
+Basically Docker users uses the Dcoker CLI to interact with Dcoker daemon
+Dcoker deamon which can manage  containers, containers, images, networks,
+
+DOCKER COMMANDS
+-----------------
+docker images
+docker container ls
+docker volumes
+docker networks, 
+
+docker default directory
+/var/lib/docker
+
+sudo ls /var/lib/docker
+
+Docker image: it is a package, to create a container, all softwares, libraries, configu files , code, and so on,
+------------
+suppose if i delete my package in locally, i can get the image from registry or central registry where can i stored.
+
+WHAT IS SCM AND ARTIFACT REPOSITORIES?
+scm we are going to maintain only source code like GITHUB, SVN
+artifact we are maintain the build artifact dependecies, LIKE NEXUS, JFROG
+
+WHAT IS REGISTRY AND REPOSITORY?
+
+Registry is collection of repositories, under same registry i can have different version of softwares.ECR, jfrog, nexus
+Repository where can i maintain the packages of same applIcaiotn with diifferent versions
+
+Docker hub is a registry
+
+A docker container should run whre can docker run
+The Best way to run our microservices in container
+
+
+Docker-4   commands, file start here , see it again
+---------
+Dcoker file is one simple text file which contains some instruction to build an image.
+By default we are getting base image from the dcoker hub
+
+Docker registry--> it is a collection / group of repositories, where we can stored
+----------------
+docker imgaes
+
+Docker repository: Repository i a collection of docker images with various version and tags.
+------------------
+
+TOMCAT HOME DIRECTORY: /usr/local/tomcat/webapps/maven-web-applcaiton.war
+
+FROM indicates the base images
+COPY whre can i copy that my docker image
+
+Build contect: the folder where we will build our image
+docker build -t(tag) <image> <buildcontext>
+
+docker build -t <image> .
+
+docker build -t dockerregistry/docker repository:1 .
+
+
+docker file:
+------------
+FROM tomcat:8.0.20-jre8
+COPY target/maven-web-application*.war /usr/local/tomcat/webapps/maven-web-application.war
+
+Here "target" is the build context , 
+
+run mvn clean package and create web apllcation locally, then give the path.
+
+"we can pull and run the container any distribution related server."
+
+to delete all unnecessary images:
+-----------------------------------
+docker rmi -f$(docker images -q)
+docker rm -f $(docker ps -aq) to remove all containers
+
+Docker-5
+----------
+docker commands:
+=================
+Image commands:
+--------------
+
+dcoker images or docker image ls
+
+
+dcoker pull regidtryendpoint/reponame:tag
+docker pull ECRurl/repository name:1
+
+
+docker login -u bhuvaneswaribhoopal --password-stin
+docker build -t bhuvaneswaribhoopal/maven-web-applciton:1 .  (or)
+docker build -t bhuvaneswaribhoopal/maven-web-applciton:1 home/ubuntu/maven-web-applcaiton
+
+
+docker inspect bhuvaneswaribhoopal/maven-web-applciton:1, 
+we can seee when is the image create, who create, what is the id of image, all details we can see
+
+
+docker history bhuvaneswaribhoopal/maven-web-applcaiton:1
+
+it will give the layer details and history about the image
+
+
+FROM maven:3.5-jdk-8-alpine as build
+WORKDIR /app
+COPY ..
+RUN mvn clean install
+
+FROM tomcat:8.0.20-jre8
+COPY --from=build /app/tomcat/webapps/maven-web-applcaiton*.war /usr/local/tomcat/webapps/maven-web-applcaiton.war
+
+
+docker build -t ecrrepositoryendpoint/maven-web-applcaiton:1
+
+aws ecr get-login-password --region eu-west-2a | docker login --username AWS --password-stdin ecrrepository endpoint
+
+
+
+docker login -u AWS 
+
+docker push ecrrepositoryendpoiint/maven-web-applcaiton
+
+two separate IAM roles, one for jenkins-ec2full access IAM role attach
+
+deployment server , ec2container read only access- IAM role , attach
+
+
+dcommands:
+=---------
+docker images -q, it diplsay only id's
+docker login --help, login to docker registry
+docker login -u (username) bhuvaneswaribhoopal (and ) -p(password)
+
+if i want to execute my password through a file
+cat dockerpassword | docker login -u bhuvaneswaribhoopal --password-stdin 
+
+docker pull <imagename>
+docker pull bhuvaneswaribhoopal/maven-web-applcaiton
+
+"if we want to pull the image from private repo, we have to authenticate"
+
+docker pull ecr repoendpoint/respository
+
+After pull the image, run the command
+
+docker inspect dockerrepo/<imagename>:1
+(or) docker image inspect <imageID/Name>
+
+docker history  <imageID/Name>
+
+to remove image locally:
+-------------------------
+docker rmi(remove image) <imageID/Name>
+docker rmi bhuvaneswaribhoopal/maven:1 
+docker rmi ImageID
+
+docker rmi imageid imageid imageid
+docker rmi $(docker  images -q)
+
+Q)can we remove the image when thre is a runing container?
+Ans)"we cannot remove image, when contaiiner running"
+
+docker rmi -f(forcefully) imageid
+
+
+dcoker images --filter dangling=true
+
+an image without repository reference is called "dangling image" or orphane image.
+
+docker rmi $(docker images --filter dangling-true -q)
+
+dcoker system prune
+docker image prune , (to delete the dangling images , not used networks, stopped containers delete)
+
+
+docker image prune (it will delete only danglind images)
+docker network prune
+docker volume prune (only dangling)
+
+How to tag the images:
+---------------------
+
+docker tag imageid registryname/repository:1 , like this i can tag the dangling image or <none >
+
+How to copy image from one server to other server: without registry
+-----------------------------------------------------
+docker save <imageid> or <registry/reponame>:1  mavenwebapp.tar
+ 
+ after tar file we can do scp(secure copy)
+ 
+scp mavenwebapp.tar in source system
+docker load -i <webapps.tar>
+
+docker build
+docker push
+docker login , these are the widely used commands in daily work
+
+Docker-6 02/01/2023
+=====================
+
+Docker container commands:
+---------------------------
+docker ps
+docker container ls, display runing containers
+docker ps -a, display all the containers in any satte it is
+docker ps -aq or 
+docker container ls -aq
+
+docker create or
+docker run . to create the conatiners
+docker create --name conatiner name -p port number imageregistry/repo
+
+
+container created but not start
+-----------------------------
+use, docker start conatinername
+
+docker rm mavenwebapp(conatiner name), it not remove while it is removing
+docker stop ,to stop the conatiner or process
+docker rm <conatinerid/name>
+docker rm -f < conatinerid/name>
+docker start conatinername
+docker stop < conatinerid/name>
+
+
+docker rename <curretncontainer name> <newname>
+
+docker rm -f $(docker ps -aq), q is images ids
+
+docker container prune , to remove all stopped conatiiners
+
+docker rm -f $(docker ps --fileter status=exited -aq)
+
+****************
+docker run --name <containername> -p <hostport:conatainerport> <image>
+here
+<containername>
+hostport , these two must be unique while execute the above command, other wise container not work
+****************
+
+
+"nestart -tunlp", this command will shows what port using for what process
+
+docker -d -p 9090:8080 conatainername bhuvaneswaribhoopal/maven-web-application*
+if iwon't give the -d , if my conatiner stopped process stop, r if i press ctl+c , the process stop
+the process will run as an interactive mode
+
+what is diifference between socker kill and docker stop?
+Docker kill <containerid/name>
+this will issue SIGKILL signal, Kill the process immedieatly
+
+docker stop <containerid/name>: 
+This willissue SIGTERM Signal, it gracefully terminate the process rather than killing it immedieatly.
+
+
+I can start the process again, it is not going to be deleted.
+
+more commands:
+---------------
+
+docker pause <containerid/name>, it temperorly pause the process
+docker unpause <containerid/name>
+
+"docker run --name centoscontainer centos"
+
+if we are not specifying the registryname, it will pull and run the image from default registry
+docker hub
+"docker run -it --name centoscontainer centos /bin/bash"
+
+"docker top <containerid/name>"
+
+docker exec <containerid/name>, we can execute some command sin a running container
+docker exec <containerid/name> ls
+
+"dcoker exec containername ps -ef"
+"docker stats containername"
+docker run -d -p 8080:80  --name centos container --memory 180Mi registry/repository "
+
+docker update javawebapp --memory 250Mi
+"docker logs container", help to display the information about container, error, applcaiton details
+"docker logs -f(floatinglogs) --tail 10 containername", last 10 lines will display
+
+"docker logs --tail 1 container "
+
+docker exec -it javaewebapp /bin/bash
+
+
+Docker-7
+----------
+"docker inspect --help", it will give go template, docker developed in GO language
+docker inspect javaewebapp | grep "IPadress"
+
+docker inspect javaewebapp --format '{{.state.satus}}'
+
+docker exec javawebapp ls. to show all files
+
+docker exec javaewebapp ls logs, 
+
+docker cp javaewebapp:/usr/local/tomcat/logs/catalina.2023-01-03.log catalina.log
+
+docker cp test.txt javawebapp:/usr/local/tomcat/test.txt
+
+Q)what is difference between COPY and docker cp in Docker?
+Ans)COPY is docker file instruction. COPY can copy files/folder from buils context to the image,
+while building the image
+docker cp is command . we can copy files/folders from container to the host(docker ) or from system to the container.
+
+"docker diff containername"
+"docker commit", we can create image out of the comtainer
+
+
+
+Dockerfile:
+------------
+docker file is a normal file, it contains some instrcutions, which helps to buils the image
+image contains package of software.
+
+default name of Dcoker file is Dockerfile only
+
+can we have a docker file with custom name?
+
+Docker file instructions:
+-------------------------
+FROM
+MAINTAINER
+COPY
+ADD
+RUN
+CMD
+ENTRYPOINT
+WORKDIR
+ARG
+ENV
+LABEL
+US
+USER
+EXPOSE
+VOLUME
+
+FROM: from indicates the base image on top of which we can build our own image, 
+subsequent instruciton will be executed on top of this
+****
+commands are not-casesensitive, differentiate or ditngusih between commands and argumnets will use uppercase
+****
+
+COPY: WE CAN COPIES FILES OR FOLDERS FORM SOURCE and add them TO the destination, 
+source file should be part of build context, destinatin path, inside the image, where we want to copy.
+
+we can copy from relative path to absolute path
+ex: target/maven-web-application*.war  to usr/local/tomcat/webapps/maven-web-application.war
+
+
+Docker-13:
+--------------
+containers are best way to RUN microservice applciaotn
+because, containers are less weight, less CPU and Memory, Microservice alcation also occupy less memory.
+
+so, Conatiners are BEST way to Run Microservice app
+
+
+Docker Networks:
+---------------
+Bridge
+Host
+Null/None
+
+"docker network ls"
+
+default network for docker is "bridge", here the container will created in Dcoker
+
+"docker exec -it javaewebapp bash"
+root@id :/usr/local/tomcat/ curl -v ipadressof server:8080/maven-web-app
+
+bridge network only comminicate through IP adress, not with conatiner names
+
+"docker network create -d bridge mavenwebappbridge(tjhis is a custom bridge network)"
+
+docker run -d -p9080:8080 --name mavenwebapcontainer --network mavenbridgenetwork ECRurl/repository
+
+"docker inspect containername ", inside we can see the custom name of bridge container.
+*******
+Q)what is differenc b/w default bridge network and custom bridge?
+Ans)In default bridge network containers talk only using IP adress, but in custom bridge network, containers will talk using custom bridge network name.
+
+
+Hostnetwork:
+-------------
+docker network create -d bridge javawebappbridge
+
+host --> If we create container in host network container will not get any IP .
+you no need to do port publish to access from outside.
+
+"docker run -d --name javaewebapp --network host ecrrepositoryendpoiint/java-web-app:1"
+
+creating the container directly creat  in host network
+
+IMPNOTE:
+--------
+" we caannot creat custom host notework in host network"
+
+NULL/NONE:
+----------
+NO container will create, and we cannot access in/out .
+It we create in hist network, it won't get any IP address.
+
+
+
+if the conmtainer are in two different environment, we cannot use the "bridge network option",
+here the docker swam come into the picture, with docker swam we have netwrok called "OverlayDriver(Multihost)"
+by using this multi network, we can connect two different server bridge network servers.
+
+
+
+if it is Kubernaties, ther eis called CNI--> cONATINER nETWRKING Inteface
+DOCKER SWAM:
+Overlay network
+
+
+calico network, to operate CNI
+weavent
+Flanel
+
+
+Docker Volumes(Storage for Containers): 14  13/01/2023
+------------------------------
+Image --> is a package of softwares
+Conatiners (Aplication/process of Image)
+Networks (Communication for Conatiner )
+
+
+Jenkins working directory: Maintain configuration details build history, plugins, and secret passwords all data maintain.
+
+if jenkins running as a container, if we delete the jenkins container delete and recreate we lost the data, but in statful  applcaiton it is not acceeptable.
+
+if it is stateless Applicaiton it is fine even restart we lost the container.
+
+
+springboot framework itself contain embedded Tomcat, 
+
+
+docker network create -d bridge springappbridge, "docker network ls"
+
+docker run -d --network springappbridge --name mongo -e MONGO_INITDB_ROOT_USERNAME=devdb -e MONGO_INITDB_ROOT_PASSWORD=db@123 mongo
+
+i can connect my data base with custom bridge name also by using above command
+
+"docker exec mongo ps -ef"
+"docker exec -it mongo bash", to see inside the data base container
+
+"mongosh --host localhost:27017 -u devdb -p devdb@123", to connect mongo shell to run mongo commmands
+
+"show databases;"
+
+
+git clone
+run the docker file build image
+run mvn clean package to create relative path
+docker run -d  --name springapp --network springappbridge -p 8080:8080 -e MONGO_DB_HOSTNAME=mongo -e MONGO_DB_USERNAME=devdb -e MONGO_DB_PASSWORD=db@123 bhuvaneswaribhoopal/spring-boot-mongodb:1
+
+
+"docker exec mongo ls /data/bd", to check files in side the databases
+
+"ubuntu@ip-172-31-41-239:~/spring-boot-mongo-docker$ docker build -t bhuvaneswaribhoopal/spring-boot-mongodb:1 .
+"
+"docker push bhuvaneswaribhoopal/spring-boot-mongodb:1"
+"docker run -d  --name springapp --network springappbridge -p 8080:8080 -e MONGO_DB_HOSTNAME=mongo -e MONGO_INITDB_ROOT_USERNAME=devdb -e MONGO_INITDB_ROOT_PASSWORD=db@123 bhuvaneswaribhoopal/spring-boot-mongodb:1
+"
+
+container files system exists as long as container exists
+
+Docker-15:
+----------
+BindMounts:  Any file or folder mounted from host file system to container file system is called as "bindmount"
+Host files sysstem is server file system
+
+
+-v /home/ubuntu/mongo:/data/db
+
+docker run -d network springappbridge --name mongo -v /home/ubuntu/mongo:/data/db -e MONGO_DB_HOSTNAME=mongo -e MONGO_INITDB_ROOT_USERNAME=devdb -e MONGO_INITDB_ROOT_PASSWORD=db@123 bhuvaneswaribhoopal/spring-boot-mongodb:1
+"
+https://rexray.readthedocs.io/en/stable/user-guide/storage-providers/aws/
+https://rexray.readthedocs.io/en/v0.9.1/user-guide/docker-plugins/
+
+
+"container file system exists as long as container exists."
+
+Applicaiton and data bith are rnning as a container
+
+
+"docker exec mongo ls /data/db", where data base is storing its data
+
+"if we reboot or restart the server, there is a change to lost the Data."
+
+Bindmounts: Any file or folder monted from host file system to container file system is called as 
+Bind mounts.
+
+Host is a server
+
+to mounted host files system  to container file system is called bind mounts
+
+
+Bind Mounts, we have to give absolute path of bindmounts
+
+create a container with name mongo
+mkdir ~/mongo
+home/ubuntu/mongo  absolute path
+                         v is volumes
+if we exute the command "-v /home/ubuntu/mongo:/data/db"
+even though if i am not create the folder with name "mongo"
+when i execute the command, the docker deamon it self create the folder and mount the folder
+
+first remove the old container for storage purpose or cpu memory free.
+
+"docker rm -f mongo"
+
+docker run -d --network springappbridge --name mongo -e MONGO_INITDB_ROOT_USERNAME=devdb -v /home/ubuntu/mongo:/data/db  -e MONGO_INITDB_ROOT_PASSWORD=db@123 mongo
+                                    >
+creating a container with bind mount|
+
+
+data exec mongo ls -lar /data/db
+the files what is shown in this directory "mongo "here is the part of Hostdirectory
+
+docker exec -it mongo bash
+mongosh --host localhost:27017 -u devdb -p devdb@123
+
+db.users.find()
+
+
+for conatiners also i can use bind mounts to store my host files
+
+persistent volume:
+-----------------
+
+volumes:
+--------
+in volumes we will use the option called driver "-d"
+
+docker volumes ls
+docker volume create -d local mongovol
+
+it will create at var/lib/docker working directory
+
+instant of bind mount , i can use my volume as "-v mogovol:data/db"
+
+docker run -d --network springappbridge --name mongo -e MONGO_INITDB_ROOT_USERNAME=devdb -v mongovol:/data/db  -e MONGO_INITDB_ROOT_PASSWORD=db@123 mongo
+
+
+volumes ARE recommended to maintainting the Data
+
+Docker-16:
+-------------
+Docker images
+Docker containers
+Docker Volumes
+Docker networks
+these are the four pillars to Docker
+
+spring Boot App
+
+docker run spring Boot App
+docker run mongo
+
+
+docker network create -d bridge springappbridge
+docker volume create -d local mongovol
+docker run -d --name mongo -v mogovol:/data/db -e MONGO_INITDB_ROOT_PASSWORD
+docker run -d -p 8080:8080 --name springap -e MONGO_DB_HOSTNAME=mongo -e MONGO_DB_USERNAME=devdb MONGO_DB_PASSWORD=devdb@123 --network springappbridge dockerregistry/repo
+
+Docker -compose is a yaml file ro declare what we need in Dcoker.
+commands:
+---------
+docker-compose config , intendation check
+docker-compose up -d , it is similar to docker run, need to install docker-compose
+docker-compose down
+docker-compose create
+docker-compose start
+docker-compose stop
+docker-compose restart
+
+Docker swam-17 
+==============
+Containerization tools: Docker, Container -D, Rocket, CRI-O, Podman..
+Docker is a containerization tool.
+
+using Docker we can build and ship and run application as a container.
+
+Image
+CONTAINER
+Volumes
+Netwroks
+Docker Swarm is a container Orchastration tool --> Docker Swarm, k8s, Redhat OpenShift 
+
+cluster --> is a group
+
+
+Docker swarm cluster: It's a group of dcoker nodes/servers/hosts/ daemon .
+In that cluster(group) one or more nodes will be acting like managers, and rest of the nods will be slaves or workers.
+
+master node is responsible to schedule the container. 
+Master--> It's a responsible for managing orchestration functionality.
+-------
+worker's --> Worker are the nodes in which containers (applciaitons) will be running.
+
+
+
+we can setup the docker swarm, anywhere the docker is running.
+
+******
+what happened if the manager node not working?
+if the manager is not wokred, nothing will happen to worker, but if in the container something is going wrong, that container will not be recreated and reschedule.
+
+
+to avoid this problme, we will go with multi master.
+
+we will follow the raft algorithm  (N-1)/2
+
+(3-1)/2, EVEN IF WE have  masters, it is going to tolerate only one master failure.
+
+minimum 3 masters required, even if we have 4 masters, still it can tolerate one failure,
+
+that is why we maintained odd number of msters, to tolerate the failure master nodes.
+
+How many containers we need to create in that cluster, how much CPU, memeory needed. accordningly we can plan.
+
+
+13-Nodes in the cluster (prod cluster)
+3-Master Nodes
+10- Worker Nodes
+
+Each node capacity was 128 GB RAM & 64 code cpu.
+
+what is the capacityof my cluster?
+1280 GB, 640 core CPU
+
+WORKING FOR insurance company , 600+ containers, so many applciotns need to deploy.
+
+each conatiner taking 1CPU, 2GB, 
+
+TO maintain the availability minimum 3 masters, 
+why 10 nodes, based on my requirement, i created this much of memory and CPU, planned to use 10 nodes.
+
+
+some microservice has 3 replicS
+SOME Microservice HAS 4 CONTAINERS OR 4 REPLICAS
+
+Approximately, 50+ microservices
+
+Insurance client,
+Endusers Applicaitions
+agent Applcaition
+customer care Applcaition
+
+same client, multi ple applcaiotn or projects,
+
+all these applicaiotn are hosted in a same cluster,
+
+*******
+what is the capacity of cluster?
+
+
+
+How many Docker swarm cluster u have in your projects?
+
+
+ENV
+----
+DEV--1 cluster
+QA--. 1 cluster
+PROD --##. 1 cluster
+DR --> distater recovery--> 1 cluster
+
+
+CREATE 3 SERVERS,
+1. Master
+2.WORKERS
+
+first clena up the server
+docker network prune
+docker rmi -f $(docker imgaes -q)
+
+except docker volumes, docker default networks is fine.
+
+open the all ports
+
+"to open each and everyport separetly, just opne the port for that ip tange for all ports, 172.31.0.0/16"
+carefull wehn we open by using ip address range
+
+but we can go individually as well as given right port number
+
+server creation userdata:
+-------------------------
+#!/bin/bash
+apt-get update -y
+apt-get install curl -y
+curl -fsSL get.docker.com | bash
+usermod -aG docker ubuntu
+
+
+Logout from the terminal and login again
+
+Note: make sure you open required/all ports in AWS security groups.
+=========================
+#Initializw docker swarm cluster by executing below commonds on docker server
+which you want make it as Manager
+
+dokcer swarm init
+
+#Intializer Dcoker Swarm with publick IP
+Note: Don't use below (if restart your systems public ip will change will break your cluster)
+use above command to initialize cluster
+
+docker swarm init --listen-addr=eth0 --advertise-addr $(curl http://169.254.169.254/latest/meta-data/public-ipv4) (only run in manager node)
+
+docker node ls
+
+docker swarm join-token worker
+docker swarm join-token manager
+
+if we delete leader server, automatically other guy will become leader,
+
+
+
+
+
+
+
+
+Docker swam-18
+--------------
+Docker containers schedule using 
+In Docker swarm containers are launched using services, while creating services we will 
+define the desire state of your service by specifing the image name and tag the service containers should run.
+how many containers (replicas) should be created for the service. 
+port mapping and other options. 
+
+services can be deployed in two modes(Docker Swarm service modes)
+1). Replica mode(default mode)--> In replica mode we can specify the number of containers (replicas)you need 
+    ------------  for that service(applcaiiton) in the cluster.
+	              we can scale in & scale out the replica of a service.
+
+2. Global mode --> Each and every available node in a cluster will have one containerfor that service.
+                   we can't sclae in or scale out global service.
+				   if we add (join) any new node to the cluster global service  will be 
+				   automatically created in that newly added node.
+				   
+log stack gather the logs and do elastic serach
+pomethus
+Agents like, security, monitoring agents, log agents..
+in each and every node if i want any agent base service , i need global mode
+
+
+our own web applciaotns , based on load, API we use replica mode.
+
+docker node ls
+docker service ls
+docker service --help
+docker service create, to create service
+docker service COMMAND
+
+docker service create --name <name of the serivce> -p <hostport:containerport> --network <>  <image>
+
+natwork name is "ingress" 
+				   
+default mode is replica mode with only one container in that whole cluster, in which relplica that container is created will decide by "master node"
+
+docker service scale <servicename>=<noof replicas>
+docker service scale <servicename>=1
+
+
+but in global service , each and every availble node will create one container, including master node
+
+commands for replica and globa mode:
+------------------------------------
+docker service create --name <nameofservice --replicas 2 -p <hostport:Containerport> <image>
+
+docker service create --name <nameofservice> --mode global -p <hostport:Containerport> <image>
+
+
+replica 1/1
+current/desired
+0/1 , sometimes it may happended
+1/2
+1/3
+
+through docker proxy, if the conainer created in the master node, we can access that applcaiton in worker node as well
+
+
+if i delete the containers it is going to recreate.
+only, if i delete my service only the all relicas is going to delete
+
+"docker service rm <servicename>"
+
+service name should be unique and service host port should be unique.
+
+docker service ps <servicename>
+docker service scale <servicename>=4 , if want i can scale out
+
+
+docker exec -it <container id> bash, trouble shooting
+
+crl -v localhost:5000 or 8080 or 9981 based on applcation
+
+docker service inspect:servicename
+
+
+docker service create --name nginx -p 80:80 --mode global nginx
+docker service ls
+docker service ps nginx
+docker node ls
+docker service scale nginx=2, scale can be used only in replicate mode not in global mode, now this nodejs applcaiton running in global mode.
+
+by using the condition like below --constraint "node.role==worker"
+----------------------------------------------------------------------
+
+docker service create --name <nameofservice --replicas 2 -p <8080:8080> --constraint "node.role==worker" --network <javawebappoverlay>  <bhuvaneswaribhoopal/java-web-app:2>
+
+by using above command, with condition, replica is not going to create in master or leader server 
+
+node.role==worker, this condition avoid to create replica in master node
+
+"if i use this in globa mode also, the replica is not create in master node"
+
+
+"docker service create --name <nameofservice --replicas 2 -p <8080:8080> --constraint "node.labels.name==node()" --network <javawebappoverlay>  <bhuvaneswaribhoopal/java-web-app:2>"
+
+drain commmand: to do node maintainance
+---------------
+
+without impact the applcaiton to update some in node,
+
+i can ssh and update any file or execte any commands the nodes, and again i can active, 
+
+"docker node update --availability drain ipadress"
+
+
+How to use private repository in docker hub:
+--------------------------------------------
+docker service create --name <nameofservice --replicas 2 -p <8080:8080> --network <javawebappoverlay>  <bhuvaneswaribhoopal/java-web-app:2>
+
+create a service  like above
+but it may fail to pull the image, because it is private repository
+
+docker service ps <servicename>
+
+"docker login -u bhuvaneswaribhoopal or ecr (use ecr url)"
+
+while creating a service pass the below details
+
+"docker service create --name <nameofservice --replicas 2 -p <8080:8080> --with-registry-auth --network <javawebappoverlay>  <bhuvaneswaribhoopal/java-web-app:2>"
+
+while creating a service with private docker hub, we need to use the above condition
+
+
+docker-compose.yaml
+--------------------
+
+docker stack deploy --compose-file docker-compose.yaml <stackname> or springapp
+docker stack deploy -d overlay springappoverlay
+docker stack service springapp or servicename
+docker volume create -d local mogovol
+
+
+
+
+
+
+
+Jenkins pipeline, Docker compose
+--------------------------------
+
+  sed -i 's|version: .*|version: "${VERSION}"|' app.yml
+  
+  
+  steps {
+            sh '''
+                  cp bowerrc.template .bowerrc
+                  sed -i -e "s/username/zest-jenkins/g" .bowerrc
+                  sed -i -e "s/password/${ARTIFACTORY_APIKEY}/g" .bowerrc
+                  cat .bowerrc
+               '''
+        }
+		
+		
+		
+		node{
+		def version:3.1 = VERSION
+    def buildNumber = BUILD_NUMBER
+    stage("Git CheckOut"){
+        git url: 'https://github.com/bhuvaneswaribhoopal/spring-boot-mongo-docker.git ' , branch: 'master'
+    }
+    
+    stage(" Maven Clean Package"){
+      def mavenHome =  tool name: "Maven-3.6.1", type: "maven"
+      def mavenCMD = "${mavenHome}/bin/mvn"
+      sh "${mavenCMD} clean package"
+    } 
+    
+    stage("Build Dokcer Image") {
+         sh "docker build -t bhuvaneswaribhoopal/springboot-app-docker:${buildNumber} ."
+    }
+    
+    stage("Docker Push"){
+        withCredentials([string(credentialsId: 'Docker_Hub_Pwd', variable: 'Docker_Hub_Pwd')]) {
+          sh "docker login -u bhuvaneswaribhoopal -p ${Docker_Hub_Pwd}"
+        }
+        sh "docker push bhuvaneswaribhoopal/springboot-app-docker:${buildNumber}"
+        
+    }
+    
+    // Remove local image in Jenkins Server
+    stage("Remove Local Image"){
+        sh "docker rmi -f bhuvaneswaribhoopal/springboot-app-docker:${buildNumber}"
+    }
+	stage('update sed') {
+
+	sh " sed -i 's|version: .*|version: "${VERSION}"|' docker-compose.yml  "
+	}
+    
+    stage("Deploy to dockercomposefile in server"){
+        sshagent(['ba712971-de5c-4888-b1a9-ebec0810b511']) {
+		sh "chmod +x ~/docker-compose"
+            sh 'scp -o StrictHostKeyChecking=no  docker-compose.yaml ubuntu@172.31.40.60:/usr/local/bin/docker/docker-compose.yml'
+            sh "ssh -o StrictHostKeyChecking=no  ubuntu@172.31.40.60 docker-compose up -d"
+        }
+    }
+}
+
+============================================================================================================      
+
+Pieline-Springbootapp-Docker compose
+---------------------------------------
+
+
+node{
+   
+    def buildNumber = BUILD_NUMBER
+
+    stage("Git CheckOut"){
+        git url: 'https://github.com/Bankingzone/spring-boot-mongo-docker.git ', branch: 'master'
+    }
+    stage("Build Dokcer Image") {
+         sh "docker build -t bhuvaneswaribhoopal/springboot-app-docker:${buildNumber} ."
+    }
+    stage("Docker Push"){
+        withCredentials([string(credentialsId: 'DOCKERpwd', variable: 'Docker_hub_pwd')]) {
+          sh "docker login -u bhuvaneswaribhoopal -p ${Docker_hub_pwd}"
+        }
+   sh "docker push bhuvaneswaribhoopal/springboot-app-docker:${buildNumber}"
+    }
+    stage('update sed') {
+
+	sh "sed -i 's/VERSION/${buildNumber}/g' docker-compose.yml"
+	}
+	stage("Deploy to dockercomposefile in server"){
+	    sshagent(['ba712971-de5c-4888-b1a9-ebec0810b511']) {
+            sh 'scp -o StrictHostKeyChecking=no docker-compose.yml ubuntu@18.169.244.81:'
+         sh "ssh -o StrictHostKeyChecking=no  ubuntu@18.169.244.81 docker-compose up -d && docker ps"
+        }
+	    
+	}
+	
+}//nodeclosing
+
+Pipeline -- mavenwebapp-Dcoker compose
+======================================
+node{
+    def buildNumber = BUILD_NUMBER
+
+    stage("Git CheckOut"){
+        git url: 'https://github.com/Bankingzone/maven-web-application.git', branch: 'master'
+    }
+    stage("Build Dokcer Image") {
+         sh "docker build -t bhuvaneswaribhoopal/mavenwebapp:${buildNumber} ."
+    }
+    stage("Docker Push"){
+        withCredentials([string(credentialsId: 'DOCKERpwd', variable: 'Docker_hub_pwd')]) {
+          sh "docker login -u bhuvaneswaribhoopal -p ${Docker_hub_pwd}"
+        }
+   sh "docker push bhuvaneswaribhoopal/mavenwebapp:${buildNumber}"
+    }
+    stage('update sed') {
+
+	sh "sed -i 's/VERSION/${buildNumber}/g' docker-compose.yml"
+	}
+	stage("Deploy to dockercomposefile in server"){
+	    sshagent(['ba712971-de5c-4888-b1a9-ebec0810b511']) {
+            sh 'scp -o StrictHostKeyChecking=no docker-compose.yml ubuntu@13.40.117.133:'
+         sh "ssh -o StrictHostKeyChecking=no  ubuntu@13.40.117.133 docker-compose up -d && docker ps"
+        }
+	    
+	}
+	
+}//nodeclosing
+
+Docker-swarm notes:
+===================
+Create 3 Ubuntu Linux Systems in AWS Execute following commands 
+
+#!/bin/bash
+sudo apt-get update
+sudo apt-get install curl -y
+sudo curl -fsSL get.docker.com | bash
+sudo usermod -aG docker ubuntu
+
+Logout from the the terminal and login again
+
+Note: Make Sure You Open Required/All Ports in AWS Security Groups.
+
+======================================================================
+# Initialize docker swarm cluster by exeuting below command on docker server which you want make it as Manager
+
+docker swarm init 
+
+# Initialyze Docker swarm with Public IP
+Note: Don't use below(If restart your systems public ip will change will break your cluster) use above commond to initilaze cluster.
+
+docker swarm init  --listen-addr=eth0 --advertise-addr $(curl http://169.254.169.254/latest/meta-data/public-ipv4) (Only run in manager node)
+
+
+
+docker swarm join-token worker (Get the token in manager & exeute in nodes)
+
+
+======================================================================
+
+
+
+docker run  imageName --> It will create/deploy one application  in single machine  --> docker service create
+
+docker-compose up     --> To create/deploy mutiple applications in single mahcine   --> docker stack deploy --composefile docker-compose.yml
+
+
+
+Docker Swarm has two modes
+
+Global   --> All the nodes (3 servers 1 Manager + 2 Workers)
+Replicas --> It will deploye based on replicated number.
+
+
+
+
+docker service create  -p 8080:8080 --name javawebapp --replicas 2 dockerhandson/java-web-app
+
+# User constriants to create containers in specific docker hosts based on condtion
+docker service create  -p 8080:8080 --name javawebapp --replicas 2 --constraint 'node.role==worker' dockerhandson/java-web-app
+
+# Create a service with a rolling update policy
+docker service create --replicas 2  --name nginxservice  --update-delay 10s --update-parallelism 1  nginx:alpine
+docker service update --image nginx:latest nginxservice
+
+
+
+# Create a service with Volume mapping
+docker service create  -p <hostPort>:<containerPort> --name <serviceName> --replicas 1  --mount type=volume,source=<volumeName>,destination=<containerfolderPath> <imageName>
+
+# List Services
+docker service ls
+
+# List Services process
+docker service ps <servicenName>
+
+# Scale Services 
+docker service scale javawebapp=3
+
+docker service rm javawebapp
+
+
+# Add labels to node
+docker node update --label-add key=value <nodeid>
+Ex: docker node update --label-add server=nodeone qmdh9tgvdef99sryhbezswfl9
+
+#Use above label in constrainsts
+docker service create  -p 8080:8080 --name javawebapp --replicas 1 --constraint 'node.labels.server==nodeone' dockerhandson/java-web-app
+
+
+# Drain Nodes in Cluster(Swarm will not create containers in drained nodes)
+docker node update --availability drain <NodeID>
+
+
+# Stack Deploy
+
+version: '3.1'
+
+services:
+  springboot:
+    image: dockerhandson/spring-boot-mongo:latest
+    restart: always
+    container_name: springboot
+    ports:
+      - 8182:8080
+    working_dir: /opt/app
+    depends_on:
+      - mongo
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s      
+      restart_policy:
+        condition: on-failure   
+
+  mongo:
+    image: mongo
+    container_name: mongo
+#    ports:  # for demo/debug purpose only
+#      - 27018:27017
+    volumes:
+      - data:/data/db
+      - data-bkp:/data/bkp
+    restart: always
+    
+volumes:
+    data:
+    data-bkp:
+	
+=================================================================
+
+
+docker stack deploy --compose-file docker-compose.yml springmongo
+
+docker stack ls
+
+docker stack rm <stackName>
+
+# To come out of swarm execute below commond in worker node
+docker swarm leave
+
+# Remove node from Manager
+docker node rm <nodename>
+
+
+
+version: '3.1'
+  
+services:
+  springboot:
+    image: dockerhandson/spring-boot-mongo:latest
+    restart: always
+    container_name: springboot
+    ports:
+      - 8182:8080
+    working_dir: /opt/app
+    depends_on:
+      - mongo
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    volumes:
+      - data:/data/db
+      - data-bkp:/data/bkp
+    restart: always
+
+volumes:
+    data:
+      external: true
+    data-bkp:
+      external: true
+	  
+networks:
+  default:
+    external:
+      name: flipkartoverlay
+
+
+
+
+
+Docker-16:
+=========
+Docker-compose 
+----------------

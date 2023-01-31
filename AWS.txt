@@ -1,0 +1,861 @@
+28/11/22
+
+AWS:
+-----
+APPLICATION: Nothing but a piece of code
+
+GIT IS SCM
+SCM:SOURCE CODE MNAGEMENT
+
+what is the difference between scm and artifcat repositories?
+Ans)
+scm is only for the source code
+but packages we are going to maintain in nexus, Jfrog
+
+
+28/11/22
+Applications:
+-------------
+Application is solve somebusiness needs. 
+
+standalone application ---> EX:Caliculator, which is installed locally rinnning in system
+they are running locally, no need internet 
+
+
+webapplicaiton ---> remote servers, 
+ static applicaiton---> it is a fixed content, there is no interaction, no business logic, it is one way interaction, ex: wikipedia, new websites
+ GUI with no business content
+ fronT end technology: HTTP, CSS, JQUERY, JAVASCRIPT...
+ 
+ 
+ Dynamic web applicaiton---> 3-TIER ARCHITECTURE, 
+ 
+ 3-tier arcthitecture
+ 
+  presenation tier---> GUI graphical user interface
+  applicaiton  tier (API)--->Applicaiton programming interface
+  DATA tier --> data base, ex: sql, no sql base, document oriented database, oracle, my sql, postgre sql, sql servers
+ UI--USER INTERFACE
+ 
+ Interview part
+ *******************
+ Rest/SOAp API
+ 
+tO DEVELOPE THIS APPLCAITON WE NEED SERVER, INFTRASTRUCURE
+
+AWS ia all about infrastructure (compute, storage, newtwork, software and more)
+
+DevOps is a methodology or strategy to fill the gaps b/w devlopers and Operastions
+
+set of tools will be used in DevOps
+Continuous Integration
+continuous Deployment
+Continuous Testing
+Continuous Monitoring
+
+webservers come reverse proxy(LB)
+LOAD BALANCE
+httpd
+Nginx
+
+OOM KILLED--. Out of Memory KILLED--
+
+
+
+Linux
+Shellscript
+GIt/Github --> scm source code management, there are other scm like BitBucket, SVN,CVN,Azure repositories
+
+maven is a build tool--> this applcaiton be developed in JAVASCRIPT
+
+Build tools: Maven, Gradle, npm, MSBUILD ,pip
+
+Applciaiton server--> Tomcat java bsed webapplciaotn
+
+Tomcat like jboss, weblogic, webspehere very old legacy
+
+"Java is a opensource, it is first kind of a programmatic language, widely used by coompanies"
+
+
+source code /code quality/Static analyst --> SonarQube, Vera code
+Nexus --> Artifact repository>>>>to maintain build packages, for future usage, we can maintain multiple version
+
+
+
+CSP --> CLOUD SYSTEM PROVIDER
+
+ECS--> Elastic container service
+
+
+cloud service providers:  CSP
+-------------------------
+AWS--> Amazon web services
+Micosfot Azure
+GCP--> Google cloud platfom
+IBM cloud
+Oracle cloud
+Sales force cloud
+Digital Ocean
+Alibaba cloud
+
+cloud computing platforms
+
+MFA: Multi fact authentication 
+load balancing:
+--------------
+In computing, load balancing is the process of distributing a set of tasks over a set of resources, 
+with the aim of making their overall processing more efficient.
+
+
+
+on premiese data center:
+----------------------------
+the company it self maintaining the data centers
+
+mainatance, time cosuming, cost...
+
+latency , if we create application based on end user or customer or user place easy to access
+
+cloud services:
+
+on prmieses, IAAS,PAAS,SAAS
+Appliction
+DATA
+runtime
+middleware
+o/sc
+virtualization
+servers
+storage
+networking
+
+
+~/ .m2/repository/ --dependencies available in .m2 folder
+
+
+persistance storage EBS--
+INSTANCE STORAGE LIKE TEMPORARY STOTAGE
+
+
+
+
+aws USING citixzen and Nitro hypervisors they are using
+
+EKS--> ELASTIC KUBERNETES SERVER OR SERVICE
+EBS--> ELASTIC BEAN STACK
+ECS--> ELASTIC CONTAINER SERVICES
+
+AMI is preconfigure componenet coming with OS features
+
+"can you explain how to recover ssh access if it not in the system?"
+
+
+
+SDK: SOFTWARE Development KIT LIKE boto3,boto4
+
+Vendor Locking--> once the companies hapitual with cloud , it is bit tough to come out of it
+
+security;
+--------
+encrypt At rest
+encrypt At Trasit
+Network Security(Firewalls, PrivateNetworks)
+
+		
+
+
+
+
+
+ec2--> elastic computecloud
+virtual machine in AWS datat center
+
+vertical servers like t2.micro
+
+EBS--> Elastic block store
+
+POC: Proof of concept
+
+dedicated Host:
+---------------
+
+for a governence , for identification, lables
+
+
+
+Amazon web services:
+-----------------
+
+Database:
+-------
+Amazon DynamoDB
+
+Gateways:
+--------
+Amazon API Gateways
+
+Security:
+--------
+AWS IAM
+AWS KMS
+
+Messaging and Ques:
+------------------
+Amazon SQS
+Amazon SNS
+
+Compute:
+---------
+AWS Lambda
+
+Storage:
+--------
+Amazon s3--> OBJECT STORE
+EFS --. Elastic file store(file for linux (NFS))
+STORAGE GATEWAY
+EBS---> 
+FSX--> FILE STORE FOR WINDOWS (SMB)
+
+STORAGE tYPES:
+-------------
+Block Storage (SAN--> storage area network)
+File storage (NAS --NETWORK ATTACHED STORAGE )
+
+AWS KEY MANAGEMENT SERVICES(AWS KMS) 
+Customer master keys(CMK)
+
+EMPHEMERAL STORAGE: IT WON'T LAST LONG TIME--> COST WISE HIGH
+
+-----------------
+
+
+Network:
+--------
+Amzon VPC
+Amazon Route 53
+Elastic load Balancing: ELB
+
+Content Delivery:
+-----------------
+Amzon CLOUD Front
+
+Streaming Analytics:
+--------------------
+Amazon Kinesis
+
+user Management:
+-----------------
+Amazon Cognito
+
+Internet of Things:
+------------------
+AWS ioT
+
+Monitoring and Logging:
+-----------------------
+Amazon Cloud Watch
+
+Machine Learning:
+--------------------
+Amazon Machine Learning
+
+
+Regions choose closer to the customers, so there lowlatency , high performancy
+
+************************************
+
+EBS DEMO:
+-------
+
+ONCE Create the EBs Instance
+
+then 
+connect with linux
+lsblk
+sudo file -s /dev/xvdb
+sudo mkfs -t ext4 /dev/xvdb create new file system
+
+sudo mkdir /mynewvolume create a directory
+
+sudo mount /dev/xvdb /mynewvolume
+
+create a file inside the directory
+once we reboot data witll be lost
+
+
+for backup
+
+so execute " sudo cp /etc/fstab /etc/fstab.orig"
+ls /etc/ |grep "fstab"
+
+sudo vim /etc/fstab
+
+UUID=396a93cc-7908-4d47-9a52-44fda64d7663    /var/lib/jenkins   ext4    defaults,nofail        0       2
+
+make the above entry in that file
+
+ to unmount the data execute the below command
+"sudo umount /var/lib/jenkins"
+sudo blkid
+
+lsblk
+
+sudo mount -a, change to the /myvolume and execute this command
+*******************************************
+UUID=396a93cc-7908-4d47-9a52-44fda64d7663
+
+UUID=8771a838-46e3-4508-aabf-549b5db42fe3
+
+SAVE THE ABOVE ID IN "/ETC/FSTAB" FILE
+
+if we get permission denied at any point change the owner of the server--
+
+"sudo ls -lar /var/lib/jenkins/"
+
+"sudo service jenkins start"
+"sudo service jenkins status"
+
+" sudo netstat -tunlp "
+
+once change the volume in instance execute below command
+" sudo resize2fs /dev/xvdf"
+
+df -kh
+
+
+lifecycle management
+using this we can creation, retain, de;lete as well as amis also
+
+as per the policy AWS will document
+
+
+
+migration
+
+means the data will copy to one server to another server region
+
+i can taje a snapshort and from that snapshort i can create a volume and create one ec2 to that particular instance to where i want to move
+
+to that instance i can attach that volume
+
+goldenimage:
+-------------
+My AMI , whcihh we create for our own with required software, it is called goldenimage
+
+
+sudo file -s /dev/xvdb
+
+sudo mount /dev/xvdb /var/lib/jenkins
+
+snapshort 
+backup --> restore
+migrate
+
+we can take sql back up 
+
+like /var/lib/sql
+same like jenkins
+
+instance back up if i select immage, it will take snapshort of root volume and additional volume
+
+create AMI is different , instance backup is different
+
+
+provisioned IOPS io2(supports multi attached EBS volumes)
+
+
+throughput data can transfer MB/SEC
+
+ssd data trasfter IOps
+
+EFS: -->ELASTIC FILE SYSTME NFS PROTOCOL
+---
+fsx --> IT'S FILE STORE FOR WINDOWS ( SMB) protocol both are NAS
+
+
+
+
+
+" for example IF WE WANT TO START THE JENKINS, U CAN;T START THE JENKINS AS ROOT USER
+SO CHANGE THE OWNER
+CHOWN -R jenkins:jenkins -R /myvolume
+
+if it is jenkins file or someother please use some other name instaed of jenkins
+
+
+" AWS SHANPSHORT STORE IN S3 BUCKET BUT IT IS NOT VISIBLE"
+
+
+
+ps -ef | grep "jenkins"
+ 
+
+AWS RDS(Relational database services)
+
+12/12/22 - AWS -12
+ELS
+AUTOSCALING
+
+EFS--> eLASTIC FILE SYSTEM
+NFS--> NETWORK FILE SYSTEM
+
+WITHOUT 
+
+VPC:
+----
+
+WITHOUT NETWORK WE CANNOT CONNECT WITH EACH SERVER COMMUNICATE
+
+PAN: personal area network
+LAN: local area network
+WAN:wide area network
+MAN:metropolitan area network
+
+
+Statefile will maintain in Local,instead of using local backend for terraform state file, stored in remotebackend s3 bucket, 
+
+s3 is a global Resource. You can access data from anywhere.
+
+How many s3 buckets can create in one AWS accoint by default?
+100 s3 buckets (Adjustable-yes)
+what is max file size in s3 which you can upload/store?
+
+5TB single file
+5000gb (it is not adjustable), hard limit
+
+you no need to mount s3 to any server to upload/access objects(data)
+
+with your mounting you upload /download/access objects from s3.
+
+using GUI (aws console), API, SDK(software development kit, like boto, boto3), CLI.
+
+
+AWS s3 ls
+
+aws s3 mb s3://testbucket23
+aws s3 cp test.txt s3://tesbucket23/test.txt
+aws s3 cp  s3://tesbucket23/test.txt test.txt
+
+from GUi there is only 165 gb is allowed not moe than that
+
+403 is forbidden
+404 page not found
+401 unathuorized
+400 bad request
+
+
+s3 security:
+-----------
+Public access
+ACL--> Access control List (legacy)
+Bucket policies
+
+if we want to make it public enable the ACL policy, so everyone can access, but it is not good practise, AWS it self mentioning,
+
+BUCKET POLICIES ARE IN THE FORM OF JASON
+
+WHAT IS ARN: AMAZON RESOURCE NAME, it is a unniue way to identify any AWS resources
+
+arn:aws:s3::::bhuvanabuckets3demo/* here * for all the objects
+
+here AZ and region are optional
+
+* represents ananymous access
+
+action is nothing but permission, in jason format s3 bucket
+
+
+AWS -11  s3 versioning
+--------
+s3 versioning:
+--------------
+
+In s3 if we enable the VERSIONING  and upload the file, previous versions of the files also maintain by S3
+that means, if i upload a file , and did some changes in file and again upload, the bith files i can see in s3 only if i enbla eth everison
+
+if i didn't enable the vreiosning , i upload a file, and later if i do any changes and again if i upload the file, the new file is going to override on the old file , like how we save the files in system.
+
+
+charges in s3:
+--------------
+charges is based on the size of the object or data, and based on the storage class, in which we are manning or storing.
+and also the availablity and durablity of the data.
+
+BY DEFAULT S3 MAINTAINT THE DATA IN "STANDARD"
+Advantages are the performance . data is highly available, but frequently acceesibile, quickly retrivabla
+
+
+for ex:
+storage classess:
+---------------- 
+standard storage
+standard IA (IN FREQUENT ACCESS)
+one zone IA 
+RRS
+Glacier: Archival DATA means backup or historical data, maintain the old data in glacier with low cost but, while retrieving charges are bit high
+
+instant glacier , are the cheapest storage in s3
+deep glacier
+
+RRS: Reduced Reduncy STORAGE, there is a possiblity to lose the DATA
+
+Non-critical, Repoducable data only allowed to main in RRS
+
+standard storage:
+------------------
+standarad:  --> quickly or Frequently acceeble DATA and highly available but charges are bit high.Az is 3
+IA --> THE data whoch is not accessing frequently, we can maintain in IA, under this IA
+STANDARD IA --> CHARGES LESS, multiplr AZ, retrieving is little less.
+ONEZONE IA --> one copy of data one AZ
+
+
+
+
+Always default is STANDARD STORAGE
+
+
+RRS: Reduced Reduncy STORAGE --> there is a possiblity to lost the DATA
+----
+99.999999999% highly availbale S3 SLA
+
+ONLY Non-critical REPRODUCABLE Data is only allowed to maintain in RRR
+(REPRODUCABLE Means eventhough we lost we can reproduce again.)
+Az is 3
+
+Glacier: is  a archival or retrival data
+-------
+For security purpose we need to maintain last 5 or 10 yrs dATA, WE CAN MAINTAIN IN THE gLACIER WITH LOW COST.
+
+BuT WHEN WE accessing the data, charges are bit high, and retrival time also taken bit latency
+Az is 3
+
+s3 bucket can acceble from same account same region, same account different region.
+
+ReplicationRule: s3 bucket can acceble from 
+----------------
+Same account same region
+Same account diff region
+Different account same region
+dIFF ACCOUNT DIFF REGION
+
+SYNCHORNUS COpying immediately
+Asynchrnous not copying immediately
+
+
+"snowball is a divice physical transfer the data, they copy the datat and move the datat to s3 .
+
+
+
+
+
+example of s3 datamaintains:
+--------------------------
+First 30 days the data will be in standard
+After 30 days of object certain it has to be in RRS or IA or gLACIER 
+After 360 days Object has to be deleted from s3
+
+it calls as  a "Object life cycle"
+
+
+
+
+
+
+
+AWS -12
+-------
+VPC--> networking
+Subnet---> eVERY SUBNET HAVE ITS OWN ROUTER, 
+IGW --> INternet gate way which is virtual router enable the internet connectivity, one vpc attached to one IGW
+RT --> IN route table define network routing
+NAT
+NACL
+VPC Peering
+
+tYPES OF Networks
+LAN --> Local area network
+MAN ---> Metropolitan Network
+WAN --> Wide Area NETWORK
+PAN--> Personal Area NETWORK
+
+vpc creating for our own is called custom VPC
+
+VPC is a network creating in your local aws console
+
+SUBNET IS A BREAK OF BIG NTWORK INTO SMALL GP OF NETEORK
+
+1)public subnet --> access to the or route to internet call public subnet
+2)private Subnet ---> doesn't have accee or don't have route to the internet called private subnet, only reach within the network, not outside, it is secure
+
+
+while creating a VPC we should define the network /IP range IN THE FORM OF CIDR
+
+Class Less Interdomain Routing. It's method for allocting IP adress and it's routing for ptivate networks.
+172.31.0.0/16
+
+IPV4--> 32 BITS
+ 32-n
+2
+
+total 0-65532 ip adresses available
+
+172.31.0.0/28
+  32-28   4
+  2    = 2  = 16
+  
+  we are only allowed to give the IP from  16-28
+172.31.0.0/16 TO  172.31.0.0/28 ONLY
+
+  32-24 8
+  2  = 2 =256
+  
+  CLASS a from 0 --> 126
+  0.0.0.0 
+  
+  127 considered as a loop back address
+class A 0.0.0.0 ---> 126.255.255.255
+
+class B 128.0.0.0 ----> 191.255.255.255
+
+class C 192.0.0.0 ---> 223.255.255.255
+  
+class D 224.0.0.0 ---> 239.255.255.255
+
+class E 240.0.0.0  ---> 254.255.255.255
+
+
+Visual Subnet Calculator
+
+CLASS E RESERVER FOR RESEARCH AND DEVELOPMENT PURPOSE 
+
+CLASS A & B WE ARE SUING WHILE CREATING VPC IN CLOUD
+
+
+RFC 1918 ADRESS IT IS PRIVATE IP
+
+
+10.0.0.0 -->10.255.255.255
+
+172.16.0.0 --> 172.31.255.255
+192.168.0.0 ----> 192.168.255.255   THESE ALL ARE PRIVATE IP RANGES
+
+THESE ONLY RESERVED FOR INTERNAL HOST
+
+
+EACH VPC have 3 subnets in multiple AZ, if we create all subnets under one AZ , in natural disaster it is not recommended.
+
+
+there are 2 type of subnets:
+---------------------------
+public subnet has route to the internet
+private subnet there is no route to the internet, it is called intranet
+
+
+How to create own vpc and connect with internet:
+-----------------------------------------------
+click on my own vpc, create one new vpc
+
+clikc on subnets in different availability zones , use sunbet calculator to divide subnet
+
+main vpc between the range of 172.16.0.0 --> 172.31.255.255
+
+choose something like 172.16.0.0/25
+                                32-n   32-25
+always follow the formula      2     = 2
+
+go to route tabel and create own routable , go to vpc click on edit vpc, slect, enable DNS actions
+
+go to subnets click on edit subnet actions enable "Enable auto-assign public IPv4 address"
+
+" select route under subnet edit the boud rule add new rule with all port number allowed , like . 0.0.0.0/0 and save
+
+go to route table create one new route table, select my own vpc(which i created)
+create IGW in internet gatway, attach that internet gate to "my vpc", and go to route table, select the subnets, what we are created from new vpc
+
+click on route, add, 0.0.0.0/0 and select gateway, then oue new igw id will display which we connected with myVPC, CONNECTE TO THAT AND SAVE
+
+
+under route table, select, route, add inbound rule, to allow intranet connection
+under route table , select, subnet associtaion, add subnets whatever we create our own under vpc with different AZ , add that all subnets under "route"
+
+create one NEWINSTANCE, take the public IP AND OPEN THE SERVER IN MOBAXTE
+
+How many VPC can be created by defaukts in each AWS region?
+5
+check in AWS service QUota
+
+
+
+
+
+"visual subnet calculator"
+
+
+AWS -14
+--------
+END user access the applciaiton via "load balancer"
+
+"applicaiton  SERVERS IN PRIVETAE SUBNET"
+
+
+"Data BAse server alos in private subnet , they both talk because they are in same private adress"
+
+curl -v telnet://private ip
+NAT: NETWORK ADRESS TRANSLATE
+
+bY adding the NAT ROUTE in ROUTE table where we can access to the private subnets, private servers talk to the NAT and nat will talk to the INternet
+
+"create NAT in public subnet, then private subnet contact NAT and NAT contact internet"
+
+NACL --> Network access controll List
+what is difference b/w NACL & SG ?
+sg -> fire wall at instance server level
+IT;S A SATEFUL
+IT SUPPORTS ALLOW RULES, BY DEFAULT BEHAVIOUS IS DENIED OF ALL THE RULES
+
+NACL --> IT'S A FIREWALL AT SUBNET LEVEL
+IT'S  A STATELESS
+IT SUPPORT ALLOW RULES AS WELL AS DENY RULES
+IT IS ONE MORE LEVEL OF SECURITY
+
+NAT :
+-------
+
+NAT--> network adress traslator, By creating a NAT gateway, private subnets can talk to internet, this is only one way connection.
+
+create NAT in public subnets.
+(NAT gate way IP adress 192.168.0.21)
+create separate route table for NAT. AND ADD THE PRIVATE SUBNETS IN THAT ROUTE TABLE
+
+
+Private subnets, don't have internet activity, they have only local connection, in between the subnets, by creating NAT in it can talk to internet.
+
+AWS have some API'S to upload, down load the files in S bucket.
+
+in VPC peering open the port icpm 
+
+DEVELOPMENT HAS ONE VPC
+OPERATIONS HAS ONE VPC
+QA HAS ONE VPC
+
+IF THEY WANT TO CONNECT EACH DEPARTMENT WE WILL CREATE "VPC PEERING"
+
+FOR PIING NEED TO OPEN THE POTOCOL LIKE !icmp! for all th esources
+-------------------------------------
+NACL: NETWORK ACCESS CONTROLL LIST:
+-------------------------------------
+Security gp is a fire wall at instance level. It can allow network traffic, all the port are open in otbound rules, not inbond rules, we ahve to opne the port for inbound traffic.
+
+SG : is a fire wall at instance or server level, it is stateful, whatever the port we are allowing , it allows the reposnse both inbond and outbound.
+It spports allow rules.By default everything is denied only.
+
+
+NACL is alos a fire wall,at subnet level. It is a stateless, if we open port in inbound , explicitly we have to opne that port in outbound also.
+It supports allow rles and deny rules.
+
+NACL is a one mor elevel of security.
+
+
+vpc peering:
+--------------
+Requester VPC--
+Accepter VPC
+
+WE CAN vpc PEERING B/W two different VPCs
+
+Those vpcs in same account same region
+Those vpcs in same account different region
+Those vpcs in different account same region
+Those vpcs in different account different region
+
+
+
+Load balancer: is a process distribute the load among the servers.
+--------------
+In production environmaent will deploy same applicaiton in multiple servers, for high availablity , like bank, online orders..
+
+
+
+software load balancers:
+-----------------------------
+
+Nginx
+Apachehttpd
+haproxy
+
+HardwareLB:
+----------
+Citrix
+F5
+
+"HYPERVISOR IS USED FOR INSTANCE CREATE A VIRTUAL MISSIONS TO DO THE VIRUALIZATION"
+
+due to network scurity, we access the applicaiton through proxy urls
+
+end users are from internet that mans public network, i have the LB in public network, i can create LB with public IP, request goes to LB,
+
+"LB and applcaiiton are same networks, "
+
+"subnets for environment are different are all the environments under same network, it can work internally connect internally"
+
+
+
+osi layers: open system interconnection describes 7 layers
+one system can talk to another system through network
+
+WHAT IS NETWORK LB AND APPLCAITON LB?
+"LAYAER 4 NETWORK LB blindly send the request to some server and some port", LESS LATENCY, HANDING MILLIONS OF REUESTS PER SECOND
+IT SUPPORTS TCP/UDP
+
+"Layer7 IS ApplIcatIon LB send the request send and it operates at the request level, host based routing, path based routing like that "
+IT SUPPORTS HTTP/HTTPS PROTOCOLS
+
+ELB:
+             80  443
+NETWORK LB (TCP/TLS ---> Layer 4)
+                80   443
+applcaiton LB (HTTP/HTTPS ---> LAYER 7)
+
+CLASSIC IS LEGACY(OLD), IT SUPPORTS BOTH LAYER 4 AND 7 N AND A
+
+
+ELB Listeners:
+--------------
+ELB should have atleast one listerner
+
+ex: tcp --> 80, INSECURE GOES TO 80
+
+tlc --> 443, SECURE GOES TO 443, USE PORT ALSO ALONG WITH IP ADRESS OR DOMAIN
+
+we can add upto 50 listerners, 
+
+Target groups:
+---------------
+TCP 80 ---> FORWARD REQUEST TO SOME TARGET GP
+
+IT'S LOGICAL GP OF THE TARGET BEHIND THE LB
+
+"SINGLE TARGET GP CONTAINS UPTO 1000 SERVERS ALSO WE CAN ADD"
+
+
+each LB WILL HAVE ATLEAST ONE LISTENER LIKE PORTNUMBER 80
+
+HEALTH CHECKS ALLOW traffic to shifted to the another servers. ELB perfomrance health checks, shfited the traffics from failure instances, something went wrong, network issue, server down, LB stop to send the traffic to that server.
+
+
+ELB HAS LISTERNS, 
+LISTERNERS HAS ROUTING RULES
+ELB DO THE HEALTH CHECKS ALSO,
+
+Interview qestion:
+-----------------
+ELB is a regional service. ELB distribte application reqest to mltiple targetss(services(EC2)) those can in 
+different AZ bt in a same region
+
+CIDR: CLASSLESS INTERNAL DOMAIN ROUTING
+
+IF WE WANT TO SE PING OPEN THE PORT "ICMP"
+AWS- 17
+-------
+Target gp listern if it is tomcat port number must be 8080
+

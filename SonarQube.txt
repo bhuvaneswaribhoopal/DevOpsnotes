@@ -1,0 +1,671 @@
+[root@ip-172-31-34-182 jenkins]# vi credentials.xml
+
+SZ101526C NI number
+ID C8131864168 -DBS ceritificate number:001806855104
+
+
+sonarqube login:
+username:admin
+password:passw0rd
+
+error "removed stale pid file : ./SonaQube.pid", remove the /tmp/ directory 
+rm temp directory
+
+"sudo rm -rf temp"
+
+to enable sonarqube service to start
+we can create one soft link file and add the parametera mentioned below.
+Create SonarQube server as a sonar service
+--------------------------------------------------------
+
+ln /opt/sonarqube/bin/linux-x86-64/sonar.sh /etc/init.d/sonar
+
+vi /etc/init.d/sonar
+
+#add below lines in /etc/init.d/sonar
+
+SONAR_HOME=/opt/sonarqube
+PLATFORM=linux-x86-64
+
+WRAPPER_CMD="${SONAR_HOME}/bin/${PLATFORM}/wrapper"
+WRAPPER_CONF="${SONAR_HOME}/conf/wrapper.conf"
+PIDDIR="/opt/sonarqube/"
+
+#Enable the sonar service
+sudo systemctl enable sonar
+
+#Start the sonar service
+sudo systemctl start sonar
+
+#Check the status of the  sonar service
+sudo systemctl status sonar
+
+
+SonarQube:1
+------------
+SonarQube is a code quality Mangement tool, we check the code.
+
+when developers will do peer ro peer code review
+
+"among themselves they check or do the code review, it is called peer to perr code review."
+
+SonarQube is a static code analysis tool
+and code Quality management tool., it used to check the Quality of the code.
+
+code coverage:
+-------------
+How many lines of code tested by unnit test code.
+
+Source code
+Unit Test cases
+Build script
+
+Frameworks:
+-------------
+Java--> Junit
+.Net --> Nunit
+c--> cunit
+c++--> cpp unit
+Python --> Pytest frmawork
+
+for example in in a file "EnmployeeserviceTest.java"
+
+if there is 1000 line of code, if tester test 950 lines, then we can say, it is 95%of code coverage done.
+
+"node js , angualr, it is possible to do 100% unit test case code."
+
+Mavne/Ant/Gradle/Tomcat/Webapllciaiton service/
+
+SonarQube/Nexus/Kenkins ----> Java
+
+THESE THree tools build with java, but it supports multiple languages.
+
+SonarQube have inbuild data base called "H2", WE DON'T NEED TO INSTALL ANY EXTERNAL DATABASE LIKE SQL, POSTGRE, ...
+
+ExceptionalHandling Mechanisn:
+-----------------------------
+try
+catch
+finally
+throw
+throws
+what is SonarQube?
+SonarQube is a Code Quality management tool, which can be used to check the quality of the source code.
+
+INtsall SonarQubeserver:
+-------------------------
+ prerequisites
+ 
+ Java 8 
+ My Sql DB optional
+ Oracle 11g onwards-optional
+ 
+ we are giving input as a source code to scanner, and scanner genearte repost to sonarqube server
+ 
+ SonarQube classifies the report as 3 categiries:
+ -------------------------------------------------
+ Bugs
+ vulnarability
+ Sourcecode
+ 
+ Build tools:
+ ------------
+ Ant
+ Gradle
+ Maven
+ 
+ 
+ veracode
+ SonarQube
+ HP Fortify
+ 
+
+SonarQube:2 
+-----------
+Jav-11
+SonarQube 9.x
+
+mini 2GB ram need to allocate to the SonarQube server
+1 GB ram for operating system
+instance tpe is t2.medium
+
+#Install sonarube:
+-------------------
+Note --> root --> we are suppose to not run SonarQube as root user
+
+when u change the instance tye server should be in stopped state
+
+"serach in , sonarube documentation"
+cd /opt/
+install wget
+wget url to download sonar
+unzip
+mv sonarqube-9.5.0.56709 sonarube
+ls
+useradd sonar
+vi sudo
+sonar ALL=(ALL) NOPASSWORD:ALL
+chown -R sonar:sonar /opt/sonarqube
+chmod -R 775/opt/sonarqube
+
+configuration file : sonar.properties, to change port number and some configuration.
+and also we use server,xml in mvn to change sonar properties
+
+cd /opt/sonarqube
+ls
+cd /bin/
+cd linux-x86-64
+ls
+sh sonar.sh start
+sh sonar.sh status
+
+if any erro, cd logs
+cd sonar.278940.log, there we can see sonar is running or not
+
+sonar run with port : 9000
+jenkins:8080
+tomcat:8080
+
+defaultcredentails
+username:admin
+password:admin
+
+
+#install maven to use settings.xml and pom.xml:
+-----------------------------------------------
+mvn build tool , to update sonarube server details
+sonar <url>
+sonar <username>
+sonar <password>
+start mvn server
+cd /projects
+cd maven-web-application/
+vi pom.xml
+after update all details
+
+execute "mvn clean sonar:sonar"
+
+first sonar: plugin name
+second sonar: goal name
+
+based on the file extention, sonar will create the "code quality report"
+
+bugs and volunarbility should make it zero
+to check issues, select on issue, by reading that msg we can understand how to fix it.
+
+By best practosing, we are going generate sonarube, to connect and execute the server and report
+
+How to genearte token:
+-----------------------
+in sonarqube page
+Administartion
+security
+users
+click on barcode icon
+
+admin on right corner
+my account
+security
+username: sonarube token
+select, user toke, click on generate
+copy it and save somewhere
+
+delete the password tag
+<sonar.login> and paste the token in pom.xml</sonar.login>
+
+and excute sonarqube report
+
+"mvn clean package"
+
+sonarqube support for other languages also
+
+"if we used custom name to pom.xml, while running the command"
+use "mvn clean sonar:sonar -f custom name of pom.xml"
+
+for enterprise applcation use -p option to excute reort only for applcation
+
+
+
+nodejs sonar report:
+--------------------
+nodejs is a advanced java frameworked application
+
+in maven server
+cd /projects
+first git clone "and nodejs git url"
+cd nodejs-app-mss
+vi sonar-project.js
+update sonar "server url" inside http://ipadress:9000/
+
+<sonar.login>upate new token </sonar.login>
+
+
+Maven java           Node js
+-----------         ----------
+mvn sonar:sonar   npm run sonar or npm sonar.project.js
+pom.xml           package.js (to update configure details)
+mvn package       npm install (node_module directoy all the dependencies folder)
+(all dependencies
+download
+in maven local directory)
+
+
+node js porject doirectory path : nodejs-ap-mss (as per mithun tech git clone)
+
+npm install
+"yum install nodejs -y"
+npm -v
+or
+node -v
+
+in node js app, whatever the "alias" name we are given that name we have to configurate
+
+npm run sonar
+in package.js , have to install the dependecies 
+"install npm" or npm install
+
+"it is going to download in node js repository"
+
+
+SonarQube:3
+-----------
+cd /opt/sonarqube/bin/linux-x86-64/
+to start the sonar
+sh sonar.sh start
+sh sonar.sh status
+
+swithc to sonar user
+
+sudo su - sonar
+
+check the logs if sonar is not runnig
+
+cd /opt/sonarqube/logs
+
+less sonar.lastupdated date.log
+ls
+cd temp/
+cd conf/
+ls
+elasticserach.yml
+
+change the own or remove the tmp directory
+
+sudo rm -rf temp/
+ls
+cd bin/
+
+if we are using public ip in pom.xml, other wise everytime will get error.
+
+go to maven , open,
+cd /project/maven-web-application
+
+mvn clean soanr:sonar
+
+
+if we update private IP we won't get error
+
+
+By using sonar cube, developer create a uality report, whatever the rules needed in that report.
+
+using defallt quality profile, we can use custom rles.
+
+go to rules tab, and create Qality profile.
+
+give project name,
+Language java,
+
+GO TO Activate mode, randomly add, and save
+
+go to projects:
+
+Deprecated rules, this rules is not going to support.
+
+
+Qality gate:
+-----------
+aDD CONDITIONS,
+SELECT, ON OVERALL Code, if the code coverage is less than 80% add as a failure.
+
+jenkins server with SonarQube server , check mithun videos
+
+single sign of Authentication
+
+Gmail
+Google Derive
+Youtube
+
+MFA
+Multi factor Athentication
+
+MFA is a two step authenentication
+
+click on Configuration
+
+select Language
+based on extention, it will separate the code
+
+we can create our own users , by clicking create users
+
+give admin access by click security
+----------------------------------
+login as admin user
+click on Administration
+
+click on users
+then add the user by click the bar code, ,click on all, enable check box
+
+SonarQube spports nearly 18 Languages
+
+
+There are different types of Editions are there,
+--------------------------------------------------
+community
+Developer
+Enterprise
+Data Center, based on the selective Language we can choose the Edition.
+
+Sales force they will use Apex, it is A PROGRAMMIN languagesUsed in Saled force
+
+
+"SonarQube sever with poastgrey sql , Mithun tech videos"
+
+SonarQube , conf file is sonar.properties
+
+SAAS- 
+sonarsource.com/bhuvi-devops-course/maven-web-application
+freee sonar
+click on sonarcloud
+
+
+by click the GIThub accont we can accesss sonarqube 
+
+to see others report
+click on Explore
+
+click on Activity to see full History
+
+How to use sonar cloud, to integrate with sonarqube, check Mithun Tech videos
+
+change the port number in SonarQube
+-----------------------------------
+conf
+sonar.properties, change the port number or uncomment
+
+cd ../bin/linux-x86-64
+sh soanr.sh restart
+
+sh sonar.sh status
+
+By sing the netstat, we can check the port used by others or not
+
+
+
+Jeknins notes:
+--------------
+
+
+Project ?
+A logical way to describe a workflow that Jenkins should perform, such as building an
+application. This description includes the definition and configuration of the automated tasks.
+
+Job is a deprecated term and is synonymous with Project.
+
+Build ?
+The result of a single execution of a project, including its runtime logs and output artifacts.
+This term comes from Jenkins' origins as a software build server.
+
+Step ?
+A single task to perform inside a project.
+Stage
+
+A subset of steps with a common objective.
+
+Workspace ?
+
+The working directory where Jenkins executes projects. In this folder, project executions store
+data that is either temporary, or reused between multiple project executions of the same
+project.
+
+Node?
+
+A machine, or a container capable of executing projects.
+
+Jenkinsfile ?
+
+A Jenkinsfile is a file including a set of instructions for automating project tasks. This file is
+usually checked in the source control system.
+
+Build Statuses ?
+
+The execution of the project ends with the assignment of a state to the build. This status helps
+you understand the condition in which the project execution ended. A build can end in one of the
+following states.
+
+Aborted -- The execution was interrupted by a user, or a time-out.
+Failed -- The execution ended abruptly because of some fatal error. For example, when an application does not compile.
+
+Successful -- The execution finished without fatal errors.
+Stable -- The execution was successful and without non-fatal errors.
+Unstable -- The execution finished successfully but with one or more non-fatal errors. For example, when a pipeline execution ends successfully, but the style check stage failed.
+
+stage('UploadArtifactintoNexus')
+{
+sh "${mavenHome}/bin/mvn deploy"
+}// copied from jenkinsfilesepbatch2022
+
+
+
+pipeline -Scriptedway (groveyscript)---successful
+------------------------------------------------------
+
+
+node{
+
+def mavenHome = tool name: "maven 3.8.6"
+
+ehco "Build number: ${env.BUILD_NUMBER}" 
+//ehco "Job name is: ${env.JOB_NAME}"
+ehco "Node name is: ${env.NODE_NAME}"
+
+
+properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '5', daysToKeepStr: '', numToKeepStr: '5')), [$class: 'JobLocalConfiguration', changeReasonComment: ''], pipelineTriggers([pollSCM('* * * * *')])])
+
+try{
+sendslacknotifications("STARTED")
+stage('CheckoutCode'){
+git branch: 'development', credentialsId: 'f6ab9cf8-44b5-40c9-9039-dd590d6db530', url: 'https://github.com/bhuvi-devops-course/maven-web-application.git'
+}
+
+stage('Build'){
+sh "${mavenHome}/bin/mvn clean package"
+}
+
+stage('ExecuteSonarQubeReport'){
+sh "${mavenHome}/bin/mvn sonar:sonar"
+}
+stage('UploadArtifactintoNexus')
+{
+sh "${mavenHome}/bin/mvn deploy"
+}
+stage('DeployAppintoTomcatserver'){
+sshagent(['c45c84b6-58f3-4971-a32b-5a90a17cbe0b']){ 
+sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@172.31.25.205:/opt/apache-tomcat-9.0.68/webapps"
+}
+}
+}//try closing
+catch(e){
+currentBuild.result = "FAILURE"
+}//catch block closing
+finally{
+sendslacknotifications(currentBuild.result)
+}//finally closing
+
+}//node closing
+
+
+def sendslacknotifications(String buildStatus = 'STARTED') {
+  // build status of null means successful
+  buildStatus =  buildStatus ?: 'SUCCESSFUL'
+
+  // Default values
+  def colorName = 'RED'
+  def colorCode = '#FF0000'
+  def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
+  def summary = "${subject} (${env.BUILD_URL})"
+
+  // Override default values based on build status
+  if (buildStatus == 'STARTED') {
+    colorName = 'YELLOW'
+    colorCode = '#FFFF00'
+  } else if (buildStatus == 'SUCCESSFUL') {
+    colorName = 'GREEN'
+    colorCode = '#00FF00'
+  } else {
+    colorName = 'RED'
+    colorCode = '#FF0000'
+  }
+
+  // Send notifications
+  slackSend (color: colorCode, message: summary, channel: "#jenkinsbuild-notifications")
+}
+
+
+
+Pipeline-Declarativeway script
+-------------------------------
+pipeline{
+
+agent any
+
+tools{
+maven "maven 3.8.6"
+}
+
+stages {
+stage( 'CheckOutCode') {
+steps {
+git branch: 'development', credentialsId: 'f6ab9cf8-44b5-40c9-9039-dd590d6db530', url: 'https://github.com/bhuvi-devops-course/maven-web-application.git'
+}
+}
+
+stage('Build') {
+steps {
+sh "mvn clean package"
+}
+}
+
+stage('ExecuteSonarQubeReport') {
+steps{
+sh "mvn clean sonar:sonar"
+}
+}
+	
+stage('DeployAppintoTomcatserver'){
+steps {
+sshagent(['ff61688b-9b73-457b-adc5-07fa2868c256']) {
+sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@172.31.25.205:/opt/apache-tomcat-9.0.68/webapps/"
+} 
+}
+}
+}//stages closing
+post {
+  aborted {
+    // One or more steps need to be included within each condition's block.
+	sendslacknotifications(currentBuild.result)
+  }
+  success {
+    // One or more steps need to be included within each condition's block.
+	sendslacknotifications(currentBuild.result)
+  }
+  failure {
+    // One or more steps need to be included within each condition's block.
+	sendslacknotifications(currentBuild.result)
+  }
+}
+}//pipeline closing
+//slack notifications
+def sendslacknotifications(String buildStatus = 'STARTED') {
+  // build status of null means successful
+  buildStatus =  buildStatus ?: 'SUCCESS'
+
+  // Default values
+  def colorName = 'RED'
+  def colorCode = '#FF0000'
+  def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
+  def summary = "${subject} (${env.BUILD_URL})"
+
+  // Override default values based on build status
+  if (buildStatus == 'STARTED') {
+    colorName = 'YELLOW'
+    colorCode = '#FFFF00'
+  } else if (buildStatus == 'SUCCESS') {
+    colorName = 'GREEN'
+    colorCode = '#00FF00'
+  } else {
+    colorName = 'RED'
+    colorCode = '#FF0000'
+  }
+
+  // Send notifications
+  slackSend (color: colorCode, message: summary, channel: "#jenkinsbuild-notifications")
+
+   //slack notifications
+   
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@172.31.25.205:/opt/apache-tomcat-9.0.68/webapps"
+}
+
+
+
+
+
+
+
+pipeline{
+
+agent any
+
+tools{
+maven "maven 3.8.6"
+}
+
+stages {
+stage( 'CheckOutCode') {
+steps {
+git branch: 'development', credentialsId: 'f6ab9cf8-44b5-40c9-9039-dd590d6db530', url: 'https://github.com/bhuvi-devops-course/maven-web-application.git'
+}
+}
+
+stage('Build') {
+steps {
+sh "mvn clean package"
+}
+}
+stage('DeployAppintoTomcatserver'){
+steps {
+sshagent(['ff61688b-9b73-457b-adc5-07fa2868c256']) {
+sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@172.31.25.205:/opt/apache-tomcat-9.0.68/webapps/"
+} 
+}
+}
+}//stagesclosing
+}//pipelineclosing

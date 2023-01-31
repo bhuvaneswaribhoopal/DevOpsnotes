@@ -1,0 +1,855 @@
+Desirable skills in as many of the following as possible
+• Azure / AWS
+• Ansible
+• Terraform / Terragrunt
+• Azure ARM Templates
+• AWS Cloud Formation / Code Star
+• Docker / Kubernetes / AWS EKS
+• Jenkins
+• Confluence
+• Jira / ServiceNow
+• AWS CloudWatch / CloudTrail
+
+We have clients currently looking for strong skills in Terraform, Terragrunt, JFrog, Gitlab, ADO & Jenkins.
+
+Required qualifications to be successful in this role
+
+• A good working knowledge and competence in Agile.
+• Passionate about automation and continuous improvement.
+• Extensive and detailed understanding of automation technologies (such as build, configuration, test, deployment, delivery, monitoring)
+• A systematic and thorough approach to work; identifying deficiencies, while also maintaining a balance between process adherence and pragmatism, engaging with the project team accordingly to maintain this balance.
+• Trusted to represent CGI professionally.
+• AWS/Azure certifications desirable.
+
+
+IAM: AWS identity and Access management (IAM)ENABLES YOU TO manage access to AWS services and resources securely.
+
+
+Nexus: 1
+-------
+Nexus is an open source Java based artifact repository.
+
+Nexus is developed by using the Java, to install Nexus , first install the Java
+
+it can used to store the Build artifacts,
+
+Build Artifacts or Packages:
+----------------------------
+Build artifacts are the where we create dependencies
+
+Java--> jar/war/ear
+Nodjs --> Npm packages
+Docker --> Docker images
+
+based on the programming language artifacts are different.
+Nexus can be used to store the build artifacts and retrieve the build artifacts whenever we required.
+*******
+Q)what is the difference between Nexus and Github?
+Ans) Github we can store the source code, it is an scm, to manage the source code.
+If we store artifacts packages in github repo, the retrieval method is very difficult.
+*******
+Apart form nexus we have another Artifact called"Jfrog"
+
+The proider of Nexus is "Sonatype Nexus", Sonatype is a company name.
+
+
+#Nexus Intallation:
+-----------------
+
+prerequisites:
+--------------
+Java
+minimum 1GB RAM need to allocate it
+minum 2 to 3 GB RAM for nexus, java
+**********
+Q)Is this possible to change the instance type once created?
+Ans)Yes, stop the instance and change the instance type.
+
+yum install java 1.8 .0-openjdk -y
+
+yum remove java 1.8 .0-openjdk -y
+
+Login as a root user
+sudo su -
+cd /opt
+yum install tar wget -y
+wget http://download.sonatype.com/nexus/3/nexus-3.15.2-01-unix.tar.gz
+tar -zxvf nexus-3.15.2-01-unix.tar.gz
+mv /opt/nexus-3.15.2-01 /opt/nexus
+
+#As a good security practice, Nexus is not advised to run nexus service as a root user, so create a new user called nexus and grant sudo access to manage nexus services as follows.
+ 
+useradd nexus
+
+#Give the sudo access to nexus user
+
+visudo
+nexus ALL=(ALL) NOPASSWD: ALL
+
+#Change the owner and group permissions to /opt/nexus and /opt/sonatype-work directories.
+
+chown -R nexus:nexus /opt/nexus
+chown -R nexus:nexus /opt/sonatype-work
+chmod -R 775 /opt/nexus
+chmod -R 775 /opt/sonatype-work
+
+#Open /opt/nexus/bin/nexus.rc file and  uncomment run_as_user parameter and set as nexus user.
+
+vi /opt/nexus/bin/nexus.rc
+run_as_user="nexus"
+
+#Create nexus as a service
+
+ln -s /opt/nexus/bin/nexus /etc/init.d/nexus
+
+#Switch as a nexus user and start the nexus service as follows.
+
+sudo su - nexus
+
+#Enable the nexus services
+sudo systemctl enable nexus
+
+#Start the nexus service
+sudo systemctl start nexus
+
+#Access the Nexus server from Laptop/Desktop browser.
+ 
+http://IPAddess/Hostname:8081/
+
+
+
+
+or 
+
+jre
+
+
+Nexus:3
+--------
+http://ipadress/mithuntech/repository/remoterepo-mss
+<repositories>
+<repository>
+<id>nexus</id>
+<url>
+</repository>
+</repositories>
+
+
+update the maven remote, proxy and, maven to host all urls in pom.xml, maven
+
+
+when we doing bill, it will serach in Maven local
+ maven Central repo
+ then remote repo
+ 
+ <dependency>
+ <groupID>com.mss</groupId>
+ <version>1.0.0</version>
+ </dependency>
+ 
+ <repositories>
+<repository>
+<id>nexus</id>
+<url>
+</repository>
+</repositories>  exh opening tag should have a closing tag
+
+name tag is not a mandatory
+
+Blocked mirror error,
+
+go to cd /opt/apache-maven-3.8.6/conf
+
+vi settings.xml
+there we can see mirror tag
+<mirror>
+<id>nexus</id>
+<mirror>external:http:*</mirrorof>
+<url>remote repo url</url>
+remove the blocked
+</mirror>
+
+we have update this under <mirrors>
+
+execute "mvn package"
+
+in nexus server we are goin to create one "proxy repository"
+
+give name proxy
+mixed
+we can select the central repo url which available in  remote storage
+
+
+go to mirrors tag, update the proxy url at previous url place
+
+cd ~/,m2/repository/
+rm -rf log4j
+rm -rf junit
+mvn package
+
+first time it will get from central repo
+once the dependencies generate in proxy, it will go into the proxy for next time build "mvn package"
+
+
+How to access the multiple repositories to get deendecoies?
+Group the repositories
+
+grouprepo-- name
+under Member repositories
+select the repositories name
+cd ~/.m2/repository/
+ls
+cd com
+rm -rf mss , if we delete thois will get error, because mail.jar file is not available, don't delete it
+
+save the gprepourl, in pom.xml , under <repositories> tag
+
+cd /apache-maven-3.8.x/conf
+
+go to settings.xml, under <mirrors> tag remove the proxy url update the gprepourl
+go to /projects/maven-web-applcation do the build, mvn clean package
+
+maven2-groupID
+
+
+"we can  use nexus, to create repositories and ll the images and push the images"
+by  using docker (hosted)
+
+***************
+
+AS a devops engineers we are going to feate the repositories
+
+create repos-- if any new projected is on boarded..
+
+upload dependencies in remote repo.
+
+***************
+
+By using the repositories section, we can create different types of repositories based on the tool type.
+
+Through blob store we can create storage in AWS in S3 --> simple storage services
+
+select S3 OR FILENAME TO STORE THE PACKAGES IN BLOB STORE
+
+
+clean up policies:
+------------------
+when keep on upload the packages , the hard disk will get fll or staorage problme,
+
+through clean up we can automatically delete the old packages.
+
+By clicking the repositories, we can choose the repository name which we want to clean  up, after create the clean up only, this will display in Repositories.
+
+These apckages will store in S if we select the S option.
+
+to give admin access, login with admin user,
+go to server admin configuration 
+change the nx.anonmos admin to other side
+
+
+LADAP/ACTIVAE DIRECTORY AD
+===========================
+it conmtains all employee details, if we integrate LDAP with nexus, sonarqube,
+we can able to login with jenkins, sonarqube, nexus server
+
+how to configure LDAP with nexus
+click on LDAP
+AND give the details.
+
+SSL certificates se within company not outside of company.
+
+support:
+--------
+to check logs, status of memory
+system information
+
+defaulst admin credentials
+usename:admin
+password:admin123
+
+click on admin and change the password and username 
+
+check the status to see the changes.
+
+system information:
+-------------------
+to know about nexus, edition, working dir, port nmbers, context path, java version...
+
+Nexus is OSS, OPEN SOURCE
+Nexus PRO, we have to pay money and purchase the license
+
+sudo yum remove java -y
+
+Tasks:
+-----
+to run the policies for every 24 hr, click on RUN in tasks.
+
+API:
+----
+bY uSING THIS  nexusAPI, we can interact nexus server with programatically.
+
+
+swagger is a one online documentation tool we can prive many options, just like nexus API, WE CAN TRY IT OUT.
+
+IF WE WANT TO CALL THE api USE "CURL" COMMAND 
+
+IF WE WANT TO Keep the commmnd in next line use  "\"
+204 repository deleted
+401 authentication required
+403 insufficient permission
+404 repository not found
+
+
+=======================
+Nexus-1 19/10/2022
+--------
+http://3.10.5.245:9000/----> this is old one in sonar. at nodejs date 25-10-22
+
+
+Nexus is an opensourse
+javabased, artifact repository
+Nexus can be used to store the build articafts and retrive the build articafts
+
+build artifacts/packages:
+-------------------------
+Java- jae/war.ear
+Nodejs--> npm packages
+Docker:Docker images
+
+what is the diff between Nexus and Github?
+Ans) Github is a scm , it used to manage the source code
+retrivial methos is difficult in github
+
+nexus is artifact repository
+
+uSING DOWN LOAD THE DEPENDENCIES, LANGUAGES, 
+
+
+snapshots are mutable, releases are immutable. This is why Nexus makes you store them separately because usually you don't care if you lose snapshots, but you will care if you lose releases
+
+yum install java-1.8.0-openjdk -y
+yum remove java-1.8.0-openjdk -y
+
+wget https://download.sonatype.com/nexus/3/nexus-3.42.0-01-unix.tar.gz
+
+4e7277e5-1bc1-4fc4-935a-ebf35c8bed80
+
+
+to down load nexus latest version
+to change the port number and context path use the file inside the /etc/, 'nexus-default.properties'
+
+http://3.8.92.131:8081/
+
+
+user name : admin
+cat /opt/sonatype-work/nexus3/admin.password--> passwod in this location
+
+password:4e7277e5-1bc1-4fc4-935a-ebf35c8bed80
+
+user name : admin
+new password:passw0rd
+
+do admin activities click on setting in nexus
+
+click on create repository
+clieck on maven to hosted
+
+nexus repository
+http://18.132.12.240:8081/
+http://18.132.12.240:8081/repository/walmart-release/
+http://18.132.12.240:8081/repository/walmart-Snapshort/
+
+go to Nexus home dir
+
+etc
+nexus-default.properties
+
+"go to cd /opt/nexus/etc/"
+ open vi 'nexus-default.properties' file and change te port number and path name
+ i gave port number as 8081
+ and path /nexus
+
+ if we do any configuration changes in the nexus file have to restart the system.
+ 'sudo sytemctl restart nexus'
+ 
+ 
+// comments 
+ 
+ /nexus
+ http://http://18.132.12.223:8081/nexus--> this is the port number and path which i saved in nexus file
+ 
+ http://http://18.132.12.223:8081/
+ 
+ 
+ restart the service: 'sudo systemctl restart nexus'
+ http://http://18.132.12.223:8081/---> give with the path
+ 
+ just go to nexus-default properties at etc directory, save and restart
+ 
+ // comments
+ 
+ change the port number nad path run the page
+ 
+
+ http://http://18.132.12.223:8081/
+ 
+ nexus repo after change the port number and path: nexus repository details is going to store in the 'pom.xml'
+  -------------------------------------------------
+ 
+ connect to maven server with mobaxterm
+ change to root user
+ go to 'cd projects/'
+ ls
+ go to 'cd maven-web -application'
+
+go to 'pom.xml' , there give this below details(remeber everytime when you loging with aws the ip adress will chane , you can update the new ip addess url in maven pom.xml'
+
+ <distributionManagement>
+ http://18.132.12.240:8081/repository/walmart-release/
+http://18.132.12.240:8081/repository/walmart-Snapshort/
+
+</distributionManagement>
+
+what is the tag which we are going to configure the sonaqube details
+
+<properties>
+
+for nexus, we ae suing <distributionManagement>--> M should be uupercase
+
+Nexus credentials:
+is going to save in settings.xml
+inside the conf we can see settings.xml
+
+'cd /opt/apache-maven-3.8.6/conf/'
+
+conf/
+settings.xml
+<server>
+<id>nexus</id>
+<username>admin</username>
+<password>passw0rd</password>
+</server>
+
+id should be same in maven settings.xml and pom.xml , <id>nexus</id>
+connect maven , open pom.xml, change the names and urls as nexus repository which we created
+
+then go to cd /opt/apache-maven-3.8.6/conf/
+
+update the urls 
+
+open settings.xml--> update the server id and other details and save it 
+
+'mvn clean deploy' run this command--> validate goal , test goal, package install then deploy goal it is going to execute
+
+http://18.132.12.44:7784/mithunITcourses/repository/wallmart-snapshot/com/mt/maven-web-application/0.0.1-SNAPSHOT/maven-web-application-0.0.1-20221021.194000-1.war
+
+http://3.8.92.131:7784/mithunITcourses/repository/wallmart-snapshot/com/mt/maven-web-application/0.0.1-SNAPSHOT/maven-web-application-0.0.1-20221021.194000-1.war
+copy this link from nexus
+
+to add this to some other project paste this dependency in pom.xml#
+<dependency>
+  <groupId>com.mt</groupId>
+  <artifactId>maven-web-application</artifactId>
+  <version>0.0.1-20221021.194000-1</version>
+  <type>war</type>
+</dependency>
+
+in nexus , the data base will going to store in 'H2'
+
+IN POM.XML, in this file at version tag shanpshot all files will download at snapshot/
+if we just gave 
+
+
+if we change the version number in pom.xml, it will decide where the files should download
+<version>1.0.0</version>  the files will directly download in wall mart release
+if we change the version as 0.0.1 the version, the files going to save in snapshot/ repository
+
+
+if we execute 'mvn clean deploy', it won't work again, because it is immutable
+but, if we chnage the version from 1.0.0. to 1.1.0 and execute the 'mvn clean deploy', it will work now work
+
+
+again if we run 'mvn clean deploy' it shows error 400--> bad request
+
+suppose if any updates need to do in 1.1.0 need to run again means --> go to nexus repo
+select walmart-release/
+select settings, conf
+then go to deploy column, slect repdploy option, then run 'mvn clean deploy' in ur local server, it is going to run succesee
+
+
+if we select allow redploy in wallmart-release/, it is going allow to deploy the same vresion
+
+in nexus repository have to choose it.
+
+now desible the redploy option in maven release, and save it, then 
+
+execute 'mvn clean deploy'--> will get error
+
+https://jar-download.com/artifacts/org.springframework.boot
+
+To coonect with maven , create one remote repo in Nexus, take thwta urls
+
+connect maven with mobaxterm
+go to 'pom.xml'
+
+update this 'remote url', name as 'nexus'
+
+in depencies 
+
+and update te same url and name in 'miirors'
+
+and  go back to maven -web-application, run 'mvn clean package', the remote jar file will down load into central repo
+
+dependecies are available in .m2 files
+chenage the dependencies in pom.xml and settings.xml while connecting with 'proxy url'
+
+suppose deleting dependecies in '.m2' folder
+like junit, log4j files
+
+
+down load the jar file 
+and upload in remote repo
+
+
+create remote repo at nexus
+--------------------------------
+
+<dependency>
+  <groupId>com.software</groupId>
+  <artifactId>mail</artifactId>
+  <version>1.0.0</version>
+</dependency>
+
+add this dependency in the pom.xml
+
+
+copy the remote repo url from nexus repo
+<repositories>
+
+<repository>
+<id>nexus</id>
+<name>remote repo</name>
+<url>http://18.132.12.240:8081/repository/remoterepo/</url>
+</repository>
+</repositories>
+
+after update thi in pom.xml under properties
+run ' mvn package', will get mirroe error
+copy the mirror tag from settings.xml
+
+<mirror>
+      <id>maven-default-http-blocker</id>
+      <mirrorOf>external:http:*</mirrorOf>
+      <name>Pseudo repository to mirror external repositories initially using HTTP.</name>
+      <url>http://0.0.0.0/</url>
+      <blocked>true</blocked>
+    </mirror>
+  </mirrors>
+
+modify the above like below
+<mirror>
+      <id>nexus</id>
+      <mirrorOf>external:http:*</mirrorOf>
+      <url>http://18.132.12.240:8081/repository/remoterepo/</url>
+    </mirror>
+  </mirrors>
+
+***********
+go to jenkins is intsalled , go to jenkins, go to settings.xml in jenkins
+
+change nexus credentials here
+
+'use 'find / -name settings.xml', to find file, there we can see conf directory inside the conf/ setting.xml
+/var/lib/jenkins/tools/hudson.tasks.Maven_MavenInstallation/maven3.8.6/conf
+***************
+update this in jenkins, settings.xml 
+---------------------------------------
+<server>
+      <id>nexus</id>
+      <username>admin</username>
+      <password>passw0rd</password>
+    </server>    if u update this only jenkins will build in nexus
+	
+
+
+
+
+
+
+update the same url in Jenkins setting.xml also
+cd /var/lib/jenkins/tools/hudson.tasks.Maven_MavenInstallation/maven3.8.6/conf/--> so that jenkins build will success
+
+[root@ip-172-31-34-182 jenkins]# cd workspace/t
+[root@ip-172-31-34-182 jenkins]# cd tools/
+[root@ip-172-31-34-182 tools]# cd hudson.tasks.Maven_MavenInstallation/
+[root@ip-172-31-34-182 hudson.tasks.Maven_MavenInstallation]# ls
+maven3.8.5  maven_3.8.6  maven3.8.6
+[root@ip-172-31-34-182 hudson.tasks.Maven_MavenInstallation]# cd maven3.8.6
+[root@ip-172-31-34-182 maven3.8.6]# ls
+bin  boot  conf  lib  LICENSE  NOTICE  README.txt
+[root@ip-172-31-34-182 maven3.8.6]# cd conf/
+[root@ip-172-31-34-182 conf]# ls
+logging  settings.xml  toolchains.xml
+[root@ip-172-31-34-182 conf]# cd settings.xml
+
+
+
+
+
+
+
+
+
+
+
+go back to previous working directory 'cd -'
+run 'mvn package' now
+
+maven 2 -hosted
+maven 2 -proxy
+maven 2 -group
+
+create proxy repo url in nexus, (remote)repo url available there it self copy paste
+<url>http://18.132.12.240:8081/repository/proxyrepo/</url>
+
+/root/.m2/repository/com/mt/maven-web-application/0.0.1-SNAPSHOT----->13/11/2022
+
+
+
+once update this url in pom.xml and settings.xml, 
+go to cd ~/.m2/repository/, there the depenciesare available
+
+deleting some depencies like 
+rm -rf log4j/
+rm -rf junit
+
+
+maven2 group:
+---------------
+
+we are going to group the repositories
+
+the mail.jar file which we uploaded in remote repo, we are going to delete it and run mvn clean package 
+will get error
+then go to pom.xml update the group url at repository tag
+
+</url>http://18.132.12.240:8081/repository/grouprepo/</url>
+~/.m2/repository/----> inside this software directory there, in that mail is there
+
+
+
+Last login: Fri Oct 21 12:38:04 2022 from 90.196.118.29
+[ec2-user@ip-172-31-34-67 ~]$ pwd
+/home/ec2-user
+[ec2-user@ip-172-31-34-67 ~]$ sudo systemctl start nexus
+[ec2-user@ip-172-31-34-67 ~]$ sudo su -
+Last login: Fri Oct 21 12:38:34 UTC 2022 on pts/0
+[root@ip-172-31-34-67 ~]# sudo systemctl start nexus
+[root@ip-172-31-34-67 ~]# cd /opt/
+[root@ip-172-31-34-67 opt]# ls
+nexus  nexus-3.42.0-01-unix.tar.gz  sonatype-work
+[root@ip-172-31-34-67 opt]# useradd nexus
+useradd: user 'nexus' already exists
+[root@ip-172-31-34-67 opt]# sudo su - nexus
+Last login: Fri Oct 21 14:03:00 UTC 2022
+[nexus@ip-172-31-34-67 ~]$ sudo systemctl start nexus
+[nexus@ip-172-31-34-67 ~]$
+[nexus@ip-172-31-34-67 ~]$ sudo systemctl start nexus
+[nexus@ip-172-31-34-67 ~]$
+sudo su - nexus
+
+
+
+http://18.134.156.2:7784/mithunITcourses/repository/npmrepo-software/
+
+
+http://43.205.96.245:9980/mithuntechnologies/repository/nodejsrepo-mss, old one 
+
+
+rOLE AND RESPONSIBILITIES
+==============================
+Nexus:
+------
+open source, Java based Artifactory repository
+
+NEXUS CAN USED TO STORE THE BUILD ARTOFACTS AND RETRIVE THE BUILD ARTIFATCS
+
+
+Build artifactor and packagaes both r same
+
+build rtifacts for java, JAR,WAR,EAR
+NODE JS Buildartifacts---> nopm packages
+
+Docker--. Buildartifacts Dockerimages
+
+What is the differenc eb/w Nexus anfd Github?
+Ans) Github is SCM it can be used to manage the SOurce code.
+Nexus is and artifactor reposiroty it can used to BUild packages 
+it is provide by sonatype
+
+Jfrog also is an artifcat repository, Jfrog is a company name
+
+used to store the Artifacts, retrive the afrtifacts whenever we need
+
+Nexus installation:
+-------------------
+Need to install Java
+
+install each software in diffrent server
+
+instance type: t2.medium
+
+java 1.8 
+yum install java-1.8.0-openjdk -y
+wget https://download.sonatype.com/nexus/3/nexus-3.42.0-01-unix.tar.gz
+
+tar -zxvf nexus-3.42.0-01unix.tar.gz
+
+ls
+
+cd nexus-3.42.0-01
+pwd 
+/opt/nexus-3.42.0-01 it is nexus home directory
+
+cd /etc/
+
+nexus-default.properties
+here we can change the port number, and context path
+
+rename:
+------
+mv nexus-3.42.0-01 nexus
+
+useradd nexus
+
+visudo " nexus ALL=(ALL)NOPASSWORD ALL"
+chown -R nexus:nexus /opt/nexus
+chown -R nexus:nexus /opt/sonatype-work
+chmod -R 775 /opt/nexus
+chmod -R 775 /opt/sonatype-work
+
+vi /opt/nexus/bin/nexus.rc
+run_as_user="nexus"
+
+#Create nexus as a service
+
+ln -s /opt/nexus/bin/nexus /etc/init.d/nexus
+
+#Enable the nexus services
+sudo systemctl enable nexus
+
+#Start the nexus service
+sudo systemctl start nexus
+
+8081/
+
+CAT /OPT/SONAA-TYPE
+
+COPY THE TOKEN
+
+vi nexu-default.properties
+change the port number and path
+once do the changes
+
+"syatemctl restart nexus"
+
+
+mvn home directory
+
+settings.xml
+<distributionmanagement>
+id details
+</distributionmanagement>
+
+in maven
+cd /opt/apache-maven-3.8.6./conf/
+
+vi settings.xml
+<servers>
+<server>
+<id>nexus</id>
+<username>admin</username>
+<password>admin123</password>
+</server>
+</servers>
+
+in maven server execute
+
+"mvn clean deploy"
+
+sonartype, H2 is the defaukt data base which store the reports
+Nexus also H2 is the default data base to store the reports
+
+blob is a datattype in datatbase, we can store the large data bases
+
+<version>0.0.1SNAPSHOT</version>
+and realease the version "1.0.0."--> major version
+f u want to do any changes n release , change the verson "1.1.0"--> minor version
+"1.1.1"--> patch version
+"f we allow redeploy, it is gong to upload with same version"
+
+update this in pom.xml
+under dependencies tag
+
+
+<dependency>
+<groupid>com</groupid>
+<artifcatId>mail</artifactId>
+<version>1.0.0</version>
+
+</dependency>
+
+
+
+
+if we remove the name "SNAPSHOT" IT IS going to upload in release
+
+"snapshots are mutable , release are immutable. This is why nexus makes you store them separately, because usally you don't care
+
+if you lose snapshots, but you will care if you lose releases."
+
+
+
+
+
+
+
+
+
+Roles and Responsibilities in SonarQube Server
+---------------------------------------------
+
+Install the SonarQube Server
+
+Configure Sonarqube Server Details in pom.xml
+
+Creating  Users / Configure LDAP Server
+
+Creating Groups
+
+Create the Quality Profiles as per Project requirement.
+
+Create the Quality Gates as per Project requirement.
+
+
+Roles and Responsibilities in Nexus Server
+-----------------------------------------
+
+Install the Nexus Server
+
+Create the Repositories (Maven2 - hosted,Proxy and group, Docker, Node JS)
+
+Configure Nexus Repository Details in pom.xml and credentials in settings.xml
+
+Creating  Users / Configure LDAP Server
+
+
+
+
+
+
+
+
+
+
+

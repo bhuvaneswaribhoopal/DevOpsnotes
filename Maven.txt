@@ -1,0 +1,783 @@
+Maven-07/10/2022
+
+For Java buid tools
+-------------------
+Ant
+Maven-07/10/2022
+Gradle
+
+.Net build tools
+----------------
+NANT
+MS Build
+
+Pyhton Build Tools
+--------------------
+pybuilder
+
+Ruby build tools
+-----------------
+Rake
+
+JavaSCRIPT, Advanced JS framework lik nodejs, Angular, react--->
+
+gulf
+grunt
+
+MAVEN IS A BUILD Tool, IT IS JAVA BASED BUILD Tool
+
+IT IS ALSO CALLED AS APACHE MAVEN
+
+Maven is a opensource java based build tools
+if we want to install Maven , we must install JAVA
+
+sunmicro systems developed the Oracle
+
+oracle JDK---OPEN JDK DEVELOPMENT KIT
+IBM JDK
+
+
+JDK---> Java development kit
+JRE---> Java run time environment
+Bill is a process of creating the packages
+
+JAVA
+-----
+a)Standalone applications(Jar--java archive)--> IT CONTAINS ALL JAVA CODE
+If we extent jar file =.class files+manifest files
+
+b)Web applications(war-web Archive)-->jAVA CODE + WEB CONTENT(HTML,CSS,JAVA SCRIPT,IMAGES,SOME CONFI FILES))
+war=.classfiles+jarfiles+static web content
+
+c)Enterprise applications(ear-Enterprise Archive)--->Java code+some web content, n.number of modules
+ear=n. no of war files+jar files+webcontents
+to create ear minium 1 war should be there
+
+
+multiple modules
+ear file is the bigger one
+
+helloworld.java--> source code
+javac helloworld.java
+helloworld.class--> Byte code
+JVM--> java virtual machine can understand the byte code
+
+By using the java command going to run the .class files
+java Helloworld
+
+
+for Apache maven --> we must install JDK
+jdk--> develope the java programs compile and run the java programs
+JRE--> run the java programs
+
+javac -version--> to know that jdk install or not
+
+java -version--> to know the java installation
+
+
+Maven Directory Structure:
+--------------------------
+install JDK 11
+DOWN LOAD EITHER ZIP FILE OR TAR FILe
+
+for windown down load zip file, tar won't work
+
+directories:
+------------
+boot:Some files, we r going to use this when maven is running.
+
+bin:mvn is important binary file
+
+conf:configuration files , important file 
+settings.xml
+XML--> EXTENSIBLE MARKUP LANGUAGE
+predefinde tags are there
+create own tags
+
+HTML-->Hyper Text Markup LANGUAGE
+all the pre defineds tags
+<html>
+<body>
+
+
+lib: Contains Jar files
+
+Maven installation:
+-------------------
+first install JDK
+yum install maven
+yum install wget unzip -y
+wget https://dlcdn.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz -P /tmp, check the mvn version before execute this command
+mkdir projects
+yum install git 
+git clone "maven-web-applciaiotn"
+mvn clean package
+
+
+
+
+
+maven 3.8.6
+mobaxterm is a client
+
+
+https://mithuntechnologies-devops.blogspot.com/2019/10/mavn-install-linux-server.html
+
+yum install wget unzip -y-->to install maven load maven 3.8.0 zip file
+
+wget https://dlcdn.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz -P /tmp, check the mvn version before execute this command
+
+
+the above url helps to down load maven zip file
+
+unzip apache-maven-3.6.3-bin.zip
+The above url helps to extract the maven file
+
+cd apache-maven-3.8.6--> use this command to change maven directory
+
+Then check files in --> cd bin/
+
+there mvn mvnyjp are very important files
+
+cd ..--> to go back to the pwd directory
+
+
+For Specific User
+----------------------
+vi ~/.bash_profile--> this file available in user home directory
+
+export M2_HOME=/opt/apache-maven-3.8.6
+
+export PATH=$PATH:$M2_HOME/bin--creating variable with this path
+
+by this command we can create veriable and overirde the existing files
+
+After update this , reload with --> source ~/.bash_profile
+
+mvn -version---> then execute this command
+
+
+Maven-2 ,10/10/2022--> need to wriyte the notes
+==================================================
+Ant-build.xml
+Maven--> pom.xml
+Gradle--->build.gradle
+
+<projact>
+group id-->com.mt--> company name
+artifct id--> project name
+version---> 1.0.0
+Package--> jar or var or ear
+
+<dependencies>
+this one is different than project
+
+along with this developer going to run the unit test cases
+
+without dependencies we cannot be run the junit test cases(java cases)
+
+for 
+java--> junit
+.Net--> Nunit
+c language--> Cunit
+c++--> Cunit
+
+Python-->Pyunit
+
+open maven central repository
+
+<!-- https://mvnrepository.com/artifact/junit/junit -->
+<dependency>
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+    <version>4.13.2</version>
+    <scope>test</scope>---> there are total 6 scopes, like test, compile, run....
+</dependency>
+
+mvn package 
+
+maven Repositories:
+=================
+a)Maven local repo--> it is a folder, which will create in each developers machine
+---------------------
+Default path user home direcory
+
+~/.m2/repository
+windows--> c:\\users\mithun\.m2\repository
+Linux-->/home/mithun/.me/repository
+Mac--> /users/mithun/.me/repository
+
+*****
+what is the default maven local reposiroty path?
+(user home directory)~/.m2/repository
+
+suppose in linux if we are creating 100 home directories with 1000 dependency, server harddisk space will become more
+
+by using Maven we are going to create one user home directory path for the 100 users/mithun/
+
+Maven home directory
+/opt/apache-,maven3.8.6
+conf
+settings.xml
+
+   openingpath                     closingpath
+<localRepository>herekeepthepath</localRepository>
+we can configure custom local repository path
+
+
+<<--multi line comment
+in .xml if you want to comment
+<!--
+here...
+...
+(these lines are going to ignore)
+-->
+Linux we use # for comments
+
+b)Maven central repository
+--------------------------
+provided by maven community, it contains many dependencies
+
+this play when maven doesnot found in the local repository
+
+it found at http://search.maven.org/.
+
+
+c)Maven remote repository:
+--------------------------
+for example developer created 10 jar files,
+
+create one repo and keep it a share libraries in theat particular repo
+configure that URL in the pom.xml
+
+remote repo maintain by each company have their own remote
+central is only one
+each resource has their own local repo
+
+3 life cycles: what are mvn life cycles and goals in order?
+==============
+
+LC                         Goals
+---                        ----------
+clean                       clean--> it will delete the pevious build file systems
+
+site                         site: it can be used to generate the documaentation for the source code
+src (directory)
+target(once build we
+can see this dir)
+                             *****
+default                     validate:validate the project direc structure and some resource files
+                            compile: It will compile the java code and Junit code
+							test   :It will run the junit test cases
+							package: create the build artfcats/packages
+							install:it will store the packages into local repository
+							deploy:It will store the packages into remote repository
+
+mvn clean--> exceute this command it is going to delete the 
+
+prvious target directory
+
+swagger is a popular and advanced tool--> it is a online documentITON Tool
+           
+mvn test --> to run the junit test cases
+mvn clean--> this command clean the goal
+mvn package--> create package file like war, jar, ear
+
+
+wha is the difference between mvn install and mvn deploy?
+mvn install: store the packages into local repo
+mvn deploy: into remote repo
+
+******
+mvn clean package -DskipTests---> command to skip the unit test cases
+mvn clean package -Dmaven.test.skip=true
+by usin anyone of these option we can skip running the unit test cases
+
+
+
+
+
+MAVEN-3, 11/10/2022
+====================
+
+pom.xml is a maven build script
+
+mvn clean package--> use this command to create a directory target
+
+it is going to download all the documents from central repo to local repo
+
+when get error copy and serach in the google
+
+https://github.com/MithunTechnologiesDevOps
+
+first change to root user
+check mvn -version command
+then create one directory name project--> mkdir project
+
+got o github and copy the url form code
+u git clone githuburl--> excute this command
+if it not work install the git 
+
+yum install git -y---> exceute this command
+
+ git --version
+
+now excute---> git clone giturl(https://github.com/MithunTechnologiesDevOps/maven-standalone-application.git)
+
+github url must be maven stand alone 
+
+cd maven-standalone-application--> use this command
+
+yum install tree -y--> exceute
+
+any unit test cases the stand name will follow'Test'
+
+pom.xml is a maven build script
+
+
+mvn clean package--> execute this command to build 
+
+this command is going to be download all dependency files from central to local repo
+
+
+Jenkinsfile  pom.xml  src  target
+[root@ip-172-31-43-14 maven-standalone-application]# cd target/
+[root@ip-172-31-43-14 target]# ls
+classes  generated-sources  generated-test-sources  maven-archiver  maven-stanalone-application-0.0.1-SNAPSHOT.jar  maven-status  surefire-reports  test-classes
+[root@ip-172-31-43-14 target]#
+
+
+arfcat id- versionid-.jar
+
+mvn clean --> will dlete target dir
+again execute
+mvn clean package--> it will gain create the packages
+mvn clean package -DskipTests--> this command skips the test cases
+
+mvn clean package -Dmaven.test.skip=true
+
+backport-util-concurrent  classworlds  com  commons-cli  commons-io  commons-logging  junit  log4j  org
+tese dependecies we called as transitive dependency
+
+transitive dependencies
+
+common-io
+commons -cli
+
+com.mt
+cd  ~/projects/maven-standalone-application--> change direc
+
+mvn install --> execute this command
+ /root/.m2/
+ /repository/com/mt/maven-stanalone-application
+ /0.0.1-SNAPSHOT
+ /maven-stanalone-application-0.0.1-SNAPSHOT.jar
+ 
+ This is the process to follow
+ -------------------------------
+ 
+ [root@ip-172-31-43-14 maven-standalone-application]# cd ~/.m2//repository/
+[root@ip-172-31-43-14 repository]# ls
+backport-util-concurrent  classworlds  com  commons-cli  commons-io  commons-logging  junit  log4j  org
+[root@ip-172-31-43-14 repository]# cd org/
+[root@ip-172-31-43-14 org]# ls
+apache  codehaus  iq80  slf4j  sonatype  tukaani
+[root@ip-172-31-43-14 org]# cd ../com
+[root@ip-172-31-43-14 com]# ls
+google  mt
+[root@ip-172-31-43-14 com]# cd mt/
+[root@ip-172-31-43-14 mt]# ls
+maven-stanalone-application
+[root@ip-172-31-43-14 mt]# cd maven-stanalone-application/
+[root@ip-172-31-43-14 maven-stanalone-application]# ls
+0.0.1-SNAPSHOT  maven-metadata-local.xml
+[root@ip-172-31-43-14 maven-stanalone-application]# cd 0.0.1-SNAPSHOT/
+[root@ip-172-31-43-14 0.0.1-SNAPSHOT]# ls
+maven-metadata-local.xml  maven-stanalone-application-0.0.1-SNAPSHOT.jar  maven-stanalone-application-0.0.1-SNAPSHOT.pom  _remote.repositories
+[root@ip-172-31-43-14 0.0.1-SNAPSHOT]#
+
+go to projects back ~/project
+
+down load the web application
+
+go to ~
+
+cd ~
+
+pwd
+mkdir mavencustonlocalrepo
+
+
+ls
+cd mavencustomlocalrepo
+pwd
+<loalRepository>/root/mavencustonlocalrepo/</localRepository>
+
+
+[root@ip-172-31-43-14 maven-standalone-application]# cd ~/.m2//repository/
+[root@ip-172-31-43-14 repository]# ls
+backport-util-concurrent  classworlds  com  commons-cli  commons-io  commons-logging  junit  log4j  org
+[root@ip-172-31-43-14 repository]# cd org/
+[root@ip-172-31-43-14 org]# ls
+apache  codehaus  iq80  slf4j  sonatype  tukaani
+[root@ip-172-31-43-14 org]# cd ../com
+[root@ip-172-31-43-14 com]# ls
+google  mt
+[root@ip-172-31-43-14 com]# cd mt/
+[root@ip-172-31-43-14 mt]# ls
+maven-stanalone-application
+[root@ip-172-31-43-14 mt]# cd maven-stanalone-application/
+[root@ip-172-31-43-14 maven-stanalone-application]# ls
+0.0.1-SNAPSHOT  maven-metadata-local.xml
+[root@ip-172-31-43-14 maven-stanalone-application]# cd 0.0.1-SNAPSHOT/
+[root@ip-172-31-43-14 0.0.1-SNAPSHOT]# ls
+maven-metadata-local.xml  maven-stanalone-application-0.0.1-SNAPSHOT.jar  maven-stanalone-application-0.0.1-SNAPSHOT.pom  _remote.repositories
+[root@ip-172-31-43-14 0.0.1-SNAPSHOT]# cd ~/project/
+[root@ip-172-31-43-14 project]# cd ~
+[root@ip-172-31-43-14 ~]# pwd
+/root
+[root@ip-172-31-43-14 ~]# mkdir mavencustonlocalrepo
+[root@ip-172-31-43-14 ~]# ls
+mavencustonlocalrepo  project
+[root@ip-172-31-43-14 ~]# cd mavencustonlocalrepo/
+[root@ip-172-31-43-14 mavencustonlocalrepo]# pwd
+/root/mavencustonlocalrepo
+[root@ip-172-31-43-14 mavencustonlocalrepo]# cd /opt/apache-maven-3.8.6
+[root@ip-172-31-43-14 apache-maven-3.8.6]# pwd
+/opt/apache-maven-3.8.6
+[root@ip-172-31-43-14 apache-maven-3.8.6]# ls
+bin  boot  conf  lib  LICENSE  NOTICE  README.txt
+[root@ip-172-31-43-14 apache-maven-3.8.6]# cd conf/
+[root@ip-172-31-43-14 conf]# ls
+logging  settings.xml  toolchains.xml
+[root@ip-172-31-43-14 conf]# vi settings.xml
+[root@ip-172-31-43-14 conf]# vi settings.xml
+[root@ip-172-31-43-14 conf]#
+
+
+<localRepository>
+
+
+enterprise application download
+--------------------------
+jar, war, ear all called together
+
+standalonewebapplication
+less pom.xml
+
+<module>MavenEnterpriseApp-web</module>
+
+mvn clean package -pl MavenEnterpriseApp-web
+
+by using this maven we are doing the build
+its a process of creating the packgages
+
+
+
+
+Maven-2  06/01/23:
+------------------
+
+maven contains pom.xml
+
+it starts with <project> tags
+closed with </project>
+
+in between many subtags are there
+
+<project>
+<groupid> will give company name or com.mt</gpid>
+<artifactID>citibank</arti> here we will give project name
+<version> 1.0.0</> hee we will give the release version
+<packaging>jar</> based on our projct type we are give standalone jar, web applciaiotn war, enterprise applciaiton ear , we will repressent
+
+<dependencies>  developer will add n.no of dependecies based on reqirement and project related
+<dependency>
+<gpid>junit</gpid>, use of this junit is , along with the source code, developer is going to write the nit testcases, to test the source code programatically.
+<artfcatid>junit</artfcatid> 
+<version>3.8.1</version> 
+<scope>test</scope>
+</dependency>
+
+different framework for each programming language :
+----------------------------------------------------
+
+java  --> junit
+.Net --> Nunit
+
+c---> Cunit
+c++--> Cunit
+
+mostly developers testng code sing java, so junit is popular
+
+
+go to maven central repository in new window
+--------------------------------
+
+https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core/2.19.0
+
+search for "log4j", here we can get dependency tags
+
+to build:
+---------
+mvn clean package
+
+maven repositories: there are 3 repositories in maven
+-------------------
+a)Maven local repository
+Maven Local repo, its a folder , which will create in each developers machines..
+when we are doing the bild.
+
+Default Maven Local repo path is 
+~/.m2/repository
+usually in windows --> c:\\users\personal\.m2\repository
+
+Linux --> /home/root/.m2/repository
+
+Q)what is the defaultmaven local reposirotypath?
+Ans)~/.m2/repository
+
+maven Home Direcory
+/opt/apache-maven3.8.6
+conf
+settings.xml
+<localRepositoryeposiroty> Here we keepthe custom path</localRepository>
+
+
+hERE R should be uppercase 
+
+
+b)Maven centralrepository
+c)Remore repo
+
+<< single line comment
+<!--
+--> mltiline comment
+
+Maven central repository:
+------------------------
+This repository provided by mavane community. If mave doesnot found dependencies in local repo, it goes to central repo.
+
+once we done the build , the dependencies down load from central to local, next time, withoutinternet it can build.
+central repo build time by time by Maven community
+
+Maven remote reposiroty:
+-------------------------
+Enterprise companies maintain their own reposiries. Each comapny have separate remote repo
+But, there is only one central reposiry. 
+
+For Example: if there are 10 jar files, it all saved in remote and access through pom.xml.
+
+compare the tools:
+-------------------
+IF WE KNOW git AND Github
+
+Gitlab
+Bitbcket
+Azure Repos are same rprocess
+
+AWS code commit
+
+Nexus equalvalent tools is Azure artifact , artifact means packages.
+
+
+
+Maven Life cycles:
+-----------------
+there are 3 life cycles in Maven
+
+LIFECYCLE                                      GOALS
+--------------------                         --------------------
+clean                                        Delete the previous Build file system
+(preclean, post clean, clean )
+It can be used to delete the previos BuIld file systems
+src (standard directory name)
+traget (when we use clena goal target directory will delete)
+
+
+mvn clean 
+
+site is a life cycles                                   site: can be used to generate the documentITONfor the source code.
+
+"Swagger is a tool , online documentation tool, it can be used to give the documnetation for the API's and all "
+                                         important goals in the mvn lifecycle:
+										 ------------------------------------------
+default life cycle                       validate is a goal:It validate the project directory structure and some resource file there are or not it will check.
+                                         compile :It will compile the java code and Junit test cases code
+										 test    :It will run the junit test cases, mvn(command) test(goal name) , it will run the unit test cases
+										 package :it will create the build artifacts/packagaes. based on pakacge requirement, it will create jar,war,ear files
+										 install :It will store the packages into local reposiries
+										 Deploy  :It will store the packages into remote repo.
+										 
+										 
+Q)what is the diff b/w mvn install and mvn deploy?
+Ans)mvn install store the package into local repo
+mvn deploy store the packages into remote repo
+
+use case scenario:
+-------------------
+suppose if a project has 700 junit test cases, one unit test case if failed it is not going to do the packages.
+
+699 passed
+1 failed after running 1 hr,
+
+once find the bug and fixed the issue, we can skip the unit test cases , while creating the packages.
+
+"mvn clean package -DskipTests " , it is a parameter,
+
+"mvn clean package -Dmaven.test.skip=true", we skip running the unit test cases.
+-------------------
+Maven-3  06/03/23
+-----------------
+-------------------
+maven-stanalone-application : it contains java files, jar files
+------------------------------
+first install mavne, "yum install maven -y"
+along with maven java jdk 11 also will install 
+
+create one directory "mkdir projects",here go inside, here we are going to downloadthe java projects and execute the maven build commands.
+
+go to maven github repo
+
+using "the gitclone", first we are going to down load the maven standalone, maven-web-app, mavane-enter prise applicaiton to project directory
+
+"git clone https://github.com/Bhuvaneswaribhuvi/maven-standalone-application.git"
+
+then go to inside the maven-web -standalone , there we can see pom.xml
+
+now execute "tree", yum install tree -y
+
+pom.xml, contains all the dependecies, it is a build script code
+
+"mvn clean package" will build the package, it is down load from central repository
+
+
+ERROR:
+------
+IF WE GET ANY ERROR ON JAVA MISMATCHING 
+
+CHECK THE JAVA VERSION THEN ADD THE BELOW TAG IN POM.XML--
+
+under properties tags
+<maven.compiler.source>11</maven.compiler.source>
+<maven.compiler.target>11</maven.compiler.target>
+
+But, change the version, whoich is installed in the server.
+
+once run the "mvn clean package", it down load dependecies from central repositories and create target directory
+
+the package name "maven-standalone-application-0.0.1-SNAPSHOT.jar"
+                    Artfactid version no.jar
+					
+execute "mvn clean" it will delete target directory
+
+execute "mvn clean package -DskipTests", it skips unit teste cases
+
+execute "mvn clean package -Dmaven.test.skip=true". if there is any test cases it will compile, other wise it skips and compile only java code.
+
+junit is a dependecies
+common -io, commons-cli  will called trasitive dependencies.
+
+cd ~/.m2/repository --> maven local reposiry
+
+if we execute "mvn install", depencies will store in local repository
+
+
+gp id--> com.mt, we can give any name, it mithuntechnologies-devops
+arfactid--> maven-standalone-applciaiton
+verions--> SNAPSHOT 1.0.0
+
+
+ /root/.m2/repository
+ /com/mt
+ /maven-standalone-application
+ /0.0.1-SNAPSHOT
+ /maven-standalone-application-0.0.1-SNAPSHOT.jar
+The above is the sttucture or process of dependecies down load path
+
+
+go to root ser home directory /root
+
+create "mkdir mavencustomlocalrepo"
+
+<localRepository>/root/mavencustomlocalrepo/</localRepository>
+
+settings.xml, line no.55 around, paste the above tags
+
+then go to mavencustomlocalrepo, cd ~/project/maven-standalone-applciaiton/
+
+[root@ip-172-31-36-59 ~]# cd /usr/share/maven
+[root@ip-172-31-36-59 ~]# cd mavencustomlocalrepo/
+[root@ip-172-31-36-59 mavencustomlocalrepo]# cd ~/projects/maven-standalone-application/
+[root@ip-172-31-36-59 maven-standalone-application]# ls
+Dockerfile  Jenkinsfile  pom.xml  src  target
+
+then execute 
+
+ls
+"mvn clean install" , it download the dependencies from central.
+
+if we give the custom name to build script
+
+"mvn clean package -f package name"
+if we change the pom.xml name as citibank or anyother custom name use -f in the command
+for ex: customname citibank
+"mvn clean package -f citibank", -f is file name
+
+maven-web-applicaiton: it conatains war file , it download war dependencies
+---------------------
+use git clone "https://github.com/Bhuvaneswaribhuvi/maven-web-application.git"
+
+cd projects
+use git clone
+
+
+less pom.xml, execute,
+ <finalName>maven-web-application</finalName>
+ 
+ on this name only the applciaiton is going to saved
+ 
+
+
+maven-enterprise-applicaiton:
+--------------------------------
+
+we can see parent and child pom.xml, it is multi modle project,
+in the enterprise applciaiton we are going to create enterprise APPLICATION., IF IT IS A BIG PROJECT WE ARE GOING TO CREATE ENTERPRISE APPLCATION.
+
+"monolethic, all moduleles are one package, that time we are creating multi module project, that we are create microservices."
+
+
+git clone  https://github.com/Bankingzone/maven-enterprise-application.git
+
+
+what command se if u want build for specifi module?
+
+mvn clean package -pl MavenenterpriseApp-web, pl is project kist
+
+we can build the particular projects, we can specify no.of project separated with commas.
+
+
+
+cd maven-web-applicaiton, cd target,  vi pom.xml
+maven home drectory
+/usr/share/maven/conf, settings.xml
+~/.m2//repository/
+
+
+***************
+B using the MAven, we doing builds, process of build the packages or build artifacts,
+maven is  a java based build tool, by using the maven we are creating the packages.
+
+by using pom.xml we will update the tags
+by using settings.xml we can update the project names, by sing <localRepository>tags
+
+both file are important 
+
+when doing the build first it will check in central repository, then later it will take form remote reposiries
+there is only one common central reposiries
+each company have their own remote repository. these dependencies will store in Nexus or jfrog 
+
+by using git version control system, 
+
+Nexus, we will create the maven remote repository

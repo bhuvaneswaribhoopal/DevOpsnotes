@@ -1,0 +1,259 @@
+Tomcat-1 06/01/2023
+--------------------
+To deploy the applciaiton , we have the application server
+
+running the jar file, "java -jar jarfilename"
+
+But, for running the war and ear file, we should have applcaiton server.
+Applicaiton server:
+--------------------
+Jboss (it is oudated one better se wildefly) --->from 1.x to 7.x --->from 8.x to till latest version calling as  renamed to wildfly
+wildfly  ---> both can support, war files and ear files, it is open source.
+
+websphere Applicaiton server(WAS)---> IBM VENDOR, to deloy the war and ear files
+
+weblogic server --> Oracle  --> these two not open source.
+
+Tomcat  -->Apache tomcat ---> it is used only deploy the "war" files
+This is inbuild server along with springboot
+
+Many of the application developed by uisng springboot frame works to develope the  ,microservice architecture
+
+
+"MOST OF THE BANK APPLCAIOTNS DEPLOYED IN "WAS" AND "WILDFLY", MAIN THING IS SECURITY, AND IT WON'T CRASH IN HEAVY TRAFFIC TIME ALSO
+FOR BIG APPLICATIONS."
+Harshada2806
+spring boot --> Java Advanced Framework
+
+ApacheTomcat: it is light weight along with spring boot tomcat is there, and it is advanced frame work.
+-------------
+It is an opensource java based web applciaiotn server. It can support only the "war" files.
+Tomcat supports only java applcaiotns , not other.
+
+to down load Tomcat, mostly use 9.0 version, by using devops tool page
+
+Binary Distribution:
+-------------------
+we need to use the binary distribution to deploy the applcaiotns
+
+wget https://downloads.apache.org/tomcat/tomcat-9/v9.0.70/bin/apache-tomcat-9.0.70.zip.asc
+
+
+source code Distribution:
+--------------------------
+To enhance the etra features on top of exist features use the source code Distribution
+
+
+we can choose either zip or tar file.
+
+Tomcat Directories Strcture:
+-----------------------------
+bin --> it contains all binary files
+--------
+startup.sh(only works for linux/mac) , startup.bat (windows)  --> it work for linux/mac
+shutdown.sh, shutdown.bat 
+catalina.sh, catalina.bat, [sh catalina.sh start, sh catalina.sh stop] to start and stop the tomcat server.
+version.sh, version.bat  --> like this various script are there
+
+conf---> It contains all important configuration files
+server.xml and tomcat-users.xml
+
+maven conf file --> settings.xml
+
+lib --> libraries, it is nothing but jar files
+jar files
+
+logs --> log files, by defaulkt it is empty.
+-----
+once start the Tomcat, it is going to create 4 log files
+
+Q) whAT ARE the logs files will generate once start the tomcat server?
+
+manager.log
+hostmanager-log
+catalina.out
+locahost.log 
+
+webapps --> it contains all the webapplocaitons .5 default applications. 
+---------
+whaterver the applcaiotn we are going to deploy it will available in the webapps directory.
+
+work---> once the applcaiton starts it is going to create  some  files, while running the applcation.those files is going to save or keep  in work directory
+-------
+temp ---> It contains all temporary files.
+----
+
+Tomcat server Intsallation:
+--------------------------
+Prereqities software
+-------------------
+java,
+install JDK 11
+
+cat /etc/*release , it will give the Distribution details, which one we are using
+
+yum install wget ,first
+check the URL in new web page
+
+follow the Mithun vlog to down load further softwares
+
+cd /opt/apache-tomcat-9.0.68 --> tomcat home directory
+
+chmod u+x(execute permissions) *.sh (giving permission to all .sh files)
+
+creating two soft links to start and stop tomcat
+
+ln -s /opt/apache-tomcat-9.0.68/bin/startup.sh/usr/bin/startTomcat
+ln -s /opt/apache-tomcat-9.0.68/bin/shutdown.sh/usr/bin/stopTomcat
+
+
+ps -ef | grep "tomcat", to show the tomcat details
+
+before access the tomcat new webpage, enbale the 8080 port number in security group
+
+
+go to webapps/
+/manager
+/META-INF/
+/vi contect.xml, comment
+<!-- valve className -->
+
+go to conf/
+/tomcat-users.xml
+at line nmber 56, <user username="mithuntechnologies" password="passw0rd" roles="admin-gui, manager-gui" />
+save it
+<user username="Bhuvana" password="passw0rd" roles="admin-gui, manager-gui" />
+admin-gui --> only access host-manager app
+manager-gui --> access manager app and server status 
+
+
+
+go to webapps/
+/host-manager/
+/META-INF
+/vi context.xml, comment
+<!-- valve claassname -->
+give the same credentials what we saved in tomcat-users.xml
+
+
+
+Tomcat-2
+--------
+Tomcat/Jboss/Wildfly/Jenkins --> Run in port 8080
+
+Tomcat
+conf
+server.xml
+
+soft links can help to start and stop the servers anywhere, that means any directory or user, normal user use sudo
+
+cd /opt/apache-tomcat-9/conf/
+vi server.xml, line 69 we can change port number and context path.
+
+0-65535
+0-1024 are reserved port numbers
+HTTP: 80
+HTTPS:8080
+SSH : 22
+SMTP : 25
+
+from 1025 to 65535 we can use any port number
+if we do nay changes in server.xml, restart the server
+stopTomcat
+startTomcat
+
+vi /etc/ssh/sshd_config , change passwordAuthentication: yes
+service sshd restart
+passwd ec2-user, set password for ec2-user
+passwd root-user set password
+a passwd, Ip adress and password, is enough to connect any FTP tool or ssh tool,
+
+
+open Filzilla, give public ip adress, password, port number 22 and drag and drop the files.
+
+after upload the war file in Tomcat server
+"we can check the war file in webappa directory "
+
+for tomcat server
+https://ipadress/maven-web-applcaiton/ is the context path
+
+"we have stop option in the tomcat server, we can use the staop, start,  undeploy options based on requirements."
+
+
+
+cp maven-web-applcaiton/ /tmp/ , copy the file to tmp directory
+
+if we want to deploy the applcaiton through Deploy directory 
+
+1) Contect path --> /mithuntechnologies 
+2)Directory path --> /tmp/maven-web-applcaiton/ , where i copied my application
+
+the name also will chnage on context path name, for ex: mithuntechnologies.war
+
+if i select the war file which is available in my laptop downloads, by deploying that file, i can accees through two paths
+!)/mithuntechnologies
+2)/maven-web-applcaiton/
+
+absolute path start from any of the directory for ex: /tmp/maven-web-applcaiton/ like that
+relative path start from: Home/opt/apache-tomcat-9/webappas somrthing like that
+
+cp /tmp/maven-web-applcaiton/ .(it represents cureetn directory)
+
+cp war file to webapps directory is the deploying.
+
+"check tomcat documents for further notes"
+
+
+
+difference between appserver and webserver?
+---------------------------------------------
+APPSERVER                                WEBSERVER
+---------                               ------------
+WE CAN DEPLOY ONLY war.files            want to deploy ear files, use jboss, weblogic, websphere
+App server used to deploy the          deploy the static content like HTML, csc,java script, images
+backend code java 
+
+it can process the business logic      it can be used to load balanceing purpose.
+ex: username, password pages can        ex: Apche http server, Nginix server, IBM http server, these all are the Load Balancer webservers.
+check and give permission
+
+yum install httpd -y
+enable:systemctl enable httpd
+cd /var/www/html/ here create one file index.html
+http://ip adress/mithun.html
+
+yum install nginx -y
+
+cd maven-web-applcaiton/
+cd images
+ls mithunlogo.jpg
+
+cp mithunlogo.jpg /var/www/html/
+
+then, cd /var/www/html/, ls -al, give permission, chmod u+x mithunlogo.jpg, chmod o+r mithunlogo.jpg
+
+****************
+what is conf file in HTTP?
+httpd conf file
+httpd.conf is the configuration file for HTTP SERVER
+
+IT IS AVAILBALE IN /etc/httpd/logs directory
+
+
+ELB is very important service in AWS
+
+we can directly deply the "java" through "java -jar jarfilename"
+
+
+Docker file By Balaji sir:  10/01/23
+-----------------------------
+
+
+FROM alpine
+RUN apk add openjdk8 curl
+RUN mkdir -p /usr/local/tomcat
+WORKDIR /usr/local/tomcat
+RUN curl https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.84/bin/apache-tomcat-8.5.84.tar.gz -o apache-tomcat-8.5.84.tar.gz
+RUN tar xvfz apache-tomcat-8.5.84.tar.gz && cp -Rv apache-tomcat-8.5.84/* /usr/local/tomcat  && rm apache-tomcat-8.5.84.tar.gz
+EXPOSE 8080
+CMD ["/usr/local/tomcat/bin/catalina.sh","run"]

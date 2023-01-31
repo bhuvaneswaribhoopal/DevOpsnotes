@@ -1,0 +1,911 @@
+delete files more thatn 30 days use the blow command
+or shell scripting
+
+Find / -atime +30days -exec rm -r
+find <Path_To_Old_Files> -mtime +30 -exec rm -f {} \
+
+Ansible:
+---------
+
+Ansible is an OS, Configuration mng tool, provided by Redhat
+configuration can be any task, which we can perform on servers,
+a)Install/update/uninstall the package
+b)Creating the users
+c)Creating the files
+d)Copying the files
+chef
+puppet
+saltstack --> these all are configuration management tools
+
+
+
+Ansible and chef
+Ansible and puppet
+Ansible is developed by using Python
+
+Ansible is a push based architecure
+chef--> pull based architecure
+static Host Inventory
+/etc/ansible/hosts
+
+chef devolped used by ruby language
+
+Inventory means keep some information
+
+default host inventory file path
+/etc/ansible/hosts
+
+custom modules:
+---------------
+to write custom modules, write in python
+
+
+
+Dynamic Host Inventory
+
+Ansible INstallation:
+---------------------
+3 servers to install
+in that
+1 Ansible
+
+2 Host
+------ 
+Machine 1
+Machine 2
+
+Ansible connect with linux server: ipadress
+after create the machines,
+go to linux server conec with Ansible
+'useradd ansible'
+'passwd ansible'
+set password
+go to '  vi etc/ssh/sshd_config'
+change password 'no to yes'
+go to 'service sshd restart'
+visudo
+search : "/password authentication"
+"ansible ALL=(ALL) NOPASSWORD: ALL"
+
+"yum install python3 -y"  ---> install python in Ansible SERVER
+sudo alternatives --set python /usr/bin/python3
+
+
+after connect all host machines to with asibles
+
+genearte 'ssh-keygen' in ansible server
+
+'ssh ansible@ipadress', to check the host machine connected or not
+
+in main ansible server as per new verion follow the below commands to install python 
+------------------------------------------------------------------------------------
+switch to ansible user
+
+ yum -y install python3-pip
+ pip3 install ansible
+ 
+create a host file in /etc/ansible/hosts
+
+save ur ip adress inside the file
+localhost
+work1 ip adress
+work2 ip adress
+
+
+
+
+FOLLOW THE Devops blog further installation
+-----------------------------------------
+
+after connect all host machines to with asibles
+
+genearte 'ssh-keygen' in ansible server
+
+'ssh ansible@ipadress', to check the host machine connected or not
+
+defaukt static inventory file is 'host file' , it is available in /etc/ansible/hosts
+
+host inventory file:
+Ansible adhoc commands:
+
+"yaml is a human friendly data language to understand and transfer data from one place to another place"
+
+"it is simple and use anyof the editors to update yaml, visual studion code is one of the best editor"
+
+YAML: yet Another Markup Language
+
+
+
+ssh-copy-id -f ansible@172.31.46.249
+
+
+
+Ansible: playbooks
+docker: config files
+K8s: Mainfest files
+
+playbooks: playbook is  sigle YAML file  it contains one or more plays
+play:is nothung but it is order set of tasks.
+----- 
+
+task: is an action, to be performed on the host servers
+-----
+
+adhoc command: ansible all -m ping
+
+pingservers.yaml
+---------------
+---
+- hosts: all
+  gather_facts: no (if we update this we can save some time to play on playbook)
+  tasks:
+   - name:ping all the servers
+     ping: (ping is a module) 
+...
+ansible-playbook pingservers.yaml --list-tasks
+ansible-playbook pingservers.yaml --list-hosts
+ansible-playbook pingservers.yaml --syntax-check
+ansible-playbook pingservers.yaml --check
+ansible-playbook pingservers.yaml -v
+ansible-playbook pingservers.yaml -vv
+ansible-playbook pingservers.yaml -vvv or -vv or -vvv , it will give the all information , the verbose message, about the playbook and taskdetails 
+
+"ansible-playbooks pingservers.yaml"
+ansible.cfg:
+-------------
+
+"create a file ansible.cfg"
+updated this path in file above "config file = /etc/ansible/ansible.config"
+
+stickybit: Permissions bit, can be used to secure the files/dir from others
+
+'chmod 1777 devops.txt' here 1 is the sticky bit
+
+modules:
+--------
+ping:
+shell:
+service:
+systemd:
+copy:
+file:
+setup:
+
+ansible all -m yum "name=httpd state=present"
+
+instaed of executing this commands we can write one playbook
+
+"ansible-playbook installapachehttpserver.yaml -e countryName=softwareytechnologies location=sydney"
+
+
+created the variables in playbook
+companyNanme:softwareytechnologies
+location: canada
+
+created the variablke in yaml file
+companyNanme: softwareytechnologies
+location:kent
+
+passing the values from cmd prompt
+
+Dynamically--> yaml--> playbook
+
+group variables:
+----------------
+sudo mkdir /etc/ansible/groups_vars
+sudo vi /etc/ansible/groups_vars/webservers.yaml
+
+javaversion: java-1.8.0-openjdk
+
+
+sudo vi /etc/ansible/groups_vars/appservers.yaml
+
+javaversion: java-11-openjdk
+
+vi installjava.yaml
+
+create all.yaml fie
+
+keep javaversion: java-1.8.0-openjdk
+
+
+
+uncommnet deprecation warnings in ansible.config
+
+version control system git
+----------------------------
+
+
+"sudo vi /etc/ansible/hosts"
+paste the two IP adresses inside
+
+ssh-copy-id ansible@ansible public ip
+use " ansible all -m ping"
+
+to create user in my name i have to write a playbook script
+------------------------------------------------------------
+passw0rd
+---
+ - hosts: all
+   become: true
+   taks:
+    - name: create users
+	  user:
+	    name="{{item}}"
+		
+	with_items:
+     - Bhuvana
+     - Harsha
+     - Mohan	
+
+save this play book inside ansible-playbook and run it
+	 
+
+
+
+HOST MACHIN 1 CONNECT WITH linux:172.31.18.244
+SWITCH TO ROOT USER
+useradd ansible
+passwd ansible
+go to '  vi etc/ssh/sshd_config'
+change password 'no to yes'
+go to 'service sshd restart'
+visudo
+search : "/password authentication yes"
+visudo "ansible ALL=(ALL) NOPASSWORD: ALL"
+ssh-copy-id ansible@host public ip
+
+
+
+HOST MACHIN2 CONNECT WITH LINUX:172.31.28.244
+
+SWITCH TO ROOT USER
+useradd ansible
+passwd ansible
+go to '  vi etc/ssh/sshd_config'
+change password 'no to yes'
+go to 'service sshd restart'
+visudo
+search : "/password authentication"
+"visudo"
+
+generate ssh key first
+"ssh-keygen"
+then add the ip adress in ansible server
+
+ssh-copy-id ansible@host public ip--> execute this command in nsible main server
+
+
+
+
+i created one host file in /etc/ansible/hosts
+
+ansible -i /etc/ansible/walmarthost, 
+core modules is ping
+ansible -i /etc/ansible/hosts all -m ping
+
+" go to ansible.config in the path /etc/ansible/hosts 
+uncomment the inverntory : /etc/ansible/hosts "
+
+
+
+ansible --inventory -file /etc/ansible/hosts all -m ping
+
+[appservers]
+ipadress
+
+ipadress
+[webservers]
+[dbservers]
+ipadress
+
+ctr+c---> to stop
+The authenticity of host 'localhost (::1)' can't be established.
+ED25519 key fingerprint is SHA256:sK2Gwi2XyaQXbRCJmXqCuM6Wq3ztgcOMq3G9INnY360.
+
+
+ansible webservers -m ping --> it will ping all the servers which are from webservers group
+ansible-doc -l --> all the ansible core modules and description 
+(ansible-doc modulename)
+
+"ssh-copy-id ansible@localhost"
+
+
+
+"ansible-doc yum"
+
+we can use the yum or dnf command 
+ansible all -b -m yum -a "name=git"
+sudo dnf install git-all
+"-b(become) it will take sudo privilizases"
+
+'ssh-copy-id ansible@localhost'
+ansible all -b -m yum -a "name=git state=absent"(this absent will remove the git)
+'sudo dnf install git-all'
+'ansible all -m shell -a date'
+ansible all -m shell -a df
+'ansible all -m shell -a "df -h" '
+'ansible all -m shell -a "free -h" ' --> to get RAM module details
+'ansible all -m ping -o'
+ansible all -b -m yum -a "name=httpd"
+
+"service httpd status" if status is inactive
+
+search ansible systemd module
+                                  attribute
+ansible all -b -m systemd -a "name=httpd enabled=yes"  use this to active httpd service
+ansible all -b -m service -a "name=httpd state=started"
+
+
+
+'ansible all --list-hosts'
+
+
+LINUX               Ansible
+-------            ---------
+commands         modules
+options         parameters
+
+yum install git  ansible all -m yum -a "name=git"
+                        here yum is module name is a parameters
+"
+ls -l /tmp/
+sudo rm -rf /tmp/*"
+create a file 'devops.txt'
+
+ansible all -m copy -a "src=DevOps.txt dest=/tmp/DevOps.txt"
+
+
+'ansible 172.31.18.244 -m setup'  this command give particular ip adress details
+
+Ansible -3
+-------------
+
+Ansible playbooks:
+-----------------
+YAML : YAML Aint Markup Language
+YAML: Yet AnotherMarkup Language
+jSON
+
+VISUAL STUDIO CODE:
+-------------------
+Ansible play books
+Docker Config files
+K8S mainfest files
+
+key: value
+
+name:"Mithun Technologies" --> string
+age:7 ---> integer
+salary: 120000.32 --->Float
+isoffbatch: no --->Boolean
+
+playbook:
+
+play book is a single YAML file, it contains one or more plays
+
+play:
+play is a ordered set of tasks
+
+Task:
+Task is an action, to be performed on the host servers.
+
+"ansible all -m ping"
+
+'ansible-playbook pingservers.yaml' to run the play book script
+
+'ansible-playbook --help' execute this command it will get the all options
+
+ansible-playbook pingservers.yaml --list-tasks
+ansible-playbook pingservers.yaml --syntax-check
+
+ansible-playbook --check
+
+'ansible-playbook pingservers.yaml --syntax -check'
+This above command helps to check if any issues in playbook
+
+ansible-playbook pingservers.yaml -v
+ansible-playbook pingservers.yaml -vv
+ansible-playbook pingservers.yaml -vvv
+
+Ansible-4 12/11/2022
+--------------------------
+
+search ansible file modules in google
+
+
+chmod 1777 devops.txt
+
+here 1 is the Sticky Bit
+Sticky Bit:Permissions bit, can be used to secure the files/dir from others
+
+only the root user/owner of the file can obly be delted that file
+
+tmp directory can accesible by anyof the users
+
+ansible-playbook createfile.yml --syntax -check
+
+create a soft link:
+-------------------
+
+we are not going to create any direct .txt file in /tmp/, we are gicing path /tmp/ in playbook , once we create
+the file and saved in ansible-playbook, and run the command" ansible-playbook filename.yaml", then will see in /tmp/
+the file .txt will save there automatically
+
+ "sudo vi /etc/ssh/sshd_config  to update the system with redhat"
+
+"add the inbound rules to ansible server, so that we can open in new tab by using IP adress"
+
+instaed of copy use template 
+
+variable, handlers:
+
+group varibales
+host variables
+
+
+autocmd FileType yaml setlocal ai ts=2 sw=2 et
+
+Ansible-5
+-------------
+
+usually we run the playbook like this
+'ansible-playbook Installapachehttpserver.yaml'
+
+to change the variable name instead of playbook by using -e or --extra-vars options
+
+ansible-playbook Installapachehttpserver.yaml -e countryName=USA
+ansible-playbook Installapachehttpserver.yaml -e "countryName=USA location=CALIFORNIA"
+
+created th variable in playbook
+created the vars in yaml file
+
+
+if we created vars in playbook
+
+
+---
+- hosts: all
+  become: true
+  vars:
+   countryName: UnitedKingdom   ---->here the the ansible server is going to take the command promt only
+   location: London
+  vars_files:
+   - vars.yaml
+  tasks:
+  - name: Install Aapache HTTP servers
+    yum:
+     name: httpd
+     state: present
+  - name: Start the Aapache HTTP server
+    service:
+     name: httpd
+     state: started
+  - name: Copy index.html
+    template:
+     src : index.html
+     dest: /var/www/html/index.html
+...
+
+
+ansible-playbook Installapachehttpserver.yaml -e "countryName=USA location=CALIFORNIA
+
+if we run above command. the ansible server is not going to take the values form commnd promt or variable, dynamically it is going to take the values from command whaterver we are pssing
+
+values take from 
+
+dynamically(if not)--> take form 'yaml' file---> or else take form 'playbook'
+
+save two file with dev_vars.yaml
+prod_vars.yaml 
+
+
+if we gave variable 'env: dev inside varsdemo.yaml
+when we run the playbook, it is going to take variable value only
+
+
+
+vars:
+   env: dev
+   countryName: UnitedKingdom
+   location: London
+  vars_files:
+   - vars.yaml
+   
+   
+
+ansible-playbook varsdemo.yaml -e env=dev
+ansible-playbook varsdemo.yaml -e env=prod
+
+group variable
+-------------
+sudo mkdir /etc/ansible/group_vars
+sudo vi /etc/ansible/group_vars/webservers.yaml  --absolute path
+
+javaversion: java-1.8.0-openjdk
+sudo vi /etc/ansible/group_vars/appservers.yaml
+javaversion: install java-11-openjdk
+[appservers]
+
+
+sudo vi /etc/ansible/group_vars/all.yaml
+java11
+
+
+vi groupvar.yaml
+---
+- hosts: all
+  become: true
+  tasks: 
+  - name: Install javaversion
+    yum: name{{ javaversion }}
+...
+groupservers:
+------------------
+localhost
+
+[webservers]
+172.31.18.244 --> java-1.8.0
+
+[dbservers]
+172.31.18.244
+
+[appservers]---> java-11-openjdk
+172.31.28.244
+sudo mkdir /etc/ansible/group_vars
+
+sudo vi /etc/ansible/group_vars/webservers.yaml
+javaversion: java-1.8.0-openjdk
+
+sudo vi /etc/ansible/group_vars/appservers.yaml
+javaversion: java-11-openjdk
+
+sudo vi /etc/ansible/group_vars/all.yaml
+javaversion: java-1.8.0-openjdk
+
+
+install java in particular server by using below script:
+-----------------
+- hosts: webservers
+  become: true
+  tasks: 
+  - name: Install javaversion
+    yum: name{{ javaversion }}
+...
+
+
+Host varibale:
+----------------
+sudo mkdir /etc/ansible/host_vars
+
+vi 172.31.33.202.yaml (create new host take that ip adress)
+
+create a file in home directory
+~
+vi host.pem and save the pem file content inside the file
+
+172.31.33.202 ansible_user=ec2-user ansible_ssh_private_key_file=~/host.pem
+
+save the above command in 'host' file
+create one new server host3 open a file use ing below link , saved java 1.8.
+
+sudo mkdir /etc/ansible/host_vars
+
+sudo vi /etc/ansible/host_vars/172.31.33.202.yaml
+
+
+sshd_config  --> added line "ChallengeResponseAuthentication no"
+
+
+[defaults]
+inventory = ./hosts_vars
+remote_user = <ec2-user>
+private_key_file = /home/ansible/host.pem --> it didn't work
+
+
+handlers are all tasks are completed then handler is oing to execute
+end of the play run and nitified by other task
+
+
+loops:
+--------
+
+
+when condition:
+---------------
+if we copy the ip adress to ansible no need to use  below command fully, just ip is enough to save in hosts file, otherwise it is a new ip not connected with ansible have to use full command
+
+172.31.43.110 ansible_user=ec2-user ansible_ssh_private_key_file=~/host.pem
+
+
+
+
+
+
+Ansible-6
+----------
+
+Handlers:
+
+handlers are the special tasks, which can run at the end of the play, when if notified by other task.
+
+
+
+
+
+
+
+Ansible-7
+----------
+tags: Tags are useful to able to run the specific task, without running the entire playbook
+
+"ansible-playbook tags.yaml --list-tags"
+ansible-playbook tags.yaml --tags 'install'--> this one specify the 
+
+ansible-playbook tags.yaml --tags 'copy,start,install' --> it is going to play the order by playbook script
+
+ansible-playbook tags.yaml --skip-tags 'start' ---> it will ski the start
+
+
+Ansible vault:
+-------------
+
+By using this vault , we can store the sensitive data, like passwords, data, tokens, and so on
+
+Hashicrop Vault
+Hashicrop Terraform --> infrastructure as a code
+Hashicrop packer
+-----------------------------------|
+Terraform go to mithuntech videos  | 
+-----------------------------------|
+
+ansible -vault --help--> by executing this command to know what are the option in vaul to execute 
+
+
+"yum install sshpass"
+
+WHATEVER THE VARIABLE WE ARE CREATING UNGROUPED ONE GOING TO ACCESS THROGU "all.yml"
+
+/etc/ansible/group_vars/all.yaml
+
+in this file update 'instancepassword: passw0rd'
+
+then update the varibale 'instancepassword' at hosts file in the place of 'ansible_password={{instancepassword}}
+
+encrypt:
+--------
+
+"ansible-vault encrypt /etc/ansible/group_vars/all.yaml"
+
+chown ansible:ansible group_vars
+chmod 777 /etc/ansible/group_vars/all.yaml
+or chmod 777 group_vars
+
+
+ansible-vault create /etc/ansible/group_vars/all.yaml
+
+
+
+
+instancepassword: passw0rd
+
+ansible all -m ping --valut-password-file=/home/ansible/ansibleplaybook/vaultpassword
+
+please see the Ansiblevideo-7 as much as poosible times
+
+ansible-vault encrypt /etc/ansible/group_vars/all.yaml
+ansible-vault view /etc/ansible/group_vars/all.yaml  ---> by executing this command we can see the file content without decrypt
+ansible-vault edit /etc/ansible/group_vars/all.yaml
+ansible-vault rekey /etc/ansible/group_vars/all.yaml  --> we can change or resent the password
+
+
+Ansile-8
+---------
+ansible-galaxy init httpeserver
+
+.
+├── defaults
+│   └── main.yml
+├── files
+├── handlers
+│   └── main.yml
+├── meta
+│   └── main.yml
+├── README.md
+├── tasks
+│   └── main.yml
+├── templates
+├── tests
+│   ├── inventory
+│   └── test.yml
+└── vars
+    └── main.yml
+
+open main.yaml in vars directory
+
+
+--vault-password-file=/home/ansible/ansibleplaybook/vaultpassword
+
+"use above command along with your playbook , to encrypt the file"
+
+create a role like , httpserver, mongodb or simpleroles
+
+beside that create one play book like, install httpserver
+before that inside the httpserver role, update the task, inside the task directory, var, inside the var directory main.yaml, inside the template 'index.html' with <h1> </h1>
+
+dynamic inventory:
+------------------
+it is a script, it might be a python , script or yaml, these scripts can be used to get the all hosts info
+dynamically form the AWS, or azure, GCP
+
+
+to get aws secret key and id
+
+go to aws console, search for IAM, click on users, click on add users
+
+
+username: techcourses
+
+vi dynamicInventory_aws_ec2.yaml
+
+"ansible-inventory --graph -i dynamicInventory_aws_ec2.yaml
+
+ec2-inventory required boto3 and boto4
+************
+[WARNING]:  * Failed to parse /home/ansible/dynamicInventory_aws_ec2.yaml with auto plugin: The ec2 dynamic inventory plugin requires boto3 and botocore.
+[WARNING]:  * Failed to parse /home/ansible/dynamicInventory_aws_ec2.yaml with yaml plugin: Plugin configuration YAML file, not YAML inventory
+[WARNING]:  * Failed to parse /home/ansible/dynamicInventory_aws_ec2.yaml with ini plugin: Invalid host pattern 'plugin:' supplied, ending in ':' is not allowed,
+this character is reserved to provide a port.
+[WARNING]: Unable to parse /home/ansible/dynamicInventory_aws_ec2.yaml as an inventory source
+[WARNING]: No inventory was parsed, only implicit localhost is available
+
+**************
+
+INstall below plugins
+
+
+"pip3 install boto3 --user"
+" pip3 install --upgrade requests --user "
+**************
+[WARNING]:  * Failed to parse /home/ansible/dynamicInventory_aws_ec2.yaml with auto plugin: Failed to describe instances: An error occurred (UnauthorizedOperation)
+when calling the DescribeInstances operation: You are not authorized to perform this operation.
+[WARNING]:  * Failed to parse /home/ansible/dynamicInventory_aws_ec2.yaml with yaml plugin: Plugin configuration YAML file, not YAML inventory
+[WARNING]:  * Failed to parse /home/ansible/dynamicInventory_aws_ec2.yaml with ini plugin: Invalid host pattern 'plugin:' supplied, ending in ':' is not allowed,
+this character is reserved to provide a port.
+[WARNING]: Unable to parse /home/ansible/dynamicInventory_aws_ec2.yaml as an inventory source
+[WARNING]: No inventory was parsed, only implicit localhost is available
+****************************
+for the above error, go to AWS console give full permissions for ec2 to get access in IAM
+
+aws IAM console, click user, attach existing policies
+
+search Amazonec2full access
+or Amazonec2readonly access
+
+
+ansible-inventory --graph -i dynamicInventory_aws_ec2.yaml
+ansible all -i dynamicInventory_aws_ec2.yaml
+ansible all -i dynamicInventory_aws_ec2.yaml -m ping -u ec2-user --private-key=my_key.pem (if error check pem file permission details)
+
+
+ansible-playbook -i dynamicInventory_aws_ec2.yaml pingservers.yaml -u ec2-user --private-key=~/my_key.pem
+ansible-playbook -i dynamicInventory_aws_ec2.yaml pingservers.yaml -u ec2-user --private-key=~/my_key.pem -l Tomcat
+
+
+Nodejs--> it supports simple inspectin of code
+
+
+Ansible-9
+----------
+github url with source code management
+jenkins server with git and java installation
+ansible server with slave nstallation
+
+click on jenkins , manage nodes, 
+
+connect to ansible server
+mkdir ansiblenode
+/home/ec2-user/ansiblenode
+private IP adress
+
+yum remove java-1.8.0-openjdk -y
+
+yum install java-11-openjdk -y
+
+Static inventory Script:
+-----------------------------
+
+pipeline{
+
+agent{
+label 'Ansiblenode'
+}
+environment{
+AWSEC2_PRIVATEKEY=credentials('ec2-private-key')
+}
+stages{
+stage('Checkoutcode'){
+steps{
+git credentialsId: 'e3037cf7-0062-4ca3-a5ad-398cf527cae8', url: 'https://github.com/bhuvaneswaribhoopal/jenkins-with-ansible.git'
+}
+}
+stage ('RunAnsibleplaybook'){
+steps{
+sh "ansible-playbook -i inventory/walmart.hosts --private-key=$AWSEC2_PRIVATEKEY playbooks/installTomcat.yml
+--ssh-common-args='-o StrictHostKeyChecking=no'"
+}
+}
+}//stages closing
+}//pipeline closing
+
+
+for credentialsId
+click on Managejenkins,
+manage credentials
+click on global, click on secret file, id name , copy the id name
+
+above stage create environment
+-----------------------------------------------------------------
+dynamicinventory-pipeline
+-------------------------
+
+pipeline{
+
+agent{
+label 'Ansiblenode'
+}
+environment{
+AWSEC2_PRIVATEKEY=credentials('ec2-private-key')
+}
+stages{
+stage('Checkoutcode'){
+steps{
+git credentialsId: 'e3037cf7-0062-4ca3-a5ad-398cf527cae8', url: 'https://github.com/bhuvaneswaribhoopal/jekins-ansible-dynimc-inv.git'
+}
+}
+
+stage ('RunAnsibleplaybook'){
+steps{
+sh "hostname"
+sh"whoami"
+//list all the ip adresses which are getting dynamically
+sh "ansible-inventory --graph -i inventory/aws_ec2.yaml"
+sh "ansible-playbook -i inventory/aws_ec2.yaml --private-key=$AWSEC2_PRIVATEKEY playbooks/installTomcat.yml
+--ssh-common-args='-o StrictHostKeyChecking=no' -l Tomcat"
+}
+}
+}//stages closing
+}//pipeline closing
+
+
+The above playbook execute as "ec2-user", so install "pip3 install boto3 --user" and "pip3 install --upgrade requests --user" in ansible ec2 server Linux
+
+possible places to check:
+-----------------------------
+
+Ansible server/jenkins slave
+check andiblenode path
+
+
+create a mkdir "ansiblenode"
+/home/ec2-user/ansiblenode/
+
+label ansiblenode
+check java 11
+
+sudo yum install git
+
+
+--- 
+- name: set up webserver
+  hosts: all
+  tasks: 
+    - name: ensure nginx is at the latest version
+      apt:
+        name: nginx
+        state: latest
+    - name: start nginx
+      service: 
+        name: nginx
+        state: started
+        enabled: yes  # if you want to also enable nginx
