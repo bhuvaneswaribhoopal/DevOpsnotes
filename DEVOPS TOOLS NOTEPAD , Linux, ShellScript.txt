@@ -1,0 +1,1726 @@
+DEVOPS FIRST TOOL
+==================
+Linux commands
+ShellScripting
+
+
+GITHUB
+GIT and GITHUB both are not same
+
+In work to share the codes inbetween the colliques
+to need communicate
+
+GitHub Administration
+---------------------
+
+communicator Examples
+----------------------
+MS teams
+slack
+skype for business
+Lync
+
+we should not share the source code by using emails or communicator
+
+Only can share the source code by using centralized remote tripositry
+
+SCM--> SOURCE CODE MANAGEMENT
+GitHub--> open source
+GitLab
+BitBucket
+
+TFS--> TEAM FOUNDATION SERVER
+CVS--> CONCURRENT VERSION SYSTEM
+SVN--> SUBVERSION
+
+Repo--->Repository
+
+http://github.com
+
+GitHub Enterprise Edition(for company purpose , we need to pay to GitHub)
+
+https://ghe.mss.com
+https://aa.ghe.com
+
+bhuvi-devops-course
+1) create an organisation:
+
+https://github.com/bhuvi-devops-course
+
+2)Create the repository
+
+https://github.com/bhuvi-devops-course/mithunITcourses.git
+https://github.com/bhuvi-devops-course/Devopscourse2022Team.git
+
+ssh URL:git@github.com:bhuvi-devops-course/mithunITcourses.git
+
+3)create a new team:
+-------------------
+team name:Devopscourse
+https://github.com/orgs/bhuvi-devops-course/teams/devopscourse2022
+
+
+4)Add the users to the team
+
+go to the team which we creadted click on the team name and add memenber
+by default the memeber who create the team is going to be add as memeber
+
+click on the add memeber and add memebers 
+
+
+5)provide repository access to the team:
+
+click on repository add the repository name to the repository then the access will enable to team memebers
+ who are all added into team
+ 
+ change the repository private to pubilc at dangerzone by clicking the change visisbility
+ 
+ 
+ ONCE YOU DELETE THE TEAM OR ORGANISATION WE CANNOT RECOVER IT BACK
+ 
+ Q2. hOW TO CREATE PARENT TEAM FOR ONE REPOSITORY AND EXPLAIN ONE USE CASE?
+ 
+ Q3. How tp delete parent team/child team from repository?
+ 
+ 
+
+we are not creating repository on our username only using the repository on organisation name
+
+
+
+create an organisation
+creat on repo
+create TEAM
+https://github.com/orgs/bhuvi-devops-course/teams/devopscourse2022
+GIT COMMANDS--> DATE 28/9/2022
+
+Linux:
+------
+mkdir -v devops.txt
+here v means verbose
+
+mkdir -pv DevOps/Linux/ShellScript/Git/Maven/Tomcat/Sonarqube
+
+p mean parent
+
+ls -ltr
+l means long list, t means access time, r means reverse
+
+inode:
+-------
+Inode is datastructure it store the information like permission, size, no. of links, groups, timestamp..
+
+but it won't show file name and dir name
+ls -li to get inode number
+
+/root --> it is root user home directory
+
+/etc ---> absoulte path start from root directory
+cd etc ---> relative path start from current directory
+
+
+current directory file serach
+find . -type f -empty to find empty files
+
+find . -type d -empty to find directories
+
+find . -i filename
+
+chmod -R ( if we ae not use -R the permissions only goig to change for the parent directory)
+
+not to subdiretories, if we use -R permission chnage to parent and sub directories
+
+"chmod u+rwx,go+rw filename"
+"chmod ugo+rwx filename"  (u is user, g is group , o is others)
+"chmod ugo-rwx filename" to remove permissions
+
+
+*************
+cat filename | grep web-server (it will give web-server name inside the file)
+
+who -H (heading)
+
+whoami --> it give the current user name
+user --> this command give details of all users whoever connected 
+whereis ls ---> it give all of binary file details
+
+hostname -i
+
+change to root user and execute the command
+"hostname bhuvana"
+
+'systemctl list-units-file ' it wil display all services list
+
+
+ps -ef | grep jenkins (to get process id)
+
+PID
+
+kill -9 PID(THERE 1-64 SIGNALS)
+
+kill -l 
+
+
+Linux---> Manage the linux commands
+Shellscripr-->to do the automation
+git and github--->develope the code manage the source code
+maven-->build tool, creating the packages
+Tomcat--->deploy the applicaitons, packages
+
+Sonarqube--->code quality management tool, to check the quality of code
+it is a static code analasis tool, 
+Senior developers do the code review
+
+peer to peer code review
+code coverage:
+--------------
+How many lines of code is tested by unit test cASES
+
+code review:
+------------
+Validating line by line code and checking the weather code is following all the standards or not
+
+
+Java--> Jnuit testing frame work will use
+.net--> Nunit
+c--> cunit
+c++---> cppunit
+Python--> Pytest
+
+
+SonaQube version: 9.x
+
+
+sonarqube/Nexus/Jenkins --> developed by Java, it will support multi language
+Maven/Ant/Gradle/Tomcat/was(webapplicaiton server)/Weblogic--. > developed by Java only support Java
+
+mYsql
+postgreysql  are opensource, no need to pay the money
+
+Exceptional handling Mechanism:
+------------------------------
+try{here keep the code, which many gives the errors}
+catch
+finally
+throw
+throws
+
+"sonarqube server is a code quality management tool, which can be used to check the quality of the source code"
+it supports 20+ languages
+C++, VISUAL BASIC,.NET, COBOL ABAP
+
+
+FREE FOR: PUPPET, GROOVY, JAVA SCRIPT, JAVA PYTHON, XML, 
+
+
+
+
+interview question? what is load average
+"load average represents that what is  CPU utilization, it will 3 values, 1min interval time, 5 th minute interval time, 15th minute interval time
+ "
+first git clone git nodej.s scm
+
+yum install npm
+
+yum install nodejs -y
+
+npm run sonar
+
+"npm install" execute to donload the packages
+
+ 
+****************  7/12/22
+"cpuinfo" in proc directory
+
+PREREQITE SOFTWARES:
+--------------------
+java- 11
+sonarqube 9.x
+
+along with sonarqube H2 data bese will be there
+
+it needs 2 GB RAM, run in java 11
+
+sonaqub run with 9000 port number
+
+***********************
+Linux:5 video
+--------------
+vim editor or vi editor
+:se nu
+:se 108
+:se nonu means no numbers
+/load  it means to search the word
+
+crl+o for saving
+ctrl+x for closing
+
+yum install nano -y
+
+cat -n  this command display the all content with numbers
+"head filename" by default it is going to display the first 10 lines
+
+"head -n 12 filename" to display first 12 lines
+"tail -n 20 filename " it display last 20 lines
+
+"sed -n "90,98p" filename"
+
+"sed -n "90p" filename" print only line number 90
+
+"less filename"
+
+"cat filename | sort
+
+
+sort -r filename" this will display the content in everse order
+
+"cat filename | sort | tr [a-z] [A-Z]"  THIS COMMAND TO CHANGELOWER CASE TO UPPERCASE
+
+grep to serach the particular word 
+
+ex: cat filename | grep workkspace(word)
+
+grep -i work filename  it helps to neglect the case 
+
+
+"sed "s/red/blue/" sample.txt"
+
+the above command helps to change the work wjerever red it change to blue/
+
+"sed "s/red/blue/g" sample.txt" here g is globally it replace all the places
+
+sed mean speed editor, it is gping to work on the editor
+
+"sed -i "s/red/blue/g" sample.txt", if wee use i it will update and create the file also 
+
+
+Linux-6:
+-------
+
+"who" command will give the information about username
+
+who -H WILL GIVE EXTRA INFO, ip , user
+                                                                                            1min 5 min 15 min 
+"W" command will give info about login user, and load average represents cpu utilising 0.00 0.00 0.00
+
+
+"uptime " will give th eserver run time load avg and more
+
+"users" tis will give all user info
+
+"cpuinfo" there we can see the cpu information
+
+"cat /proc/cpuinfo"
+" whereis ls" to serach the file or dir name where available
+
+"man mkdir" it helps to give more info about mkdir
+
+"timedatectl" it gives the timezone details
+
+"df" disk free
+
+"df -h" to get human readabale format
+
+"du" disk usage
+
+"du -h" 
+"du -h directoryname"
+"du -sh directoryname"
+
+"hostname"  ip adress, if we want t change the hostname
+
+"hostname bhuvana", switch to root user and change the name
+
+
+"ifconfig". switch to root user and and install net-tools for ifconfig
+
+serach package name in google so that we can get the package name
+
+"yum install net-tools -y" , to get ifconfig 
+
+"ipconfig"
+"hostname -i" will give ht eipadress
+
+"man date"
+"man hostname"
+man will give detailsinformation about command
+
+"mkdir --help", we can use help for any command
+
+"whatis ls" if will give short infrmation
+
+"service or systemctl"
+
+services.msc
+
+"service sshd status"
+
+service as option (status|start|stop|restart)
+
+systemctl ssh status
+
+"last" command will give the user login details
+
+ Linux 7:
+ -------
+'ps'
+ps -ef | grep jenkins
+ps -ef | grep java
+PID
+kill -9 PID
+
+THERE ARE 1-64 SIGNAL TYPES ARE THERE
+
+"top" command memory utilization, monitoring utility
+
+display Linux tasks
+
+"zip" 
+"zip -r devops.zip Devops"
+for etracting we r using the UNZIP command
+
+"unzip devops.zip" it will extend the Directory, so delete the previous directry
+
+tar -cvf devops.tar -d /tmp/
+
+tar -zcvf devops.tar.gz
+tar -zxvf devops.tar.gz
+
+
+shadow
+"/etc/ shadow"
+"passwd bhuvana"
+
+"cat /etc/ shadow"
+if unzip command not found, "yum install unzip -y"
+
+"passwd ec2-user"
+"cat /etc/ shadow"
+
+
+"passwd root"
+"cat /etc/ shadow"
+
+to set attributes  means to set the password minimum working days
+
+here the -1 is infinite
+
+"usermod -g groupname(devops) bhuvana"
+lid -g devops(gp name)
+
+"id bhuvana" it will set the id and set the gp
+
+"usermod -L bhuvana" to lock the user
+"usermod -U bhuvana" to unlock the user
+
+
+Normal user to normal user we have t gve password
+Normal user to rootuser need to give password
+
+
+visudo
+
+"bhaskar ALL=(ALL) ALL"  TO SAVE IN THE VISUDO FILE , WHATERVER THE ROOT HAVE THE AUTHORITIE bhuvana USER ALSO WILL GET
+
+
+IF WE WANT TO SWITCH THE USER
+"sudo passwd harsha"
+
+"sudo groupadd dba"
+"cat /etc/group"
+"sudo groupdel dba"
+
+"sudo userdel bhuvana"
+"touch filename"
+
+Linux -8
+---------
+crontab: Automating /Scheduling Tasks commands
+--------
+sudo touch /etc/cron.allow it will work only in root user 
+
+crontab -l displat how many jobs configured
+crontab -e to editor
+crontab -r to remove
+
+without execute permissions we cannot run the command
+
+"chmod u+x filename"  to give execute permissions run this command
+
+wat is crontab format?
+there are total of 6 fields
+
+first fields minutes 0-59
+2nd field Hour 0-23
+3rd field Day of month 1-31
+4th field month 1-12 or jan-Dec 
+5th field day of week 0-6 or sun-sat
+6th field command/script (/usr/bin/find) give the absolute path
+
+/1 * * * * /home/ec2-user/hello.sh > home/ec2-user/hello.log
+
+https://crontab-generator.org
+
+crond.service will monitor the running jobs
+
+> :redirect std o/put
+>> : append std o/put
+
+File Description:
+-------------------
+0--> std i/p
+1--> std o/put
+2--> std error
+*/1 * * * * /home/ec2-user/hello.sh > home/ec2-user/hello.log 2>&1
+1 9 1 * * home/ec2-user/hello.sh >/dev/null 2>&1
+
+create file hello.sh
+chmod u+x hello.sh
+
+
+crontab -e 
+*/1 * * * * /home/ec2-user/hello.sh > home/ec2-user/hello.log 2>&1
+if we mention "/30 every 30 minutes one it is going to run
+
+
+
+ls
+
+crontab -l
+
+cat hello.log
+
+before deleting it self we have to take the backup 
+
+
+Linux-9
+--------
+set the password for ec2-user, Bhuvana, root
+restart sshd.service
+
+vi /etc/ssh/sshd_config
+
+passwordAuthentication yes
+service sshd restart
+restart sshd.service
+
+ssh ec2-user@18.134.142.152 and it will ask ec2-user password give "passw0rd"
+
+it will start 
+
+follow linux videos
+
+
+" if we want to connect without pem file, enabke the service password aunthentication in sshd_config file as "yes" , 
+then ssh ec2-user@ipadress , it will connect to the server
+before set the passwordds for ec2-user, root and Bhuvana(if we created)
+
+scp: secure copy
+-----------------
+scp filename ec2-user@ip/hostname:/tmp/ (anyof the user copy to tmp directory)
+scp -r directoryname ec2-user@ip/hostname:/tmp/
+scp -r Python/ ec2-18-134-142-152.eu-west-2.compute.amazonaws.com:/tmp/
+
+scp is secure copy
+FTP is not secure copy
+WINSCP ONLY SUPPORT FOR WINDOWS
+
+FILEZILLA will support in windows and macbook both , it is also a tool to copy the files and directories
+
+
+scp directoryname ec2-user@ec2-18-134-142-152.eu-west-2.compute.amazonaws.com:~ or /tmp/
+bY using the "scp" command copy the the files and directories form one server to another server
+
+Harshada2806
+
+set the password to serverB
+ec2-user passwd set
+open sshd_config , passwordauthentication YES
+service sshd restart
+restart sshd.service
+
+
+error: no support authentication methods avaialble 
+
+for this error first need to connect the server in linux and enablethe passwordauthentication yes
+
+
+"df -h " will show disk utilization
+top
+free display RAM size
+
+free -h human readable format
+free -k, -m, -g
+
+dmidecode  execute this command as root user
+this command wil give RAM details
+Clod servers: Maintain by comapnies like, AWS, AZURE, GCP, IBM...
+onpremesis server : physically existed in your comapanies
+
+BASED ON THE ENVIRONAMENT WE ARE USING DIFFERENT RAM SIZE
+
+Development environment 
+
+mail command
+install related mail command packages
+configure SMTP server with linux server, 
+
+SMTP: Simple main trasfer protocol, linux admin will configure this server in our systemctl
+mail emailid: emailid : email id
+
+suject
+email body
+
+ctrl D
+
+
+Linux-10
+--------
+
+cls --> work in windows
+clear --> work in Linux
+
+cal command will display the month
+cal -1 
+cal -3 diaply last, current , next month
+cal 1985
+cal 1 1985 to display month of the year
+
+
+if we want to dowload any software
+
+goto new window, serach for the software , copy the links
+
+then come to linux
+"wget -o /tmp/maven.zip link" -o will and specify the name instead of name in the link it will save the name what we given next t -o
+yum install wget" before execute the above command, as root user
+
+curl and wget are same commands to download the software
+but
+curl can have advance features, mainly it helps to call the API'
+it helps to many protocaols
+
+wget simply download the softwares
+
+curl command supports multiple protocol
+
+API: Appliction programmning interface
+
+
+ls > lsopt.txt, redirect the files to this particualr file
+
+ls | tee teeopt.txt , output display and content also is availbale 
+
+cat teeopt.txt
+
+the commands out put will store in "typecsript"
+
+exit from the script
+then type "cat typescript"
+
+instead of script name we can give customname means anyfile name 
+
+like : script bhuvana.txt
+ping google.com
+ping -c 4 google.com
+
+port is an entry point into server
+
+for servefr 0-1023 --> reserverd ports
+
+0-65535 total ports
+
+ssh --> 22
+HTTP--> 80
+HTTPS ---> 443
+SMTP -25
+FTP--> 23
+telnet --> 21
+
+
+telent google.com 80
+
+sudo yum install telnet -y
+
+telnet will dis[play that port is enable or not
+ping will ping and see the services and connectivity
+
+telent we can check the connectivity wheather port is enable or not
+"history -c"
+
+each user has his own history
+
+whcih operating sytem we are using execute "uname"
+
+to know which distribution we are using 
+
+/etc/redhat-release
+
+ubuntu
+/etc/os-release
+
+cat /etc/*release  anyfile with extention release
+this command helps to know the distribution details
+
+"netstat", which id which tool which port it is using
+
+"netstat -tunlap" (tcp portocal), 7 layers are there, trasport, physical, applciaiton, isos layers
+whcih port is using which port
+
+
+"watch" by using watch command we can monitor any particular service we required freequently
+watch date
+watch -n 5 date
+
+shutdown
+
+shutdown -c to stop the shutdown
+
+
+Shell scripting:
+-------------------
+what is shell?
+Ans) Shell is a progrma , it will takes the commands whatever user has typed and it will gives the OS to execute.
+
+Shell is an interface between user and OS.
+
+
+WHAT IS THE path for the FILE NAME OF SHELLS?
+
+cat /etc/shells
+
+shell types:
+------------
+sh --> available in all older versions
+bash ---> default in all advanced Linux servers
+csh
+KSH--> provided by IBM, with server AIX
+tcsh
+
+to install any of the shell which is not in server , use yum install csh for example
+
+to know present working directory of shell
+"echo $SHELL" , IF WE DIDN'T MENTION $ SYMBOL IT IS GOOING TO TAKE AS USUAL
+
+
+bash shell scripting 
+Linux commands --> Linux server
+
+Power shell
+DOS commands --> windows
+
+what are the shellscripts u written in your company?
+serverresourcemonitor.sh
+
+top
+df -h
+free -h
+THRESOLD=80
+
+mail
+hostname
+ifconfig
+
+dbbackup.sh
+it is going to take the database backup
+RDMS
+ORACLE MYSQL, POSTGREYSQL, ms SQL SERVER, DB2, BIG DATA
+NO SQL OR MONGODB
+
+DATA IS NOT GOING TO STORE IN THE TABLES, IN A JASON FORMAT IT WILL STORE
+
+TO STORE THE DATA WE ARE GOING TO USE THIS RDMS RATIONAL DATABASE MANAGEMENT SERVICE
+
+i write a shell script, work with DBA guy, he configure some sql queries, then we set into the CRONTAB 
+
+don't touch nay files except the /tmp/ directry, becuase in /tmp/ there are temporary files, even if u delete not impact much 
+
+shell script run on Linux/Unix/AIX server
+
+
+#!/bin/bash --> shebang line
+
+before run the shellscript file, give execute permissions to the file
+chmod 644 or chmod u+x , to execute the permissions
+
+
+
+shellsript2:
+-------------
+How many ways there to run the shell script
+./filename
+sh filename.sh
+bash filename.sh
+csh filename.sh
+tcsh filename.sh
+
+
+How to know how amny shells in server 
+
+cat /etc/shells
+
+shebang line represents thats ,which shell we needs to execute this command
+
+
+what is the command to run the shellscript as debug mode?
+sh -x filename.sh
+
+if we want to execute only one line in debug mode 
+use 
+set -x
+echo "goodmoening"
+st +x
+
+line by line we can see out put so that we know , which command gives the error
+
+file name should start only alphabets only, 
+
+comments:
+----------
+why we r using comments?
+it is mpre readabaleand understanable of the code.
+
+identifies the errors, and understand the code
+
+c/c++/java/terraform/Groovyscript
+
+single line comments //
+
+multiline comments
+/*
+..
+..
+..
+..
+*/
+shellscript comments:
+----------------------
+# ---> single line comments
+<< Bhuvana --> multiline comments , give any text
+...
+...
+Bhuvana
+then it will ignore the lines between these
+
+what is shell script?
+shellscript is simple file, which contains some set of commands
+
+
+cat -n filename.sh , it open the file with numbers
+
+varibale:
+---------
+it is memory location where we can store the values
+two types of variables
+a)system defined variables
+B)user defined variables
+
+what are command we are going to use to display the system defines variables?
+env or printenv commands to diaply the systemdefined variables
+
+varibalename
+SHELL=/bin/bash
+       variable value
+Histsize 1000, if it reaches to 1001, the first command is going to be delete
+
+echo $HISTSIZE
+echo $SHELL
+
+IF WE WANT TO USE THE COMMANDS AS VARIBALE IN SHELL SCRIPT EXCUTE ALL IN CAPITALLETTERS WITH $SYMBOLS
+
+EX: echo $USER
+
+echo $HISTORY
+
+increase or decrease the hstory size, use this command,export HISTZISE=200, IT HELPS TO CHANGE THE HISTZISE
+
+.bash_profile add export HISTSIZE=200, it is going to be permanent
+
+userdefines varibles:
+---------------------
+we are going to create this inside the shellscript
+
+ex: int a=10, int b=20 String Name="software solutions"
+
+
+shell script:
+
+a=10
+b=20
+name=software solutions
+echo $a
+echo $b
+echo $name
+
+a=10
+b=20
+name=software solutions
+echo "display the value of a is" $a
+echo "display the value of b is" $b
+echo "display the name of varibale " $name
+
+
+a=10
+b=20
+name=software solutions
+a=40
+echo $a
+echo $b
+echo $nam
+
+it is gooing to take last value
+
+
+
+a=10
+b=20
+name=software solutions
+echo "display the value of a is" $a
+echo "display the value of b is" $b
+echo "display the name of varibale " $name
+echo "The user name is" $USER
+hsize=$HISTSIZE
+echo "The user name is" hsize
+
+
+SHELLSCRIPT-3:
+-----------------
+
+COMMAND LINE ARGUMENTS:
+----------------------
+echo $0 ---> script name
+echo $1 --> 1st arg value
+echo $2 --> 2nd arg value
+echo $3 --> 3rd arg value
+
+echo ${11} --> from 11th arg value
+echo $# ---> number of args
+
+echo $* --> give all the arguments
+
+echo$@ ---> all the arguments
+
+what is the difference b/t $* and $@ ?
+$* --> all the arg a one string --> "proddb dbloc"
+$@ --> each arg as a one string ----> "proddb" "dbloc"
+
+echo $$ --> PID
+date
+echo $? --> previous command execution status
+
+127 --> standard error for  "command not found"
+
+vi dbbackup.sh
+
+command line arguments are very important follow the below:
+------------------------------
+echo "C L Args demo"
+echo $0
+echo $1
+echo $2
+echo $3
+echo ${11}
+echo $#
+echo $*
+echo $@
+echo $$
+date
+echo $?
+
+sh dbbackup.sh  dbname dbbloc
+
+if the user pass 2 arg , then we need to execute
+otherwise
+display one user fndly msg
+
+if [$# -eq 2]
+then
+--
+--
+--
+else
+--
+--
+fi
+
+shellscript for if else condition:
+---------------------------------
+if [$# -eq 2]
+echo "C L Args demo"
+echo $0
+echo $1
+echo $2
+echo $3
+echo ${11}
+echo $#
+echo $*
+echo $@
+echo $$
+date
+echo $?
+else
+echo "please pass the 2 arg"
+echo "usage: sh $0 dname dbloc"
+fi
+file name : vi ifelsecond.sh
+run the above
+
+to pass 2 arg run the script like sh ifelsecond.sh dbname dbloc
+
+the difference b/w = and == ?
+= --> Asiign the value
+== --> comparision 
+-eq ---> ==
+-ne --> != not equal
+
+-le --> <= less than
+=lt --> <
+-ge --> >= greater than
+-gt ---> >
+
+
+write a shell scrpt to install java if java not installed
+
+if it is installed display a user frndly msg java laready installed
+
+echo "Checking Java has installed or not"
+java -version
+if [$? -eq 0]
+then
+echo "Java has already installed.."
+else
+echo "Java has not installed.."
+echo "Install java"
+sudo yum install java-11-openjdk -y if we executing as ec2-user execute with sudo
+fi
+
+Nginx installation
+-------------------
+echo " checking nginx installation"
+nginx -version
+
+if [$? -eq 0]
+then
+echo "niginx not installed"
+else
+yum -y install wget
+echo "dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
+yum install nginx
+systemctl enable nginx.service
+systemctl start nginx.service
+echo " check nginx version"
+nginx -version
+fi
+
+
+#Tomcat installation
+======================
+sudo yum install java-11-openjdk -y
+sudo yum install wget unzip -y
+cd /opt
+sudo wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.70/bin/apache-tomcat-9.0.70.zip
+
+sudo unzip apache-tomcat-9.0.70.zip
+cd /opt/apache-tomcat-9.0.70/bin
+sudo chmod u+x *.sh
+sudo ln -s /opt/apache-tomcat-9.0.70/bin/startup.sh /usr/bin/startTomcat
+sudo ln -s /opt/apache-tomcat-9.0.70/bin/shutdown.sh /usr/bin/stopTomcat
+sh startup.sh
+
+chmod u+x /opt/apache-tomcat-9.0.70/bin/*.sh
+
+chmod u+x *.sh  inside bin directory
+
+at lib directory we can see all jar files
+at log directory default it is empty
+once start the Tomcat server, it is going to create the log files
+
+go to webapps
+default applocation "host-manager"
+
+go to bin directory
+
+execute chmod u+x *.sh
+
+execute below softlinks
+
+ln -s /opt/apache-tomcat-9.0.70/bin/startup.sh /usr/bin/startTomcat
+ln -s /opt/apache-tomcat-9.0.70/bin/shutdown.sh /usr/bin/stopTomcat
+sh startup.sh
+
+
+if we don't create softlinks
+to acceess from anywhere we have to create softlinks, so that we can start and stop tomcat any directory
+
+start
+stopTomcat
+
+go to webapplicaiton
+go to manager
+go to META-INF
+
+vi context.xml
+
+
+go to conf/
+
+vi tomcat-user.xml
+<username="admin" password=passw0rd roles="admin-gui,manager-gui" />
+
+nginx.conf
+----------
+
+events{
+   worker_connections 1024;
+}
+http {
+keepalive_timeout 5;
+upstream tomcatservers {
+  keepalive 50;
+  server 172.31.37.89:8080;
+  server 172.31.37.246:8080;
+  server 172.31.44.101:8080;
+}
+ server {
+  listen 80;
+  location / {
+     proxy_set_header  X-Real-IP $remote_addr;
+         proxy_set_header  X-Forwarded-For  $proxy_add_x_forwarded_for;
+         proxy_set_header  X-Forwarded-Proto $scheme;
+         proxy_set_header  Host $host;
+         proxy_pass http://tomcatServers;
+  }
+ }
+}
+
+nginx -t
+nginx -s reload  to reload the configurations
+
+systemctl restart nginx
+
+setsebool -P httpd_can_network_connect true to get access through internet
+
+
+will add the parameter called weight=5 , 5 requ go to that particular server and i request go to other service, 
+
+if one server has 512mg RAM, 100 cpu, other server has 32gb, 8 core cpu,  
+
+we are hiding all tagetting server, we are proxying the server ips to nginx ip adress and using that url for end user usage
+
+***********
+How the end users will access the applicaiton?
+Ans) If we create a DNS, that domain will reach the proxy url, reuest go to that IP 80, from there request forwardded to respect ports
+
+command: nslookup
+
+
+#!/bin/bash
+sudo yum install java-11-openjdk-devel -y
+cd/opt
+sudo yum install wget -y
+sudo wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.70/bin/apache-tomcat-9.0.70.zip
+sudo tar -xvf apache-tomcat-9.0.70.tar.gz
+sudo rm apache-tomcat-9.0.70.tar.gz
+sudo mv apache-tomcat-9.0.70 tomcat9
+sudo chmod 777 -R tomcat9
+cd/opt/tomcat9
+./bin/startup.sh
+
+shellscript -4:
+----------------
+
+string is a set of characters enclosed in a single or double quotes.
+
+for ex: name="course"
+
+here "name " is the variable name, "course" is the "value"
+
+string_var="Hello everyone"
+
+echo $string_var
+or
+echo ${string_var}
+
+echo ${#string_var} --> lenght of the varibale
+echo ${string_var:20} --> to ignore first 20 characters
+echo ${string_var:20:15} --> first number represents how many charcters to ignore, how many to display, 
+echo ${string_var: -8} last 8 characters will dsplay
+echo ${string_var:0:2} to display first 2 characters
+
+Arthimatic Operations:
+----------------------
+"expr" before the operation
+
+ex: expr 2+3
+  expr 3 - 2
+  
+  to display multiplication use escape character "expr 2\*3"
+  
+  echo "The addition of 2 nad 4 is: " `expr 2+4`
+  
+
+to Perfom arthimetic operations
+
+filename.sh 2 3
+
+mention in file like expr $1 + $2
+
+here $1 first argument i.e., $1=2
+here $2 second argument i.e., $2=3
+
+make our shellscript interactivemode:
+--------------------------------------
+
+echo "Please neter your favourite dish: "
+read dish
+echo "The dish whoih you have typed is : " $dish
+
+
+echo "what are all your DevOps tools: "
+read DevOpstools
+
+echo "The tools your typed are: " ${DevOpstools}
+----------------------------------------------------
+variable: is a single memory locaiton where we can store one value
+Array: is  a continuos memeory locaiton,
+
+echo "Please type the Devops tools"
+read -a DevOpstools
+echo "Display the 4th value is : " ${DevOpstools[3]} index start from "0"
+
+
+read -p "Please enter our bank username: " username
+read -sp(here s si secret password won't display) "Please enter your bank password: " password
+
+echo "" (it helps display the sentece in next lines)
+echo "The user name which you have typed is: " $username
+echo "The password which you have typed is: " $password
+
+
+Shellscript-5
+--------------
+> --> redirect standard outpur
+>> --> append stadard output
+< --> standard input
+
+
+ ls > lsopt.txt  redirect the out put 
+ ls >> lsopt.txt  overrise the file
+ 
+ 
+file descriptors:
+----------------
+0 ---> std i/p input
+1 ---> std o/put
+2 ---> std error
+
+only out is redirec to the file
+
+both out put and error to display 
+
+sh filename.sh > filename.log 2>&1 to redirect out put and error both in pne file we will use this file descriptors
+
+sh filename.sh 2> error.log 1> output.log
+
+error will display in error file, output in putput file, 
+--------------------
+if else conditions: or statements
+---------------------------------
+
+"if" the condition is not satisfied it goes to "else" block
+
+
+if [condition]
+then
+--
+--
+else
+..
+..
+fi
+
+------------------------------
+shellscript if else statement:
+------------------------------
+a=20
+b=30
+if[ $a -gt $b]
+then
+echo "$a is bigger than $b"
+else
+echo "$b is biggerthan $a"
+fi
+
+Nested if else condition (checking multiple times)statement2:
+-------------------------------------------------------------
+a=20
+b=30
+c=40
+if[[ $a -gt $b && $a -gt $c]]
+then
+echo "$a is bigger than $b and $c"
+elif [[$b -gt $a && $b -gt $c]]
+echo "$b is biggerthan $a and $c"
+else
+echo "$c is biggerthan $a and $b"
+fi
+
+To find the curretn file directory shell script:
+------------------------------------------------
+"if [ -f /opt/$filename] if want to check in particular directory we can mention name other wise it will check in currect directory"
+
+echo "Please neter the filename which you want to check in current directoty: "
+read filename(IT IS VARIABLE NAME)
+
+if [ -f /opt/$filename]  "-f will check file, -d is directory check"
+then
+echo "$filename is avilable in currect directory"
+else
+echo "$filename is not available in currect directory"
+fi
+
+statementment 3: file is not there it has to create, if it is there it has to display the content
+------------
+echo "Please neter the filename which you want to check in current directoty: "
+read filename
+if [ -f /opt/$filename]
+then
+echo "$filename is avilable in currect directory"
+echo "$filename content are: "
+cat $filename
+else
+echo "$filename is not available in currect directory"
+echo "$filename is creating.."
+touch $filename
+fi
+
+
+write the shellscript to accept the filename from the user 
+and check the file is having "read" permissions for user or not?
+
+write the shellscript to accept the filename from the user 
+and check the file is having "write" permissions for user or not?
+
+write the shellscript to accept the filename from the user 
+and check the file is having "execute" permissions for user or not?
+
+
+statementment 4: file is not there it has to create, if it is there it has to display the content
+------------
+echo "Please enter the filename which you want to check in current current directoty: "
+read filename
+if [ -r $filename]
+then
+echo "$filename is having read permission"
+echo "$filename content are: "
+cat $filename
+else
+echo "$filename does not have read permissions"
+chmod u+r $filename
+fi
+
+
+statementment 5: check file write permissions
+------------
+echo "Please enter the filename which you want to check in current current directoty: "
+read filename
+if [ -w $filename]
+then
+echo "$filename is having write permission"
+echo "$filename content are: "
+cat $filename
+else
+echo "$filename does not have write permissions"
+chmod u+w $filename
+fi
+
+statementment 6: check file execute permissions
+------------
+echo "Please enter the filename which you want to check in current current directoty: "
+read filename
+if [ -x $filename]
+then
+echo "$filename is having execute permission"
+echo "$filename content are: "
+cat $filename
+else
+echo "$filename does not have execute permissions"
+chmod u+x $filename
+fi
+
+
+Shellscript - 6:
+----------------
+for loops
+
+for ((intialisation;condition;inc/dec))
+do
+--
+--
+done
+Write a shellscript to print the numbers from 1 to5  only by using forloop,
+
+FileName: Forloop.sh
+echo"Forloop demo starts.."
+for (( b=1;b<=5;b++))
+           1<=5 1++    
+            2<=5 2++
+			3<=5 3++
+			4<=5 4++
+			5<=5 5++
+			6<=5 6++
+			
+do         
+echo $b
+done
+echo "Forloop demo over.."
+output:
+-------
+Forloop demo starts..
+1
+2
+3
+4
+5
+Forloop demo over..
+
+forloop script 2:  print numbers 1 to 100
+----------------
+echo"Forloop demo starts.."
+for (( b=1;b<=100;b++))
+           1<=5 1++    
+            2<=5 2++
+			3<=5 3++
+			4<=5 4++
+			5<=5 5++
+			6<=5 6++
+			
+do         
+echo $b
+done
+echo "Forloop demo over.."
+
+forloop script 3: print number 100 to 1
+-------------------
+echo"Forloop demo starts.."
+for (( b=100;b>=1;b--))
+           100<=1 1--    
+            99<=1 2--
+			98<=1 3--
+			
+			
+do         
+echo $b
+done
+echo "Forloop demo over.."
+
+whileloop:
+------------
+Write shellscript to print the numbers from 1 to 5 only
+
+echo "whileloop demo starts..."
+a=1
+while [ $a -le 5]   while [ $a -gr 100]
+         1<=5
+		 2<=5
+		 3<=5
+		 4<=5
+		 5<=5
+		 6<=5
+do
+echo $a
+expr $a + 1
+a=expr `$a + 1`
+         1+1
+		 2+1
+		 3+1
+		 4+1
+		 5+1
+		 
+done
+
+echo "whileloop demo over .."
+
+ouput:
+------
+
+whileloop demo starts...
+1
+2
+3
+4
+5
+
+ctrl c --> Terminate the process
+ctrl z--> suspend the process
+
+write shell script to print the numbers from 100 to 1 by using whileloop
+
+while [ $a -gr 100]
+
+switch case:
+-------------
+
+sh sonar.sh start
+case $1 in
+start)
+echo "Started sonarQube server"
+echo "Started sonarQube server"
+;;
+stop)
+echo "Stoping sonarQube server"
+echo "stopped sonarQube server"
+;;
+restart)
+echo "Restarting the sonarQube server"
+echo "Restared the sonarQube server"
+;;
+*)
+echo "Please pass the correct option"
+echo "Usage: sh $0 start|stop|restart"
+;;
+esac
+
+
+vi switchcasedemo.sh
+
+sh switchcasedemo.sh start
+sh switchcasedemo.sh restart
+sh switchcasedemo.sh stop
+
+
+script2:
+--------
+echo "Please enter the numbers from 1 to 5"
+read number
+case $number in
+1)
+echo "You have typed one"
+echo "Typed the correct number.."
+;;
+2)
+echo "You have typed two"
+echo "Typed the correct number.."
+;;
+3)
+echo "You have typed three"
+echo "Typed the correct number.."
+;;
+4)
+echo "You have typed four"
+echo "Typed the correct number.."
+;;
+5)
+echo "You have typed five"
+echo "Typed the correct number.."
+;;
+*)
+echo "INVALID NUMBER"
+echo "Please enter the number from 1 to 5 only"
+esac
+
+vi switchcasedemo.sh
+sh switchcasedemo.sh
+
+functions:
+---------
+
+echo "Function are very imp.."
+greetfn()
+{
+echo "Hello everyone"
+echo "Good morning everyone"
+echo "Functions are important in code.."
+}
+echo "calling the function.."
+greetfn
+
+vi function.sh
+
+script:
+-------
+a.sh 
+add(){
+echo "This function can be used to do addition "
+}
+sub(){
+echo "This function can be used to substractions"
+}
+
+b.sh
+add(){
+echo "This function can be used to do addition "
+}
+sub(){
+echo "This function can be used to substractions"
+}
+
+c.sh
+add(){
+echo "This function can be used to do addition "
+}
+sub(){
+echo "This function can be used to substractions"
+}
+By using this function maintanance is more
+
+create vi utlities.sh 
+
+add
+sub
+
+in shell script we are using source key word, to import the script
+from one script to another script we are going to use the import keyword
+
+
+and save like 
+vi a.sh if we create vi a.sh run the script
+source ./utilities.sh
+add
+sub
+vi b.sh
+source ./utilities.sh
+add
+sub
+vi c.sh
+source ./utilities.sh
+add
+sub
+
+
+sshkeygen shellscript:
+-----------------------
+#if condition to validate weather ssh keys are present or not
+if [ $? -eq 0 ]
+then
+echo "SSH keys re already present..."
+else
+echo " SSH keys are not present..,create the SSH key by using SSH-keygen command "
+ssh-keygen
+echo "SSH keys successfully generated "
+fi
+
+sshkeys=`cat ~/ .ssh/id_rsa.pub`
+
+if [ $? -eq 0 ]
+then
+echo "Copying the key to GitHub account"
+curl -X POST -u mithunITcourses:$token -d "{\"title\": \"SSHKEYonline\",\"key\": \"SSHKEYS\"}" https://ghe.github.com/users/keys"
+if [$? -eq 0 ]
+thenecho " Successfully cpied the token to GitHub"
+exit 0
+else
+echo "Failed"
+exit 1
+fi
+else
+echo " Failure in generating the key"
+exit 1
+fi
+
+
+
+
+
+
+
+
+
+---------------
+GIT AND GITHUB:
+---------------
+
+https://github.com
+
+
+git commands--1
+-----------------
+
+create a directory with name of repository what we created in GIT
+
+git init
+development team will use IDEs--> Integrated Developement Environment
+
+Java IDEs are
+Eclipse
+MyEclipse
+Intellij
+
+
+if it is a Nodejs/ReachJS/Angular JS we are going to use VISUAL STUDION CODE
+
+
+working area               Staging area       Local repo
+-------------              --------------     -------------
+cleanup.sh
+vi DBUtils.java           DBUtils.java      --> git commit -m "First commit"
+Stringutils.java          Stringutils.java
+Deploy.java   ----> git add.
+                    git add *
+					git add*.java
+					git add DBUtils.java deplo.java
+                    (if we want to move more than one file )
+git status will give where 
+the files are available
+
+
+execute two commands, after install gitbash
+
+git config --global user.name "Bhuvanabhuvi"
+git config --global user.email "bhuvanamohan8185@gmail.com"
+git config --global --list  to check either we did correct config or not
+
+first execute
+
+git init
+
+create files
+execute "git add ."
+
+
+excute "git commit -m "my first commit" "  -m is message
+
+then to connect with remote repo, got ot my organizations, click on bankingzone, click on repo, take the url
+
+execute " git remote add aliasname remoterepourlofgit"
+
+git remote add cb https://github.com/Bankingzone/citibank.git
+
+for fetching and push we are going to use same url
+
+git remote -v  (to know aliasname)
+
+"git push cb master "(once execute all the files going to move remote repo)
+
+once push above command, git hub credentials
+username:Bhuvanabhuvi
+password:PAT (PERSONAL ACCESS TOKEN)
+
+PAT GENERAL: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
+
+clear
+
+go to windows credentials manager, delete the old git account , then execute "git push cb master"
+
+if the file already commited in to git 
+
+then we can execute the command "git commit -a -m "updated" " to update modified file
+
+
+"each commit is going to maintain one commit id, that is why we called  git as verison control system"
+
+"git log DBUtils.java"
+
+
+PAT BETA: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
+
+
+"git log" will show the current branch and latest commit ID
+
+" git log filename"
+
+
+
+
+
+
