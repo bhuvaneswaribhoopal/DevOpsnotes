@@ -1701,6 +1701,47 @@ Jenkins Backup:
 monolethic, all the modules create as one package
 Microsoft, each module create one package
 
+jekins shared library:
+--------------------
+it has common pipeline wscript, in version control system, it can used to create any pipeline, by refering the names.
+
+first create a sharelibary code in git,
+take the git url with share libraries,
+
+got o manage jenkins, configure system,
+
+Global Pipeline libraries
+add, the name, sharedlib
+
+branchname: master
+retrievel mathd, moden scm
+git u url, credentials.
+
+
+create project:
+---------------
+sharedlibs project name
+
+(here we are calling the file name which is in sharedlibs of slack notification, we can use this one for all jobs)
+@Library ('Sharedlibs') _ (if we want to call one fn from code to another code, use import, here library)
+
+pipeline{
+gaent any
+tools{
+maven "maven3.8.6"
+}
+
+stages{
+stahe(checkuputcode){
+steps{
+giturl
+}
+}
+}//stage closing
+
+here "sendslacknotification "parameters,post, failed abort, success
+
+}//pipeline closing
 
 
 
