@@ -601,3 +601,105 @@ kubectl scale rs <rsName> --replicas <noOfReplicas>
 
 kubectl describe rs <rsName>
 kubectl delete rs <rsName>
+
+
+
+
+# Deployment ReCreate
+---------------------
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: javawebappdeployment
+  namespace: test-ns
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: javawebapp
+  strategy:
+    type: Recreate    
+  template:
+    metadata:
+      name: javawebapppod
+      labels:
+        app: javawebapp
+    spec:
+      containers:
+      - name: javawebappcontainer
+        image: dockerhandson/java-web-app:1
+        ports:
+        - containerPort: 8080
+
+kubectl get deployment
+kubectl get rs
+kubectl get pods
+kubectl rollout status deployment <deploymentName>
+kubectl rollout history  deployment <deploymentName>
+kubectl rollout history  deployment <deploymentName> --revision 1  
+kubectl scale deployment <deploymentName> --replicas <noOfReplicas>
+
+We can update deployment using yml or using command
+	
+	
+# Update Deployment Image using command	
+
+kubectl set image deployment <deploymentName> <containerName>=<imageNameWithVersion> --record		
+ex:	
+kubectl set image deployment javawebappdeployment javawebappcontainer=dockerhandson/java-web-app:2 --record		
+
+Roll back to previous revison
+kubectl rollout undo  deployment <deploymentName> --to-revision 1
+
+
+
+
+
+# Rolling Update
+----------------
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: javawebappdeployment
+  namespace: test-ns
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: javawebapp
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  minReadySeconds: 30
+  template:
+    metadata:
+      name: javawebapppod
+      labels:
+        app: javawebapp
+    spec:
+      containers:
+      - name: javawebappcontainer
+        image: dockerhandson/java-web-app:1
+        ports:
+        - containerPort: 8080 
+
+
+kubectl get deployment
+kubectl get rs
+kubectl get pods
+kubectl rollout status deployment <deploymentName>
+kubectl rollout history  deployment <deploymentName>
+kubectl rollout history  deployment <deploymentName> --revision 1  
+kubectl rollout undo  deployment <deploymentName> --to-revision 1  
+kubectl scale deployment <deploymentName> --replicas <noOfReplicas>
+	
+# Update Deployment Image using command	
+
+kubectl set image deployment <deploymentName> <containerName>=<imageNameWithVersion> --record
+
+
