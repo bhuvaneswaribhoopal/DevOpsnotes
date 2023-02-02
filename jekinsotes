@@ -1701,6 +1701,8 @@ Jenkins Backup:
 monolethic, all the modules create as one package
 Microsoft, each module create one package
 
+need to update in git frm here
+--------------------------------
 jekins shared library:
 --------------------
 it has common pipeline wscript, in version control system, it can used to create any pipeline, by refering the names.
@@ -1745,13 +1747,300 @@ here "sendslacknotification "parameters,post, failed abort, success
 
 
 
+Jenkins-9,Build with parameters
+-----------
+Build with parameters
+---------------------
+dynamically we are passing the option, under build section, this porject is parametised
+
+under description,
+
+choice parameter,
+give name, master or developemnt or stage any branch name
+
+in dscription,
+
+we can give i emsg "select the banch name:"
+
+under source code managerment select "git"
+
+Branches to build
+----------------
+*/master
+
+Branch name:
+BranchName
+
+Braches to buils?
+--------------
+*/${BuildName}
+once create the job we can see build with parameter option.
+
+under build steps:
+-------------------
+invoke maven 
+veriosn: maven3.8.6
+clean package
+
+string parameter
+---------------- 
+name: personname
+default name: Mss
+description:
+personname
+
+we are going to use the project name
+
+execute shell:
+----------------
+echo"hello everyone"
+
+This project is parametered?
+ we choose this otpions for parameter.
+ 
+ 
+create job, select, pipeline project type.
+here 
+write a script
+pipeline{
+agent any
+tools{
+maven "maven3.8.6"
+}
+
+keep the paramters here
+
+stages {
+stage('checkout code'){
+steps{
+git url: "${params.BranchName (to get the parameter values.exact name we have to use)}"
+}
+}
+
+//run the test code
+stage('Rn Test case'){
+steps{
+sh"mvn test"
+}
+}
+
+
+stage('Build '){
+steps{
+sh "mvn clean package"
+sh "echo ${PersoNmae}"
+
+}
+}
+click on pipeline systax
+click, parametes, choice paramet, name=branchname
+developemnt
+master
+stage
+uat
+
+personame
+
+click on pipeleine syntax generatot
+
+
+}//stages closing
+}//pipeline closing
 
 
 
+Declarative direction generator
+we can see here
+parallel 
+
+to run the testcases and build stage , parallelly
+
+we ca keep this stage in pipeline script,
+
+we can run number of stages by uging this parallel
+
+stage('Run unit testcases and Build'){
+steps{
+parallel(
+RunTests: {
+sh"mvn clean test"
+},
+Build: {
+sh "mvn clean package"
+}
+)//paralle
+}//steps closing
+}//run stage
+}
+
+jenkins parallel execution, check Mithu tech videos.
 
 
+Jenkis backup:
+--------------
+Back up will help to recover any of accidental deletion jobs, 
+
+Mangeplugins,
+
+install "ThinBackup" , this plugi, 
+helps to store the jenkins backup in hudson, jenkins server.
+
+Busing settings tab, after install the plugin,
+
+there we can give
+
+first create a directory,
+
+sudo su -
+/var/lib/jenkins
+mkdir jenkisbackup
+cd jenkisbackup
+
+chown -R jenkins:jenkins jenkinsbackup
+ls -l
+
+cd jenkisbackup
+
+back up path
+/var/lib/jenkins/jenkinsbackup
+
+by default max no. of backups "-1", we can change it to 5
 
 
+and we can choose the options based on requirement
+
+and "save"
+
+like this first set up the back up , after install the plgin.
+
+
+under full back ups
+* * * * *
+it wil take backup for every minute
+
+
+JENKINSmIGRATIONS:
+------------------
+rsync, is a command which can used to update the directory in other erver.
+
+
+to move jobs form old jenkins server to . new jenkin server we will say that migration.
+
+install jenkins same verions in new server.
+there 
+/var/lib/jenkins_bak, diretcory will create 
+
+
+install "jenkins import plugin" in new server,
+
+we can configure the old jenkins url, password in new server , then we can transfer the all data from old server to new server.
+
+"jenkins job import plugin,mithun tech videos"
+
+
+Jenkins-10 , Master slave , nodejs
+-------------------------------------
+
+To improve the performance we are going to distribute that load to other machines, we can call that nodes as slaves or workers,
+
+these slave servers we are going to create in different server.
+
+
+create 1 master --> install jenkins, java -11-jdk in master
+root user-->slave machines--> install java alone, java -11-jdk
+
+comeback to ec2-user, create one directory, with prooject name, ex: walmart-node
+install git in ec2-user
+workspace directory contains, job source code.
+
+
+How many nodes you creadted, what purpose?
+5-6 nodes, 1 node running node-js applcaiotn, one node, project specific nodes, and various jobs.
+
+go to manage jenkins
+manage nodes,
+
+there is a buil-in node, it is default node
+, click on new node,
+
+walmart-node,
+select permaet node and save.
+
+
+description we can give what that node is going to do.
+
+no.of executors, 1
+
+remote root director:
+---------------------
+/home/ec2-user/walmartnode/
+
+labels:
+-------
+same name for all the nodes or slaves give same name, walmart-node
+
+label is a logical collections of nodes.
+
+if we give different names to each node, 10 jobs will run oly in the particular node.
+if we can given same slave name,if we trigger 10 jobs, the all 10 jobs is going to run in all  nodes or slaves.
+
+
+Label name: ---> nodes
+Launch method:
+-----------
+Launch agent via SSH.
+
+host:
+GIVE SALEV PRIVATE IP ADRESS
+
+Credentials, use privatekey, copy paste
+Host key verifications:
+---------------------
+Manually trusted key
+
+Availability:
+-------------
+keep this agent online as much as possoible.
+
+Don't select any node properties.
+
+just save.
+
+built -in is the master instance.
+check the path once.
+
+in free style - project we can see the option
+restrict where this project can be run?
+------------------------------------
+slaves
+
+
+pipeline project type, we cann't see that restrict where this job to ru option like freestyle
+
+in script we have to mention
+pipelie{
+agent{
+label "slaves"}
+}
+tools{
+maven "maven3.8.6"
+}
+
+check the node server, in walmartode directory,
+tools will create,
+
+"mkdir nodejs-node"
+cd nodejs-node
+
+create new jenkins jobs,
+nodejsode
+
+change the directory path
+/home/ec2-user/nodejsnode
+
+salves are availbale automatically it is going to run.
+
+if we cofigure labale name , job is ging to ruu in that particular node.
 
 
 
